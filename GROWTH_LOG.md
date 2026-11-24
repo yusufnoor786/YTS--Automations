@@ -13,3 +13,8 @@ Automatic weekly reports from the bot + notes from the weekly review.
 ### 2026-11-24 — niche research
 gta: Relatable Indian family comedy and high-stakes character escape scenarios are dominating GTA 6 short-form views. Combining local humor with 
 Details: [TRENDS.md](TRENDS.md)
+
+## 2026-11-24 — YouTube API audit submitted
+
+- Audit + quota request (20,000 units/day) sent to Google for project 5498723855.
+- YouTube uploads stay off (`youtube_api_audited: false`) until Google approves; videos already posted on Instagram/Facebook will then be uploaded to YouTube once each, oldest first.
