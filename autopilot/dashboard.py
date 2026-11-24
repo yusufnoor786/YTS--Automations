@@ -138,6 +138,95 @@ def posts_board(cfg, ledger, stats: dict) -> str:
     return "".join(blocks)
 
 
+def _post_views(v: dict) -> int | None:
+    """Total views of one video across platforms (48h score if frozen, else views so far)."""
+    vals = [pd.get("views_48h") if pd.get("views_48h") is not None else pd.get("views")
+            for pd in v["platforms"].values() if pd.get("status") == "posted"]
+    vals = [int(x) for x in vals if x is not None]
+    return sum(vals) if vals else None
+
+
+def _avg(xs: list) -> float | None:
+    xs = [x for x in xs if x is not None]
+    return sum(xs) / len(xs) if xs else None
+
+
+def trend_board(cfg, ledger, tstate: dict, gs: dict) -> str:
+    from . import growth, trends
+    cards = []
+    for niche in cfg.niches.values():
+        if not niche.enabled:
+            continue
+        d = tstate.get(niche.key) or {}
+        auto = (tstate.get("_auto") or {}).get(niche.key) or {}
+        plan = d.get("plan") or {}
+        posts = []
+        for v in ledger.videos.values():
+            if v["niche"] != niche.key or not any(pd.get("status") == "posted" for pd in v["platforms"].values()):
+                continue
+            var = v.get("variant") or {}
+            tu = var.get("trend") or trends.trend_usage(niche.key, v.get("caption"), var, tstate, niche.hashtags)
+            posts.append((tu, _post_views(v)))
+        n_all = len(posts)
+
+        def row(label, sel):
+            a = [vw for tu, vw in posts if sel(tu)]
+            b = [vw for tu, vw in posts if not sel(tu)]
+            av, bv = _avg(a), _avg(b)
+            if len(a) >= 3 and len(b) >= 3 and av is not None and bv is not None:
+                diff = (av - bv) / max(bv, 1) * 100
+                verdict = (f'<span style="color:var(--{"ok" if diff >= 0 else "yt"})">'
+                           f'{"▲" if diff >= 0 else "▼"} {abs(diff):.0f}% vs normal</span>')
+            else:
+                verdict = f'<span class="mut">collecting ({len(a)} posts so far, needs 3)</span>'
+            return (f"<tr><td>{label}</td><td>{len(a)}</td><td>{fmt(round(av)) if av is not None else '—'}</td>"
+                    f"<td>{fmt(round(bv)) if bv is not None else '—'}</td><td>{verdict}</td></tr>")
+
+        rows = [row("trend hashtags", lambda t: bool(t.get("tags")))]
+        if auto.get("style"):
+            rows.append(row(f"trend caption style", lambda t: t.get("style")))
+        if auto.get("extra_hours"):
+            rows.append(row("research posting time " + ", ".join(growth._label("hour", h) for h in auto["extra_hours"]),
+                            lambda t: t.get("hour")))
+        if auto.get("extra_tag_counts"):
+            rows.append(row(f"{auto['extra_tag_counts'][0]} hashtags (top-post count)", lambda t: t.get("tag_count")))
+        # per hashtag
+        per_tag: dict[str, list] = {}
+        for tu, vw in posts:
+            for t in tu.get("tags") or []:
+                per_tag.setdefault(t, []).append(vw)
+        tag_html = " ".join(
+            f'<span class="chip" title="{len(vs)} posts">#{escape(t)} <b>{fmt(round(_avg(vs))) if _avg(vs) is not None else "—"}</b>'
+            f'<small> · {len(vs)}</small></span>'
+            for t, vs in sorted(per_tag.items(), key=lambda kv: -(_avg(kv[1]) or 0))[:8])
+        following = []
+        if auto.get("hashtags"):
+            following.append("hashtags " + " ".join(f'<span class="chip">#{escape(t)}</span>' for t in auto["hashtags"][:10]))
+        st = plan.get("new_style") or {}
+        if auto.get("style"):
+            following.append(f'caption style <b>{escape(st.get("name") or "trend")}</b> '
+                             f'<span class="mut">— {escape(auto["style"][:140])}</span>')
+        if auto.get("extra_hours"):
+            following.append("extra posting time " + ", ".join(growth._label("hour", h) for h in auto["extra_hours"]))
+        if auto.get("extra_tag_counts"):
+            following.append(f"{auto['extra_tag_counts'][0]} hashtags per post (what top posts use)")
+        if plan.get("hooks") or (d.get("instagram") or {}).get("top_hooks"):
+            following.append("opening hooks from this week's most-liked posts")
+        upd = str(d.get("updated", ""))
+        cards.append(f"""<div class="acct"><b>{escape(niche.label)}</b>
+<div class="mut" style="margin:4px 0">research {('updated <span data-ago="' + escape(upd) + '">' + escape(upd[:10]) + '</span> · repeats every ~3.5 days') if upd else 'runs soon'}</div>
+<div class="mut">🤖 Following now:</div><ul class="tight">{''.join(f'<li>{x}</li>' for x in following) or '<li class="mut">nothing yet</li>'}</ul>
+<div class="mut">📊 Results ({n_all} posts; views so far, 48h score once old enough):</div>
+<div class="scroll"><table><tr><th>trend</th><th>posts</th><th>avg views</th><th>others</th><th>result</th></tr>{''.join(rows)}</table></div>
+{('<div class="mut" style="margin-top:6px">best trend hashtags (avg views · posts):</div><div>' + tag_html + '</div>') if tag_html else ''}
+</div>""")
+    log_items = [c for c in gs.get("changes", []) if "[auto from research]" in c.get("text", "")][-10:][::-1]
+    log_html = "".join(f"<li>{escape(c['at'][:10])} — {escape(c['text'].replace('[auto from research] ', ''))}</li>"
+                       for c in log_items) or "<li>No research changes yet.</li>"
+    return (f'<div class="accts">{"".join(cards)}</div>'
+            f'<h2 style="margin-top:14px">What the bot changed from research</h2><ul class="mut">{log_html}</ul>')
+
+
 def build(cfg, ledger, stats: dict) -> None:
     cards = []
     for niche in cfg.niches.values():
@@ -314,6 +403,8 @@ h1{{font-size:22px;margin:0}}h2{{font-size:16px;margin:0 0 12px;display:flex;gap
 table{{width:100%;border-collapse:collapse;font-size:13.5px}}td,th{{text-align:left;padding:7px 6px;border-bottom:1px solid var(--line);vertical-align:top}}
 th{{color:var(--mut);font-weight:500}}a{{color:#8ab4ff;text-decoration:none}}
 .scroll{{overflow-x:auto}}
+.chip{{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:1px 8px;margin:2px 2px 0 0}}.chip small{{color:var(--mut)}}
+ul.tight{{margin:4px 0 8px;padding-left:18px;font-size:13.5px}}
 .pniche{{margin-top:14px}}.pniche h3{{font-size:15px;margin:0 0 8px}}
 .pcols{{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px}}
 .pcol{{border:1px solid var(--line);border-radius:12px;padding:10px;border-top:3px solid var(--line)}}
@@ -343,6 +434,10 @@ left to post = videos each platform still hasn't posted · days left = how long 
 <p class="mut">Twice a week the bot studies the most-viewed new Shorts and Instagram hashtags in each niche, then tests
 the best ideas on your pages. Full report: <a href="https://github.com/yusufnoor786/YTS--Automations/blob/main/TRENDS.md" target="_blank">TRENDS.md</a></p>
 <div class="accts">{trends_html}</div></section>
+<section class="card"><h2>🔥 Trends followed &amp; results <span class="pill ok">auto-applied</span></h2>
+<p class="mut">Everything below was picked by the bot from its own research and is applied to new posts automatically.
+Each trend is compared with the page's other posts; a trend that loses is dropped by the Growth Lab.</p>
+{trend_board(cfg, ledger, tstate, gs)}</section>
 <section class="card"><h2>🧪 Growth Lab <span class="pill">what's working</span></h2>
 <p class="mut">The bot tests posting times, caption styles and hashtag amounts, scores every post by its views
 after 48 hours (vs. that account's normal), and shifts toward the winners while still testing.

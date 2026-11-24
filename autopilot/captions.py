@@ -21,9 +21,19 @@ FALLBACK = {
 GENERIC = ["Wait for it 👀", "Watch till the end 🔥", "Would you try this? 👇"]
 
 
+JUNK_WORDS = re.compile(r"(?i)^(assets?galaxy|assets?|galaxy|scary ?showcase|showcase|reel|reels|video|vid|img|clip|copy|"
+                        r"final|download|downloaded|snaptik|ssstik|savefrom|tiktok|ig|insta|instagram|yt|youtube|"
+                        r"shorts?|am|pm|hd|fhd|4k|1080p?|720p?|edit|edited|new|part|mp4|mov)$")
+
+
 def _hint_from_name(name: str) -> str:
+    """Use the file name only when it reads like a real title (never stock-site names, dates or ids)."""
     stem = re.sub(r"\.[A-Za-z0-9]{2,4}$", "", name)
-    text = re.sub(r"[_\-.]+", " ", stem).strip()
+    words = [w for w in re.split(r"[\s_\-.()\[\]~]+", stem)
+             if w and not any(c.isdigit() for c in w) and not JUNK_WORDS.match(w) and len(w) > 1]
+    text = " ".join(words).strip()
+    if len(words) < 2:
+        return ""
     letters = sum(c.isalpha() for c in text)
     # ignore camera / random names like VID_20240101_123456 or a3f9c0...
     if letters < 4 or re.fullmatch(r"(?i)(vid|img|video|snaptik|ssstik|download|copy)?[\s\da-f]*", text):
@@ -101,6 +111,7 @@ Caption style for this post (follow it): {variant.get("style_hint", "your best v
 {("Hashtags trending in this niche this week (use the ones that fit): " + ", ".join(variant.get("trend_tags") or [])) if variant.get("trend_tags") else ""}
 {("Openings of this week's most-liked posts in the niche (inspiration only, never copy): " + " | ".join(variant.get("trend_hooks") or [])) if variant.get("trend_hooks") else ""}
 No fake claims, no clickbait lies, don't mention "frames" or "video clip". Max 2 emojis per line.
+Never mention file names, websites, apps, watermarks or where the clip was downloaded from.
 Return ONLY JSON with these keys:
   "ig_caption": 1-3 short lines, ends with a question or call to comment, NO hashtags,
   "hashtags": {max(n_tags, 3)} relevant niche hashtags without '#', most specific first,

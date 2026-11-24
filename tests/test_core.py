@@ -640,6 +640,30 @@ def test_facebook_unreadable_status_is_never_reposted():
     assert ledger.get("b" * 32)["platforms"]["facebook"]["status"] is None
 
 
+def test_trend_tracking_and_clean_captions():
+    from autopilot import dashboard, trends
+    from autopilot.captions import _hint_from_name
+    assert _hint_from_name("Assetsgalaxy (687).mp4") == ""
+    assert _hint_from_name("scaryshowcase_reel_8_21_2024_4_09_36 AM3439107226257201179.mp4") == ""
+    assert _hint_from_name("haunted school hallway at night.mp4") == "haunted school hallway at night"
+    st = {"_auto": {"horror": {"hashtags": ["ghost", "horror", "bhootwala"], "extra_hours": [23],
+                               "extra_tag_counts": [5], "style": "x"}}, "horror": {"updated": "2026-11-24T21:00"}}
+    cap = {"ig_caption": "Run.\n.\n.\n#ghost #horror #scary"}
+    tu = trends.trend_usage("horror", cap, {"style": "trend", "hour": 23, "tags": 5}, st, base_tags=["horror"])
+    assert tu == {"tags": ["ghost"], "style": True, "hour": True, "tag_count": True, "research": "2026-11-24"}
+    assert trends.trend_usage("horror", {"ig_caption": "#horror"}, {"hour": 9}, st, ["horror"])["tags"] == []
+    cfg = load()
+    ledger = Ledger(TMP / "ledger_tr.json")
+    for i, (tags, views) in enumerate([("#ghost", 100), ("#ghost", 120), ("#ghost", 90), ("", 40), ("", 50), ("", 60)]):
+        md5 = f"{i:032d}"
+        ledger.ensure(md5, f"f{i}", f"v{i}.mp4", "horror")
+        ledger.get(md5)["caption"] = {"ig_caption": "x " + tags}
+        ledger.get(md5)["variant"] = {"style": "short", "tags": 3, "hour": 10}
+        ledger.mark(md5, "instagram", "posted", id=str(i), url=f"https://i/{i}", views=views)
+    html = dashboard.trend_board(cfg, ledger, st, {"changes": [{"at": "2026-11-24T21:00", "text": "[auto from research] horror: x"}]})
+    assert "▲ 107% vs normal" in html and "#ghost" in html and "horror: x" in html
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

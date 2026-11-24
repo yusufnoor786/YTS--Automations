@@ -259,6 +259,25 @@ def auto_apply(cfg, state: dict) -> list[str]:
     return notes
 
 
+def trend_usage(niche_key: str, caption: dict | None, variant: dict | None, state: dict | None = None,
+                base_tags=()) -> dict:
+    """Which research-driven elements a post used — stored on the post so results can be measured."""
+    state = load_state() if state is None else state
+    auto = (state.get("_auto") or {}).get(niche_key, {}) or {}
+    variant = variant or {}
+    text = ((caption or {}).get("ig_caption") or "").lower()
+    used = re.findall(r"#(\w+)", text)
+    base = {re.sub(r"\W", "", str(t).lower()) for t in base_tags}
+    pool = set(auto.get("hashtags") or []) - base   # only tags that came from research count
+    return {
+        "tags": [t for t in dict.fromkeys(used) if t in pool],
+        "style": variant.get("style") == "trend",
+        "hour": variant.get("hour") is not None and int(variant["hour"]) in set(auto.get("extra_hours") or []),
+        "tag_count": variant.get("tags") is not None and int(variant["tags"]) in set(auto.get("extra_tag_counts") or []),
+        "research": str((state.get(niche_key) or {}).get("updated", ""))[:10],
+    }
+
+
 def write_report(cfg, state: dict) -> str:
     lines = [f"# Niche Trends — updated {today()}\n",
              "What is getting views for other creators in each niche (last 7 days, India). "

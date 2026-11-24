@@ -147,8 +147,10 @@ def choose_caption_variant(cfg, state: dict, niche, md5: str) -> dict:
         th = {}
     if style == "trend":
         hint = th.get("style") or settings(cfg)["styles"].get("curiosity", "")
+    # ~1 in 4 posts skip the research hashtags → a fair "normal" group to measure trends against
+    use_trend_tags = rng.random() < 0.75
     return {"style": style, "style_hint": hint, "tags": int(tags),
-            "trend_tags": th.get("hashtags", []), "trend_ideas": th.get("ideas", [])[:3],
+            "trend_tags": th.get("hashtags", []) if use_trend_tags else [], "trend_ideas": th.get("ideas", [])[:3],
             "trend_hooks": th.get("hooks", [])}
 
 

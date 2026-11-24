@@ -264,6 +264,13 @@ class Poster:
         rec.setdefault("variant", {})
         if rec["variant"].get("hour") is None and not self.dry:
             rec["variant"]["hour"] = growth.now().hour
+        if "trend" not in rec["variant"] and not self.dry:
+            try:
+                from .trends import trend_usage
+                rec["variant"]["trend"] = trend_usage(niche.key, rec.get("caption"), rec["variant"],
+                                                       base_tags=niche.hashtags)
+            except Exception:  # noqa: BLE001
+                log.exception("trend tagging failed")
         cap = rec["caption"]
 
         if not out.exists():
