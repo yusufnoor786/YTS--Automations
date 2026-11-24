@@ -44,7 +44,9 @@
      "at": "2026-11-24T22:01:09+05:30",
      "day": "2026-11-24",
      "id": "18135701224760541",
-     "url": "https://www.instagram.com/reel/DgIY4n7ALuq/"
+     "url": "https://www.instagram.com/reel/DgIY4n7ALuq/",
+     "views": 0,
+     "views_checked": "2026-11-24T23:34:03+05:30"
     },
     "facebook": {
      "status": "posted",
@@ -57,7 +59,9 @@
      "id": "1040816592366573",
      "url": "https://www.facebook.com/reel/1040816592366573/",
      "recovered": true,
-     "unverified": null
+     "unverified": null,
+     "views": 0,
+     "views_checked": "2026-11-24T23:34:04+05:30"
     }
    },
    "variant": {
@@ -108,7 +112,9 @@
      "at": "2026-11-24T22:34:00+05:30",
      "day": "2026-11-24",
      "id": "18139966972631740",
-     "url": "https://www.instagram.com/reel/DgIcpT8DoRN/"
+     "url": "https://www.instagram.com/reel/DgIcpT8DoRN/",
+     "views": 8,
+     "views_checked": "2026-11-24T23:34:04+05:30"
     },
     "facebook": {
      "status": "posted",
@@ -119,7 +125,9 @@
      "at": "2026-11-24T22:34:29+05:30",
      "day": "2026-11-24",
      "id": "1641162040836163",
-     "url": "https://www.facebook.com/reel/1641162040836163/"
+     "url": "https://www.facebook.com/reel/1641162040836163/",
+     "views": 0,
+     "views_checked": "2026-11-24T23:34:04+05:30"
     }
    },
    "variant": {
@@ -298,7 +306,7 @@
  },
  "inventory": {
   "aesthetic": {
-   "at": "2026-11-24T23:32:45+05:30",
+   "at": "2026-11-24T23:33:52+05:30",
    "in_drive": 2041,
    "inbox": 2039,
    "posted_folder": 2,
@@ -333,7 +341,7 @@
    "due_now": false
   },
   "gta": {
-   "at": "2026-11-24T23:32:48+05:30",
+   "at": "2026-11-24T23:33:54+05:30",
    "in_drive": 0,
    "inbox": 0,
    "posted_folder": 0,
@@ -368,7 +376,7 @@
    "due_now": true
   },
   "horror": {
-   "at": "2026-11-24T23:32:51+05:30",
+   "at": "2026-11-24T23:33:57+05:30",
    "in_drive": 866,
    "inbox": 866,
    "posted_folder": 0,

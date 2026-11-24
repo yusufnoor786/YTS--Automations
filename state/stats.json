@@ -3,7 +3,7 @@
   "2026-11-24": {
    "aesthetic/instagram": {
     "followers": 2,
-    "posts": 8,
+    "posts": 10,
     "username": "bliss_nglow"
    },
    "aesthetic/youtube": {
@@ -37,9 +37,9 @@
  "latest": {
   "aesthetic/instagram": {
    "followers": 2,
-   "posts": 8,
+   "posts": 10,
    "username": "bliss_nglow",
-   "at": "2026-11-24T21:44:02+05:30",
+   "at": "2026-11-24T23:34:00+05:30",
    "ok": true
   },
   "aesthetic/youtube": {
@@ -48,14 +48,14 @@
    "videos": 0,
    "handle": "@blissnglowshorts",
    "title": "Bliss N Glow",
-   "at": "2026-11-24T21:44:03+05:30",
+   "at": "2026-11-24T23:34:02+05:30",
    "ok": true
   },
   "gta/instagram": {
    "followers": 7,
    "posts": 0,
    "username": "wanted_level_yts",
-   "at": "2026-11-24T21:44:03+05:30",
+   "at": "2026-11-24T23:34:02+05:30",
    "ok": true
   },
   "gta/youtube": {
@@ -64,7 +64,7 @@
    "videos": 0,
    "handle": "@wantedlevel-yts",
    "title": "Wanted Level",
-   "at": "2026-11-24T21:44:04+05:30",
+   "at": "2026-11-24T23:34:03+05:30",
    "ok": true
   },
   "horror/youtube": {
@@ -73,26 +73,42 @@
    "videos": 5,
    "handle": "@darrdiaries-yts",
    "title": "Darr Diaries",
-   "at": "2026-11-24T21:44:04+05:30",
+   "at": "2026-11-24T23:34:03+05:30",
    "ok": true
   },
   "aesthetic/facebook": {
    "followers": 0,
    "name": "Bliss N Glow",
    "url": "https://www.facebook.com/1363246033549819",
-   "at": "2026-11-24T21:44:03+05:30",
+   "at": "2026-11-24T23:34:01+05:30",
    "ok": true
   },
   "gta/facebook": {
    "followers": 0,
    "name": "Wanted Level",
    "url": "https://www.facebook.com/1381962041676039",
-   "at": "2026-11-24T21:44:04+05:30",
+   "at": "2026-11-24T23:34:03+05:30",
    "ok": true
   }
  },
  "recent": {
   "aesthetic/instagram": [
+   {
+    "url": "https://www.instagram.com/reel/DgIcpT8DoRN/",
+    "at": "2026-11-24T17:03:53+0000",
+    "likes": 0,
+    "comments": 0,
+    "views": 8,
+    "caption": "POV: you finally romanticized your daily city walk ✨🤍\n\nWhere is your favorite pl"
+   },
+   {
+    "url": "https://www.instagram.com/reel/DgIY4n7ALuq/",
+    "at": "2026-11-24T16:31:03+0000",
+    "likes": 0,
+    "comments": 0,
+    "views": 0,
+    "caption": "Wait for the little detail nobody noticed at first... 🤎✨\nHow would you style thi"
+   },
    {
     "url": "https://www.instagram.com/reel/DYUV2ekSlaH/",
     "at": "2026-05-14T11:45:08+0000",
@@ -162,8 +178,25 @@
   "gta/instagram": [],
   "gta/youtube": [],
   "horror/youtube": [],
-  "aesthetic/facebook": [],
+  "aesthetic/facebook": [
+   {
+    "url": "https://www.facebook.com/reel/1641162040836163/",
+    "at": "2026-11-24T17:04:05+0000",
+    "views": 0,
+    "likes": null,
+    "comments": null,
+    "caption": "POV: you finally romanticized your daily city walk ✨🤍\n\nWhere is your favorite pl"
+   },
+   {
+    "url": "https://www.facebook.com/reel/1040816592366573/",
+    "at": "2026-11-24T16:31:17+0000",
+    "views": 0,
+    "likes": null,
+    "comments": null,
+    "caption": "Wait for the little detail nobody noticed at first... 🤎✨\nHow would you style thi"
+   }
+  ],
   "gta/facebook": []
  },
- "updated": "2026-11-24T21:44:04+05:30"
+ "updated": "2026-11-24T23:34:03+05:30"
 }
