@@ -69,7 +69,8 @@ def build(cfg, ledger, stats: dict) -> None:
     for niche in cfg.niches.values():
         if not niche.enabled:
             continue
-        stock = ledger.data.get("stock", {}).get(niche.key)
+        inv = ledger.data.get("inventory", {}).get(niche.key) or {}
+        stock = inv.get("new", ledger.data.get("stock", {}).get(niche.key))
         accts = []
         for p in ("instagram", "facebook", "youtube"):
             pc = niche.platform(p)
@@ -103,7 +104,7 @@ def build(cfg, ledger, stats: dict) -> None:
       </div>""")
         stock_html = ("" if stock is None else
                       f'<span class="pill {"bad" if stock <= cfg.get("low_stock_warning", 5) else "ok"}">'
-                      f'{stock} videos left in Drive</span>')
+                      f'{stock} new videos in Drive</span>')
         cards.append(f"""
     <section class="card">
       <h2>{escape(niche.label)} {stock_html}</h2>
@@ -175,6 +176,42 @@ def build(cfg, ledger, stats: dict) -> None:
 <div class="mut" style="margin-top:6px">updated {escape(str(d.get("updated", ""))[:10])}</div></div>""")
     trends_html = "".join(trend_cards) or '<p class="mut">First research runs on Wednesday / Saturday.</p>'
 
+    from .util import now_iso
+    inv_all = ledger.data.get("inventory", {})
+    plat_short = {"instagram": "IG", "facebook": "FB", "youtube": "YT"}
+
+    def per_plat(d: dict, active: list, cls: str = "") -> str:
+        return " · ".join(f'<span class="{cls}">{plat_short[p]} <b>{fmt(d.get(p, 0)) if d.get(p) is not None else "—"}</b></span>'
+                          for p in ("instagram", "facebook", "youtube") if p in active) or "—"
+
+    inv_rows = []
+    for niche in cfg.niches.values():
+        if not niche.enabled:
+            continue
+        iv = inv_all.get(niche.key)
+        if not iv:
+            inv_rows.append(f'<tr><td><b>{escape(niche.label)}</b></td><td colspan="8" class="mut">counting on the next run…</td></tr>')
+            continue
+        act = iv.get("active") or []
+        nh = iv.get("next_hour")
+        nxt = ("due now" if iv.get("due_now") else growth._label("hour", nh) + " today") if nh is not None else "tomorrow"
+        low = iv.get("new", 0) <= cfg.get("low_stock_warning", 5)
+        inv_rows.append(
+            f'<tr><td><b>{escape(niche.label)}</b></td>'
+            f'<td class="num">{iv.get("in_drive", 0)}</td>'
+            f'<td class="num {"bad" if low else "okc"}">{iv.get("new", 0)}</td>'
+            f'<td>{per_plat(iv.get("posted", {}), act)}</td>'
+            f'<td>{per_plat(iv.get("left", {}), act)}</td>'
+            f'<td>{per_plat(iv.get("posted_today", {}), act)} <span class="mut">/ {iv.get("per_day")}</span></td>'
+            f'<td>{escape(nxt)}</td>'
+            f'<td class="num">{iv.get("duplicates", 0)} / {iv.get("failed", 0)}</td>'
+            f'<td class="num">{iv.get("days_left", 0)}</td></tr>')
+    inv_html = "".join(inv_rows)
+    inv_at = max((v.get("at", "") for v in inv_all.values()), default="")
+
+    all_runs = ledger.data.get("runs", [])
+    last_run = all_runs[-1]["at"] if all_runs else ""
+    built_at = now_iso()
     runs = ledger.data.get("runs", [])[-12:][::-1]
     runs_html = "".join(
         f'<tr><td>{escape(r.get("at", "")[:16].replace("T", " "))}</td>'
@@ -208,8 +245,22 @@ h1{{font-size:22px;margin:0}}h2{{font-size:16px;margin:0 0 12px;display:flex;gap
 table{{width:100%;border-collapse:collapse;font-size:13.5px}}td,th{{text-align:left;padding:7px 6px;border-bottom:1px solid var(--line);vertical-align:top}}
 th{{color:var(--mut);font-weight:500}}a{{color:#8ab4ff;text-decoration:none}}
 .scroll{{overflow-x:auto}}
+.num{{font-variant-numeric:tabular-nums;font-weight:600}}.okc{{color:var(--ok)}}td.bad{{color:var(--yt)}}
+.status{{display:flex;gap:14px;flex-wrap:wrap;align-items:center;font-size:13.5px}}
+.dot{{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--ok);margin-right:6px}}.dot.late{{background:var(--warn)}}.dot.dead{{background:var(--yt)}}
 </style></head><body><main>
-<header><h1>YTS Autopilot <small class="mut">· total audience {fmt(sum(int(v.get("followers", v.get("subscribers", 0)) or 0) for v in stats.get("latest", {}).values() if v.get("ok")))}</small></h1><span class="mut">updated {escape(stats.get("updated", "—")[:16].replace("T", " "))} IST</span></header>
+<header><h1>YTS Autopilot <small class="mut">· total audience {fmt(sum(int(v.get("followers", v.get("subscribers", 0)) or 0) for v in stats.get("latest", {}).values() if v.get("ok")))}</small></h1><span class="mut">followers updated {escape(stats.get("updated", "—")[:16].replace("T", " "))} IST</span></header>
+<section class="card"><div class="status">
+  <span><span id="dot" class="dot"></span>Bot last ran <b id="lastrun" data-t="{escape(last_run)}">{escape(last_run[:16].replace("T", " "))}</b></span>
+  <span class="mut">checks every 30 min · page refreshes by itself when new data arrives</span>
+  <span class="mut" id="livestate"></span></div></section>
+<section class="card"><h2>📦 Videos <span class="pill ok">live count</span>
+  <span class="mut" style="font-weight:400">counted <span data-ago="{escape(inv_at)}">{escape(inv_at[:16].replace("T", " "))}</span></span></h2>
+<div class="scroll"><table>
+<tr><th>page</th><th>in Drive</th><th>new</th><th>posted (all time)</th><th>left to post</th><th>posted today</th><th>next post</th><th>dupes / failed</th><th>days left</th></tr>
+{inv_html}</table></div>
+<p class="mut">in Drive = every video in the niche folder incl. _posted/_duplicates/_failed · new = never posted anywhere ·
+left to post = videos each platform still hasn't posted · days left = how long the stock lasts at the current posts/day.</p></section>
 {''.join(cards)}
 <section class="card"><h2>Latest posts</h2><div class="scroll"><table>
 <tr><th>account</th><th>post</th><th>views</th><th>likes</th><th>comments</th><th>date</th></tr>{recent_html}</table></div></section>
@@ -226,9 +277,25 @@ Score above 0 = better than usual. Full history: <a href="https://github.com/yus
 <h2 style="margin-top:14px">Latest changes</h2><ul class="mut">{changes_html}</ul></section>
 <section class="card"><h2>Bot runs</h2><div class="scroll"><table>
 <tr><th>time</th><th>status</th><th>details</th></tr>{runs_html}</table></div></section>
-</main></body></html>"""
+</main>
+<script>
+const BUILT="{built_at}";
+function ago(t){{if(!t)return"never";const m=Math.round((Date.now()-new Date(t))/60000);
+ if(m<1)return"just now";if(m<60)return m+" min ago";const h=Math.floor(m/60);return h+"h "+(m%60)+"m ago";}}
+function tick(){{const lr=document.getElementById("lastrun");const t=lr.dataset.t;lr.textContent=ago(t);
+ const m=t?(Date.now()-new Date(t))/60000:1e9;document.getElementById("dot").className="dot"+(m>75?" dead":m>40?" late":"");
+ document.querySelectorAll("[data-ago]").forEach(e=>e.textContent=ago(e.dataset.ago));}}
+async function poll(){{try{{const r=await fetch("https://api.github.com/repos/yusufnoor786/YTS--Automations/contents/docs/live.json?ref=main",
+ {{headers:{{Accept:"application/vnd.github.raw+json"}},cache:"no-store"}});if(!r.ok)return;const j=await r.json();
+ if(j.built&&new Date(j.built)>new Date(BUILT)){{document.getElementById("livestate").textContent="new data — refreshing…";
+ setTimeout(()=>location.reload(),45000);}}}}catch(e){{}}}}
+tick();setInterval(tick,20000);poll();setInterval(poll,120000);
+</script></body></html>"""
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(html, encoding="utf-8")
+    import json
+    (OUT.parent / "live.json").write_text(json.dumps(
+        {"built": built_at, "last_run": last_run, "inventory": inv_all}, indent=1, ensure_ascii=False), encoding="utf-8")
 
 
 if __name__ == "__main__":

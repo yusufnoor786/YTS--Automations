@@ -2,9 +2,10 @@ name: Post videos
 
 on:
   schedule:
-    # Every hour at :47 IST from 7:47 to 23:47. The Growth Lab decides each day WHICH hours
-    # actually post (posts_per_day per page); other runs exit in ~30s without posting.
-    - cron: "17 2-18 * * *"
+    # Backup only. The real timer is the "heartbeat" job below: every run starts the next one
+    # 30 min later, because GitHub's cron is often hours late / skipped on new repos.
+    # The Growth Lab decides which hours actually post; other runs just refresh the counts.
+    - cron: "23 */2 * * *"
   workflow_dispatch:
     inputs:
       niche:
@@ -22,15 +23,15 @@ on:
 
 permissions:
   contents: write
-
-concurrency:
-  group: yts-state
-  cancel-in-progress: false
+  actions: write
 
 jobs:
   post:
     runs-on: ubuntu-latest
     timeout-minutes: 60
+    concurrency:
+      group: yts-state
+      cancel-in-progress: false
     env:
       YTS_TZ: Asia/Kolkata
       GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
@@ -93,3 +94,37 @@ jobs:
           git commit -q -m "bot: update state [skip ci]"
           for i in 1 2 3 4; do git pull -q --rebase --autostash -X theirs && git push -q && exit 0; sleep $((i*5)); done
           exit 1
+
+  # Starts due Analytics / Niche research, then waits for the next half-hour slot and starts the next
+  # post run. Only one heartbeat lives at a time: a newer one cancels the older sleeping one.
+  heartbeat:
+    needs: post
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    concurrency:
+      group: yts-heartbeat
+      cancel-in-progress: true
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          sparse-checkout: |
+            autopilot
+            state
+      - name: Start analytics / research if due
+        run: |
+          for wf in $(python3 -m autopilot.heartbeat due); do
+            echo "due: $wf"; gh workflow run "$wf" --ref main || echo "::warning::could not start $wf"
+          done
+      - name: Wait for the next slot, then start the next post run
+        run: |
+          s=$(python3 -m autopilot.heartbeat sleep)
+          echo "next post run in $((s/60)) min"
+          sleep "$s"
+          for i in 1 2 3 4 5; do gh workflow run post.yml --ref main && exit 0; sleep 20; done
+          exit 1
+

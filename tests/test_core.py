@@ -2,6 +2,7 @@
 Run:  python -m pytest -q tests   (or python tests/test_core.py)"""
 from __future__ import annotations
 
+import json
 import hashlib
 import itertools
 import os
@@ -252,6 +253,12 @@ def test_full_flow_no_duplicates():
     assert len(ig_gta.published) == 2 and len(yt_gta.uploads) == 2
     assert any("daily limit" in r[3] for r in p3.rows)
     assert drive.where(v3["id"]) == "gta"
+    # exact live counts are refreshed even on a run that posted nothing
+    inv = ledger.data["inventory"]["gta"]
+    assert inv["in_drive"] == 3 and inv["new"] == 1 and inv["posted_today"]["instagram"] == 2
+    assert inv["posted"] == {"instagram": 2, "facebook": 2, "youtube": 2}
+    assert inv["left"] == {"instagram": 1, "youtube": 1, "facebook": 1} and inv["next_hour"] is None
+    assert ledger.data["inventory"]["horror"]["duplicates"] == 1
 
     # horror: second run met the cross-niche duplicate → moved to _duplicates, never posted
     assert drive.where(hdup["id"]) == "_duplicates"
@@ -283,6 +290,9 @@ def test_full_flow_no_duplicates():
     assert any("no new videos" in r[3] for r in p5.rows)
     assert len(set(m for _, m in yt_gta.uploads)) == len(yt_gta.uploads) == 3
     assert len(fb_gta.reels) == 3
+    inv = ledger.data["inventory"]["gta"]
+    assert inv["in_drive"] == 5 and inv["duplicates"] == 2 and inv["new"] == 0
+    assert set(inv["left"].values()) == {0} and inv["days_left"] == 0
 
 
 def test_crash_recovery_and_youtube_backlog():
@@ -381,6 +391,24 @@ def test_dashboard_builds():
     dashboard.build(cfg, ledger, stats)
     html = dashboard.OUT.read_text()
     assert "+80" in html and "@wanted_level_yts" in html
+    assert "📦 Videos" in html and "api.github.com" in html
+    live = json.loads((TMP / "live.json").read_text())
+    assert "built" in live and "inventory" in live
+
+
+def test_heartbeat_timer():
+    from autopilot import heartbeat
+    heartbeat.STATE = TMP / "hb"
+    heartbeat.STATE.mkdir(exist_ok=True)
+    (heartbeat.STATE / "stats.json").write_text('{"updated": "2020-01-01T00:00:00+05:30"}')
+    assert heartbeat.due() == ["analytics.yml", "trends.yml"]
+    from autopilot.util import now_iso
+    (heartbeat.STATE / "stats.json").write_text(json.dumps({"updated": now_iso()}))
+    (heartbeat.STATE / "trends.json").write_text(json.dumps({"gta": {"updated": now_iso()}, "_auto": {}}))
+    assert heartbeat.due() == []
+    for t in (0, 1, 1799, 1800, 1830, 3599):
+        s = heartbeat.sleep_seconds(1_700_000_000 - 1_700_000_000 % 1800 + t)
+        assert 90 <= s <= 1890 and (1_700_000_000 - 1_700_000_000 % 1800 + t + s) % 1800 == 90
 
 
 

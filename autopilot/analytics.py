@@ -172,7 +172,7 @@ def main() -> int:
             poster = Poster(cfg, ledger, drive)
             for niche in cfg.niches.values():
                 if niche.enabled:
-                    poster.stock(niche, drive.niche_folders(cfg.drive_root_folder_id, niche.key))
+                    poster.inventory(niche, drive.niche_folders(cfg.drive_root_folder_id, niche.key))
             ledger.save()
         except Exception:  # noqa: BLE001
             log.exception("Could not count Drive stock")

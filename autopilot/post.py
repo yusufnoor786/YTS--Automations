@@ -100,14 +100,60 @@ class Poster:
         return sorted(files, key=lambda f: f.get("createdTime", ""))
 
     def stock(self, niche: Niche, folders: dict) -> int:
-        n = 0
+        return self.inventory(niche, folders)["new"]
+
+    def inventory(self, niche: Niche, folders: dict) -> dict:
+        """Exact live count of every video in this niche's Drive folders + what is posted / left.
+        Saved to ledger['inventory'][niche] and shown on the dashboard after every run."""
+        lists = {w: self.drive.list_videos(folders[w]) for w in ("inbox", "_posted", "_duplicates", "_failed")}
         active = self.cfg.active_platforms(niche) or ["instagram"]
-        for f in self.drive.list_videos(folders["inbox"]):
-            md5 = f.get("md5Checksum")
-            if md5 and not all(self.ledger.is_posted(md5, p) for p in active):
-                n += 1
-        self.ledger.data.setdefault("stock", {})[niche.key] = n
-        return n
+        max_att = int(self.cfg.get("max_attempts", 3))
+        seen: set[str] = set()
+        copies = 0
+        left = {p: 0 for p in active}
+        new = 0
+        for where in ("inbox", "_posted"):
+            for f in lists[where]:
+                md5 = f.get("md5Checksum") or f["id"]
+                if md5 in seen:
+                    copies += 1
+                    continue
+                seen.add(md5)
+                rec = self.ledger.get(md5)
+                if rec and (rec.get("duplicate_of") or rec["niche"] != niche.key):
+                    copies += 1
+                    continue
+                untouched = True
+                for p in active:
+                    pd = (rec or {}).get("platforms", {}).get(p, {})
+                    if pd.get("status") == POSTED:
+                        untouched = False
+                        continue
+                    if pd.get("status") == FAILED and int(pd.get("attempts", 0)) >= max_att:
+                        continue
+                    left[p] += 1
+                if where == "inbox" and untouched:
+                    new += 1
+        posted = {p: sum(1 for v in self.ledger.videos.values() if v["niche"] == niche.key
+                         and v["platforms"].get(p, {}).get("status") == POSTED)
+                  for p in ("instagram", "facebook", "youtube")}
+        today = {p: self.ledger.posted_today(niche.key, p) for p in ("instagram", "facebook", "youtube")}
+        plan = growth.plan_for_today(self.cfg, self.gs, niche)
+        done = min((today[p] for p in active), default=0)
+        nxt = plan[done] if done < len(plan) else None  # hour of the next post (None = tomorrow)
+        inv = {
+            "at": growth.now_iso(),
+            "in_drive": sum(len(v) for v in lists.values()),
+            "inbox": len(lists["inbox"]), "posted_folder": len(lists["_posted"]),
+            "duplicates": len(lists["_duplicates"]) + copies, "failed": len(lists["_failed"]),
+            "new": new, "left": left, "posted": posted, "posted_today": today,
+            "per_day": niche.posts_per_day, "active": active,
+            "days_left": (min(left.values()) // max(1, niche.posts_per_day)) if left else 0,
+            "plan_today": plan, "next_hour": nxt, "due_now": nxt is not None and nxt <= growth.now().hour,
+        }
+        self.ledger.data.setdefault("inventory", {})[niche.key] = inv
+        self.ledger.data.setdefault("stock", {})[niche.key] = new
+        return inv
 
     def sweep_exact_duplicates(self, niche: Niche, folders: dict) -> None:
         """Byte-identical copies of videos the bot already used go straight to _duplicates."""
@@ -270,6 +316,44 @@ class Poster:
             f["_where"] = "_posted"
         return "done"
 
+    def _post_niche(self, niche: Niche, folders: dict) -> None:
+        active = self.cfg.active_platforms(niche)
+        if not active:
+            self.rows.append((niche.key, "—", "—", "no platform connected yet"))
+            return
+        plan = growth.plan_for_today(self.cfg, self.gs, niche)
+        allowed = niche.posts_per_day
+        if self.respect_schedule:
+            allowed = min(niche.posts_per_day, growth.due_count(self.cfg, self.gs, niche))
+        if not self.force and all(self.ledger.posted_today(niche.key, p) >= allowed for p in active):
+            nxt = [h for h in plan if h > growth.now().hour]
+            if all(self.ledger.posted_today(niche.key, p) >= niche.posts_per_day for p in active):
+                self.rows.append((niche.key, "all", "—", f"daily limit reached ({niche.posts_per_day})"))
+            else:
+                self.rows.append((niche.key, "all", "—", f"nothing due — next slot "
+                                  f"{growth._label('hour', nxt[0]) if nxt else 'tomorrow'} (today: "
+                                  f"{', '.join(growth._label('hour', h) for h in plan)})"))
+            return
+        self.sweep_exact_duplicates(niche, folders)
+        for platform in active:
+            done_today = self.ledger.posted_today(niche.key, platform)
+            if not self.force and done_today >= allowed:
+                nxt = [h for h in plan if h > growth.now().hour]
+                why = (f"daily limit reached ({done_today})" if done_today >= niche.posts_per_day
+                       else f"next slot {growth._label('hour', nxt[0]) if nxt else 'tomorrow'}")
+                self.rows.append((niche.key, platform, "—", why))
+                continue
+            try:
+                client = self.client(niche, platform)
+                self.recover(niche, platform, client)
+                if not self.force and self.ledger.posted_today(niche.key, platform) >= allowed:
+                    continue
+                self.post_one(niche, platform, client, folders)
+            except Exception as e:  # noqa: BLE001
+                self.errors += 1
+                log.exception("%s/%s failed", niche.key, platform)
+                self.rows.append((niche.key, platform, "—", f"❌ {type(e).__name__}: {str(e)[:150]}"))
+
     # ── run everything ───────────────────────────────────────
     def run(self, only: str | None = None) -> int:
         root = self.cfg.drive_root_folder_id
@@ -278,45 +362,20 @@ class Poster:
                 continue
             if not niche.enabled:
                 continue
-            active = self.cfg.active_platforms(niche)
-            if not active:
-                self.rows.append((niche.key, "—", "—", "no platform connected yet"))
-            plan = growth.plan_for_today(self.cfg, self.gs, niche)
-            allowed = niche.posts_per_day
-            if self.respect_schedule:
-                allowed = min(niche.posts_per_day, growth.due_count(self.cfg, self.gs, niche))
-            if active and not self.force and all(self.ledger.posted_today(niche.key, p) >= allowed for p in active):
-                nxt = [h for h in plan if h > growth.now().hour]
-                if all(self.ledger.posted_today(niche.key, p) >= niche.posts_per_day for p in active):
-                    self.rows.append((niche.key, "all", "—", f"daily limit reached ({niche.posts_per_day})"))
-                    continue
-                self.rows.append((niche.key, "all", "—", f"nothing due — next slot "
-                                  f"{growth._label('hour', nxt[0]) if nxt else 'tomorrow'} (today: "
-                                  f"{', '.join(growth._label('hour', h) for h in plan)})"))
+            try:
+                folders = self.drive.niche_folders(root, niche.key)
+            except Exception as e:  # noqa: BLE001
+                self.errors += 1
+                log.exception("Drive failed for %s", niche.key)
+                self.rows.append((niche.key, "drive", "—", f"❌ Drive: {str(e)[:150]}"))
                 continue
-            folders = self.drive.niche_folders(root, niche.key)
-            self.sweep_exact_duplicates(niche, folders)
-            for platform in active:
-                done_today = self.ledger.posted_today(niche.key, platform)
-                if not self.force and done_today >= allowed:
-                    nxt = [h for h in plan if h > growth.now().hour]
-                    why = (f"daily limit reached ({done_today})" if done_today >= niche.posts_per_day
-                           else f"next slot {growth._label('hour', nxt[0]) if nxt else 'tomorrow'}")
-                    self.rows.append((niche.key, platform, "—", why))
-                    continue
-                try:
-                    client = self.client(niche, platform)
-                    self.recover(niche, platform, client)
-                    if not self.force and self.ledger.posted_today(niche.key, platform) >= allowed:
-                        continue
-                    self.post_one(niche, platform, client, folders)
-                except Exception as e:  # noqa: BLE001
-                    self.errors += 1
-                    log.exception("%s/%s failed", niche.key, platform)
-                    self.rows.append((niche.key, platform, "—", f"❌ {type(e).__name__}: {str(e)[:150]}"))
-            left = self.stock(niche, folders)
-            if left <= int(self.cfg.get("low_stock_warning", 5)):
-                self.rows.append((niche.key, "drive", "—", f"⚠️ only {left} new videos left — refill Drive"))
+            self._post_niche(niche, folders)
+            try:  # exact counts for the dashboard — every run, even when nothing was due
+                inv = self.inventory(niche, folders)
+                if inv["new"] <= int(self.cfg.get("low_stock_warning", 5)):
+                    self.rows.append((niche.key, "drive", "—", f"⚠️ only {inv['new']} new videos left — refill Drive"))
+            except Exception:  # noqa: BLE001
+                log.exception("inventory failed for %s", niche.key)
         if not self.dry:
             growth.save_state(self.gs)
         self.ledger.log_run({"type": "post", "errors": self.errors, "rows": [list(r) for r in self.rows]})
