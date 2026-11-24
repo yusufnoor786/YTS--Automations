@@ -252,6 +252,43 @@
     ]
    ],
    "at": "2026-11-24T23:02:26+05:30"
+  },
+  {
+   "type": "post",
+   "errors": 0,
+   "rows": [
+    [
+     "aesthetic",
+     "all",
+     "—",
+     "daily limit reached (2)"
+    ],
+    [
+     "gta",
+     "instagram",
+     "—",
+     "⚠️ no new videos in Drive"
+    ],
+    [
+     "gta",
+     "facebook",
+     "—",
+     "⚠️ no new videos in Drive"
+    ],
+    [
+     "gta",
+     "drive",
+     "—",
+     "⚠️ only 0 new videos left — refill Drive"
+    ],
+    [
+     "horror",
+     "—",
+     "—",
+     "no platform connected yet"
+    ]
+   ],
+   "at": "2026-11-24T23:32:51+05:30"
   }
  ],
  "stock": {
@@ -261,7 +298,7 @@
  },
  "inventory": {
   "aesthetic": {
-   "at": "2026-11-24T23:02:21+05:30",
+   "at": "2026-11-24T23:32:45+05:30",
    "in_drive": 2041,
    "inbox": 2039,
    "posted_folder": 2,
@@ -296,7 +333,7 @@
    "due_now": false
   },
   "gta": {
-   "at": "2026-11-24T23:02:23+05:30",
+   "at": "2026-11-24T23:32:48+05:30",
    "in_drive": 0,
    "inbox": 0,
    "posted_folder": 0,
@@ -331,7 +368,7 @@
    "due_now": true
   },
   "horror": {
-   "at": "2026-11-24T23:02:26+05:30",
+   "at": "2026-11-24T23:32:51+05:30",
    "in_drive": 866,
    "inbox": 866,
    "posted_folder": 0,
