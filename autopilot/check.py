@@ -47,14 +47,24 @@ def main() -> int:
 
     # Gemini
     if has_secret("GEMINI_API_KEY"):
-        try:
-            r = requests.post(
-                f"https://generativelanguage.googleapis.com/v1beta/models/{cfg.get('gemini_model', 'gemini-flash-latest')}:generateContent",
-                headers={"x-goog-api-key": secret("GEMINI_API_KEY")},
-                json={"contents": [{"parts": [{"text": "Reply with the word ok"}]}]}, timeout=60)
-            (ok if r.ok else bad)("Gemini API", "" if r.ok else r.text[:200])
-        except Exception as e:  # noqa: BLE001
-            bad("Gemini API", str(e)[:200])
+        last = ""
+        for model in dict.fromkeys([cfg.get("gemini_model", "gemini-flash-latest"), "gemini-flash-lite-latest"]):
+            try:
+                r = requests.post(
+                    f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
+                    headers={"x-goog-api-key": secret("GEMINI_API_KEY")},
+                    json={"contents": [{"parts": [{"text": "Reply with the word ok"}]}]}, timeout=60)
+                if r.ok:
+                    ok("Gemini API", f"{model} works")
+                    break
+                last = f"{r.status_code}: {r.text[:150]}"
+                if r.status_code in (400, 401, 403):
+                    bad("Gemini API", "key rejected — " + last)
+                    break
+            except Exception as e:  # noqa: BLE001
+                last = str(e)[:150]
+        else:
+            warn("Gemini API", "key OK but Google is busy right now (" + last[:80] + ") — captions fall back automatically")
 
     # Accounts
     for n in cfg.niches.values():
