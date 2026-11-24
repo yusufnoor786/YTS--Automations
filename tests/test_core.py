@@ -406,9 +406,10 @@ def test_heartbeat_timer():
     (heartbeat.STATE / "stats.json").write_text(json.dumps({"updated": now_iso()}))
     (heartbeat.STATE / "trends.json").write_text(json.dumps({"gta": {"updated": now_iso()}, "_auto": {}}))
     assert heartbeat.due() == []
-    for t in (0, 1, 1799, 1800, 1830, 3599):
-        s = heartbeat.sleep_seconds(1_700_000_000 - 1_700_000_000 % 1800 + t)
-        assert 90 <= s <= 1890 and (1_700_000_000 - 1_700_000_000 % 1800 + t + s) % 1800 == 90
+    q = heartbeat.INTERVAL_MIN * 60
+    for t in (0, 1, q - 1, q, q + 30, 2 * q - 1):
+        s = heartbeat.sleep_seconds(1_700_000_000 - 1_700_000_000 % q + t)
+        assert 90 <= s <= q + 90 and (1_700_000_000 - 1_700_000_000 % q + t + s) % q == 90
 
 
 

@@ -81,9 +81,10 @@ jobs:
           [ "$IN_DRY" = "true" ] && ARGS+=(--dry-run)
           [ "$IN_FORCE" = "true" ] && ARGS+=(--force)
           python -m autopilot.post "${ARGS[@]}"
-      - name: Rebuild dashboard
+      - name: Refresh followers, views & dashboard
         if: always()
-        run: python -m autopilot.dashboard
+        timeout-minutes: 8
+        run: python -m autopilot.analytics || python -m autopilot.dashboard
       - name: Save state & dashboard
         if: always()
         run: |
@@ -95,7 +96,7 @@ jobs:
           for i in 1 2 3 4; do git pull -q --rebase --autostash -X theirs && git push -q && exit 0; sleep $((i*5)); done
           exit 1
 
-  # Starts due Analytics / Niche research, then waits for the next half-hour slot and starts the next
+  # Starts Niche research when due, then waits for the next 15-minute slot and starts the next
   # post run. Only one heartbeat lives at a time: a newer one cancels the older sleeping one.
   heartbeat:
     needs: post

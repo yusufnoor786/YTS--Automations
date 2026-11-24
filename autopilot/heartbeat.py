@@ -1,7 +1,7 @@
 """Keeps the bot running on time without relying on GitHub's cron (which is often hours late or skipped
 on new repos).  Every post run ends with a small "heartbeat" job that:
   1. starts Analytics / Niche research if they are due (stdlib only, reads state files), then
-  2. sleeps until the next half-hour slot and starts the next post run.
+  2. sleeps until the next 15-minute slot and starts the next post run.
 Only one heartbeat can exist at a time (concurrency group with cancel-in-progress), so it never doubles.
 
   python -m autopilot.heartbeat due      → prints workflow files that are due, one per line
@@ -17,8 +17,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 STATE = ROOT / "state"
-INTERVAL_MIN = 30           # a post run every 30 minutes → dashboard is never more than ~30 min old
-ANALYTICS_EVERY_H = 2       # followers / views refresh
+INTERVAL_MIN = 15           # a run every 15 min: posts when due + refreshes ALL dashboard numbers
+ANALYTICS_EVERY_H = 6       # safety net only: every post run already refreshes followers / views
 TRENDS_EVERY_H = 84         # niche research twice a week
 
 
@@ -55,7 +55,7 @@ def due() -> list[str]:
 def sleep_seconds(now: float | None = None) -> int:
     now = time.time() if now is None else now
     step = INTERVAL_MIN * 60
-    return int(step - now % step) + 90   # land at :01:30 / :31:30 UTC (= :31 / :01 IST), away from the busy :00
+    return int(step - now % step) + 90   # land 1.5 min after each quarter hour, away from the busy :00
 
 
 def main(argv: list[str]) -> int:

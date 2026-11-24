@@ -324,10 +324,10 @@ th{{color:var(--mut);font-weight:500}}a{{color:#8ab4ff;text-decoration:none}}
 .status{{display:flex;gap:14px;flex-wrap:wrap;align-items:center;font-size:13.5px}}
 .dot{{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--ok);margin-right:6px}}.dot.late{{background:var(--warn)}}.dot.dead{{background:var(--yt)}}
 </style></head><body><main>
-<header><h1>YTS Autopilot <small class="mut">· total audience {fmt(sum(int(v.get("followers", v.get("subscribers", 0)) or 0) for v in stats.get("latest", {}).values() if v.get("ok")))}</small></h1><span class="mut">followers updated {escape(stats.get("updated", "—")[:16].replace("T", " "))} IST</span></header>
+<header><h1>YTS Autopilot <small class="mut">· total audience {fmt(sum(int(v.get("followers", v.get("subscribers", 0)) or 0) for v in stats.get("latest", {}).values() if v.get("ok")))}</small></h1><span class="mut">followers &amp; views updated <b data-ago="{escape(stats.get("updated", ""))}">{escape(stats.get("updated", "—")[:16].replace("T", " "))}</b></span></header>
 <section class="card"><div class="status">
   <span><span id="dot" class="dot"></span>Bot last ran <b id="lastrun" data-t="{escape(last_run)}">{escape(last_run[:16].replace("T", " "))}</b></span>
-  <span class="mut">checks every 30 min · page refreshes by itself when new data arrives</span>
+  <span class="mut">next update <b id="nextrun">soon</b> · the bot refreshes every number every 15 min and this page reloads by itself</span>
   <span class="mut" id="livestate"></span></div></section>
 <section class="card"><h2>📦 Videos <span class="pill ok">live count</span>
   <span class="mut" style="font-weight:400">counted <span data-ago="{escape(inv_at)}">{escape(inv_at[:16].replace("T", " "))}</span></span></h2>
@@ -358,12 +358,14 @@ const BUILT="{built_at}";
 function ago(t){{if(!t)return"never";const m=Math.round((Date.now()-new Date(t))/60000);
  if(m<1)return"just now";if(m<60)return m+" min ago";const h=Math.floor(m/60);return h+"h "+(m%60)+"m ago";}}
 function tick(){{const lr=document.getElementById("lastrun");const t=lr.dataset.t;lr.textContent=ago(t);
- const m=t?(Date.now()-new Date(t))/60000:1e9;document.getElementById("dot").className="dot"+(m>75?" dead":m>40?" late":"");
- document.querySelectorAll("[data-ago]").forEach(e=>e.textContent=ago(e.dataset.ago));}}
+ const m=t?(Date.now()-new Date(t))/60000:1e9;document.getElementById("dot").className="dot"+(m>60?" dead":m>30?" late":"");
+ document.querySelectorAll("[data-ago]").forEach(e=>e.textContent=ago(e.dataset.ago));
+ const q=15*60000, nxt=Math.ceil((Date.now()-90000)/q)*q+90000+150000, mm=Math.max(0,Math.round((nxt-Date.now())/60000));
+ document.getElementById("nextrun").textContent= mm<=1?"any moment":"in ~"+mm+" min";}}
 async function poll(){{try{{const r=await fetch("https://api.github.com/repos/yusufnoor786/YTS--Automations/contents/docs/live.json?ref=main",
  {{headers:{{Accept:"application/vnd.github.raw+json"}},cache:"no-store"}});if(!r.ok)return;const j=await r.json();
  if(j.built&&new Date(j.built)>new Date(BUILT)){{document.getElementById("livestate").textContent="new data — refreshing…";
- setTimeout(()=>location.reload(),45000);}}}}catch(e){{}}}}
+ setTimeout(()=>location.reload(),60000);}}}}catch(e){{}}}}
 tick();setInterval(tick,20000);poll();setInterval(poll,120000);
 </script></body></html>"""
     OUT.parent.mkdir(parents=True, exist_ok=True)
