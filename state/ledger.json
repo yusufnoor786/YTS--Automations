@@ -47,16 +47,84 @@
      "url": "https://www.instagram.com/reel/DgIY4n7ALuq/"
     },
     "facebook": {
-     "status": "publishing",
+     "status": "posted",
      "attempts": 0,
-     "updated": "2026-11-24T22:01:24+05:30",
+     "updated": "2026-11-24T22:34:01+05:30",
      "video_id": "1040816592366573",
-     "finished": true
+     "finished": true,
+     "at": "2026-11-24T22:34:01+05:30",
+     "day": "2026-11-24",
+     "id": "1040816592366573",
+     "url": "https://www.facebook.com/reel/1040816592366573/",
+     "recovered": true,
+     "unverified": null
     }
    },
    "variant": {
     "style": "trend",
     "tags": 5,
+    "hour": 22
+   }
+  },
+  "b54b67290b49e9e0ec66dfec5baff394": {
+   "file_id": "1ZMCfLGLX-ZRQlo0cH7V0SCnNXTwOLGVK",
+   "name": "NIF26A~1.MP4",
+   "niche": "aesthetic",
+   "first_seen": "2026-11-24T22:32:12+05:30",
+   "phash": [
+    7089266573280563411,
+    8228977171221206339,
+    11109876896626763965
+   ],
+   "caption": {
+    "ig_caption": "POV: you finally romanticized your daily city walk ✨🤍\n\nWhere is your favorite place to wander?\n.\n.\n#aestheticreels #thatgirl #softlife #explorepage #explore #aesthetic",
+    "yt_title": "POV: Romanticizing your city walk ✨ #shorts",
+    "yt_description": "Stepping out and letting the day unfold softly. What's your favorite spot in the city?\n\n#aesthetic #thatgirl #softlife #citywalk #romanticizeyourlife",
+    "yt_tags": [
+     "aesthetic",
+     "thatgirl",
+     "softlife",
+     "citywalk",
+     "romanticizeyourlife",
+     "feminineenergy",
+     "glowup",
+     "dailyvlog",
+     "aestheticreels",
+     "lifestyle",
+     "aestheticvibes",
+     "reels",
+     "explorepage",
+     "shorts"
+    ],
+    "source": "gemini"
+   },
+   "duplicate_of": null,
+   "platforms": {
+    "instagram": {
+     "status": "posted",
+     "attempts": 0,
+     "updated": "2026-11-24T22:34:00+05:30",
+     "container_id": "17922494595529906",
+     "at": "2026-11-24T22:34:00+05:30",
+     "day": "2026-11-24",
+     "id": "18139966972631740",
+     "url": "https://www.instagram.com/reel/DgIcpT8DoRN/"
+    },
+    "facebook": {
+     "status": "posted",
+     "attempts": 0,
+     "updated": "2026-11-24T22:34:29+05:30",
+     "video_id": "1641162040836163",
+     "finished": true,
+     "at": "2026-11-24T22:34:29+05:30",
+     "day": "2026-11-24",
+     "id": "1641162040836163",
+     "url": "https://www.facebook.com/reel/1641162040836163/"
+    }
+   },
+   "variant": {
+    "style": "relatable",
+    "tags": 6,
     "hour": 22
    }
   }
@@ -104,34 +172,77 @@
     ]
    ],
    "at": "2026-11-24T22:01:38+05:30"
+  },
+  {
+   "type": "post",
+   "errors": 0,
+   "rows": [
+    [
+     "aesthetic",
+     "instagram",
+     "NIF26A~1.MP4",
+     "✅ https://www.instagram.com/reel/DgIcpT8DoRN/"
+    ],
+    [
+     "aesthetic",
+     "facebook",
+     "NIF26A~1.MP4",
+     "✅ https://www.facebook.com/reel/1641162040836163/"
+    ],
+    [
+     "gta",
+     "instagram",
+     "—",
+     "⚠️ no new videos in Drive"
+    ],
+    [
+     "gta",
+     "facebook",
+     "—",
+     "⚠️ no new videos in Drive"
+    ],
+    [
+     "gta",
+     "drive",
+     "—",
+     "⚠️ only 0 new videos left — refill Drive"
+    ],
+    [
+     "horror",
+     "—",
+     "—",
+     "no platform connected yet"
+    ]
+   ],
+   "at": "2026-11-24T22:34:38+05:30"
   }
  ],
  "stock": {
-  "aesthetic": 2040,
+  "aesthetic": 2039,
   "gta": 0,
   "horror": 865
  },
  "inventory": {
   "aesthetic": {
-   "at": "2026-11-24T22:01:30+05:30",
+   "at": "2026-11-24T22:34:33+05:30",
    "in_drive": 2041,
-   "inbox": 2040,
-   "posted_folder": 1,
+   "inbox": 2039,
+   "posted_folder": 2,
    "duplicates": 0,
    "failed": 0,
-   "new": 2040,
+   "new": 2039,
    "left": {
-    "instagram": 2040,
-    "facebook": 2041
+    "instagram": 2039,
+    "facebook": 2039
    },
    "posted": {
-    "instagram": 1,
-    "facebook": 0,
+    "instagram": 2,
+    "facebook": 2,
     "youtube": 0
    },
    "posted_today": {
-    "instagram": 1,
-    "facebook": 0,
+    "instagram": 2,
+    "facebook": 2,
     "youtube": 0
    },
    "per_day": 2,
@@ -139,16 +250,16 @@
     "instagram",
     "facebook"
    ],
-   "days_left": 1020,
+   "days_left": 1019,
    "plan_today": [
     18,
     21
    ],
-   "next_hour": 18,
-   "due_now": true
+   "next_hour": null,
+   "due_now": false
   },
   "gta": {
-   "at": "2026-11-24T22:01:34+05:30",
+   "at": "2026-11-24T22:34:35+05:30",
    "in_drive": 0,
    "inbox": 0,
    "posted_folder": 0,
@@ -183,16 +294,14 @@
    "due_now": true
   },
   "horror": {
-   "at": "2026-11-24T22:01:38+05:30",
+   "at": "2026-11-24T22:34:38+05:30",
    "in_drive": 866,
    "inbox": 866,
    "posted_folder": 0,
    "duplicates": 1,
    "failed": 0,
    "new": 865,
-   "left": {
-    "instagram": 865
-   },
+   "left": {},
    "posted": {
     "instagram": 0,
     "facebook": 0,
@@ -204,9 +313,7 @@
     "youtube": 0
    },
    "per_day": 2,
-   "active": [
-    "instagram"
-   ],
+   "active": [],
    "days_left": 432,
    "plan_today": [
     8,
