@@ -135,6 +135,127 @@
     "tags": 6,
     "hour": 22
    }
+  },
+  "acce8611437b43cd2a0c8e4815fc3f3e": {
+   "file_id": "1lv_nBYpfd-5oJFt1M_w2FSmkKg-eXJpO",
+   "name": "Assetsgalaxy (687).mp4",
+   "niche": "gta",
+   "first_seen": "2026-11-24T23:53:03+05:30",
+   "phash": [
+    5736247837883111584,
+    5754263302143238272,
+    5610145175703180012
+   ],
+   "caption": {
+    "ig_caption": "Bro tried to hide from 5 stars in Assetsgalaxy.\nAbsolute zero survival IQ.\nWould you do this?\n.\n.\n#gta6 #vicecity #gaming #rockstargames #ps5",
+    "yt_title": "Worst Hideout Ever in GTA 6? #shorts",
+    "yt_description": "Trying to escape 5 stars in Assetsgalaxy goes completely wrong for this player.\n\n#gta6 #gtavi #vicecity #assetsgalaxy #gta6gameplay",
+    "yt_tags": [
+     "gta6",
+     "gtavi",
+     "vicecity",
+     "assetsgalaxy",
+     "gta6gameplay",
+     "gtamoments",
+     "gaming",
+     "ps5",
+     "rockstargames",
+     "funnygtamoments",
+     "gta",
+     "gtaonline",
+     "gamingshorts",
+     "shorts"
+    ],
+    "source": "gemini-text"
+   },
+   "duplicate_of": null,
+   "platforms": {
+    "instagram": {
+     "status": "posted",
+     "attempts": 0,
+     "updated": "2026-11-24T23:58:32+05:30",
+     "container_id": "17960248977259364",
+     "at": "2026-11-24T23:58:32+05:30",
+     "day": "2026-11-24",
+     "id": "18038464649852322",
+     "url": "https://www.instagram.com/reel/DgImRc7iEFk/"
+    },
+    "facebook": {
+     "status": "posted",
+     "attempts": 0,
+     "updated": "2026-11-24T23:59:18+05:30",
+     "video_id": "1202032072483959",
+     "finished": true,
+     "at": "2026-11-24T23:59:18+05:30",
+     "day": "2026-11-24",
+     "id": "1202032072483959",
+     "url": "https://www.facebook.com/reel/1202032072483959/"
+    }
+   },
+   "variant": {
+    "style": "story",
+    "tags": 5,
+    "hour": 23
+   }
+  },
+  "47e4bb0dea6237c67f31b49b7dd888a1": {
+   "file_id": "199dvf3ijWSl_BqSTzq_IefaANv5tAuCw",
+   "name": "scaryshowcase_reel_8_21_2024_4_09_36 AM3439107226257201179.mp4",
+   "niche": "horror",
+   "first_seen": "2026-11-24T23:59:26+05:30",
+   "phash": [
+    14356612177529088,
+    23381395061672192,
+    23381403651606784
+   ],
+   "caption": {
+    "ig_caption": "Something is watching you.\nWould you survive this?\nDrop your thoughts below. 🕯️\n.\n.\n#bhoot #paranormal #horrorstories #ghost #horror #bhootwala",
+    "yt_title": "It was standing right behind them... #shorts",
+    "yt_description": "A terrifying encounter caught on camera that will make you question the dark. Would you survive this horror?\n\n#bhoot #paranormal #horrorstories #ghost #horror",
+    "yt_tags": [
+     "bhoot",
+     "paranormal",
+     "horrorstories",
+     "ghost",
+     "horror",
+     "bhootwala",
+     "scary",
+     "creepy",
+     "shorts",
+     "horrorshorts",
+     "darr"
+    ],
+    "source": "gemini-text"
+   },
+   "duplicate_of": null,
+   "platforms": {
+    "instagram": {
+     "status": "posted",
+     "attempts": 0,
+     "updated": "2026-11-25T00:03:11+05:30",
+     "container_id": "17867787588696997",
+     "at": "2026-11-25T00:03:11+05:30",
+     "day": "2026-11-25",
+     "id": "18169336075524960",
+     "url": "https://www.instagram.com/reel/DgIm1-2gqwe/"
+    },
+    "facebook": {
+     "status": "posted",
+     "attempts": 0,
+     "updated": "2026-11-25T00:03:42+05:30",
+     "video_id": "1051733707939081",
+     "finished": true,
+     "at": "2026-11-25T00:03:42+05:30",
+     "day": "2026-11-25",
+     "id": "1051733707939081",
+     "url": "https://www.facebook.com/reel/1051733707939081/"
+    }
+   },
+   "variant": {
+    "style": "short",
+    "tags": 6,
+    "hour": 0
+   }
   }
  },
  "runs": [
@@ -297,16 +418,53 @@
     ]
    ],
    "at": "2026-11-24T23:32:51+05:30"
+  },
+  {
+   "type": "post",
+   "errors": 0,
+   "rows": [
+    [
+     "aesthetic",
+     "all",
+     "—",
+     "daily limit reached (2)"
+    ],
+    [
+     "gta",
+     "instagram",
+     "Assetsgalaxy (687).mp4",
+     "✅ https://www.instagram.com/reel/DgImRc7iEFk/"
+    ],
+    [
+     "gta",
+     "facebook",
+     "Assetsgalaxy (687).mp4",
+     "✅ https://www.facebook.com/reel/1202032072483959/"
+    ],
+    [
+     "horror",
+     "instagram",
+     "scaryshowcase_reel_8_21_2024_4_09_36 AM3439107226257201179.mp4",
+     "✅ https://www.instagram.com/reel/DgIm1-2gqwe/"
+    ],
+    [
+     "horror",
+     "facebook",
+     "scaryshowcase_reel_8_21_2024_4_09_36 AM3439107226257201179.mp4",
+     "✅ https://www.facebook.com/reel/1051733707939081/"
+    ]
+   ],
+   "at": "2026-11-25T00:03:45+05:30"
   }
  ],
  "stock": {
   "aesthetic": 2039,
-  "gta": 0,
-  "horror": 865
+  "gta": 66,
+  "horror": 864
  },
  "inventory": {
   "aesthetic": {
-   "at": "2026-11-24T23:33:52+05:30",
+   "at": "2026-11-24T23:53:01+05:30",
    "in_drive": 2041,
    "inbox": 2039,
    "posted_folder": 2,
@@ -341,25 +499,25 @@
    "due_now": false
   },
   "gta": {
-   "at": "2026-11-24T23:33:54+05:30",
-   "in_drive": 0,
-   "inbox": 0,
-   "posted_folder": 0,
+   "at": "2026-11-24T23:59:19+05:30",
+   "in_drive": 67,
+   "inbox": 66,
+   "posted_folder": 1,
    "duplicates": 0,
    "failed": 0,
-   "new": 0,
+   "new": 66,
    "left": {
-    "instagram": 0,
-    "facebook": 0
+    "instagram": 66,
+    "facebook": 66
    },
    "posted": {
-    "instagram": 0,
-    "facebook": 0,
+    "instagram": 1,
+    "facebook": 1,
     "youtube": 0
    },
    "posted_today": {
-    "instagram": 0,
-    "facebook": 0,
+    "instagram": 1,
+    "facebook": 1,
     "youtube": 0
    },
    "per_day": 2,
@@ -367,42 +525,48 @@
     "instagram",
     "facebook"
    ],
-   "days_left": 0,
+   "days_left": 33,
    "plan_today": [
     18,
     20
    ],
-   "next_hour": 18,
+   "next_hour": 20,
    "due_now": true
   },
   "horror": {
-   "at": "2026-11-24T23:33:57+05:30",
+   "at": "2026-11-25T00:03:45+05:30",
    "in_drive": 866,
-   "inbox": 866,
-   "posted_folder": 0,
+   "inbox": 865,
+   "posted_folder": 1,
    "duplicates": 1,
    "failed": 0,
-   "new": 865,
-   "left": {},
+   "new": 864,
+   "left": {
+    "instagram": 864,
+    "facebook": 864
+   },
    "posted": {
-    "instagram": 0,
-    "facebook": 0,
+    "instagram": 1,
+    "facebook": 1,
     "youtube": 0
    },
    "posted_today": {
-    "instagram": 0,
-    "facebook": 0,
+    "instagram": 1,
+    "facebook": 1,
     "youtube": 0
    },
    "per_day": 2,
-   "active": [],
+   "active": [
+    "instagram",
+    "facebook"
+   ],
    "days_left": 432,
    "plan_today": [
-    8,
-    15
+    19,
+    20
    ],
-   "next_hour": 8,
-   "due_now": true
+   "next_hour": 20,
+   "due_now": false
   }
  }
 }
