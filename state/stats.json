@@ -32,6 +32,47 @@
    "gta/facebook": {
     "followers": 0
    }
+  },
+  "2026-11-25": {
+   "aesthetic/instagram": {
+    "followers": 2,
+    "posts": 10,
+    "username": "bliss_nglow"
+   },
+   "aesthetic/facebook": {
+    "followers": 0
+   },
+   "aesthetic/youtube": {
+    "followers": 1,
+    "views": 10,
+    "posts": 0
+   },
+   "gta/instagram": {
+    "followers": 7,
+    "posts": 1,
+    "username": "wanted_level_yts"
+   },
+   "gta/facebook": {
+    "followers": 0
+   },
+   "gta/youtube": {
+    "followers": 0,
+    "views": 0,
+    "posts": 0
+   },
+   "horror/instagram": {
+    "followers": 0,
+    "posts": 1,
+    "username": "darrdiaries_yts"
+   },
+   "horror/facebook": {
+    "followers": 153
+   },
+   "horror/youtube": {
+    "followers": 2,
+    "views": 0,
+    "posts": 5
+   }
   }
  },
  "latest": {
@@ -39,7 +80,7 @@
    "followers": 2,
    "posts": 10,
    "username": "bliss_nglow",
-   "at": "2026-11-24T23:34:00+05:30",
+   "at": "2026-11-25T00:09:41+05:30",
    "ok": true
   },
   "aesthetic/youtube": {
@@ -48,14 +89,14 @@
    "videos": 0,
    "handle": "@blissnglowshorts",
    "title": "Bliss N Glow",
-   "at": "2026-11-24T23:34:02+05:30",
+   "at": "2026-11-25T00:09:43+05:30",
    "ok": true
   },
   "gta/instagram": {
    "followers": 7,
-   "posts": 0,
+   "posts": 1,
    "username": "wanted_level_yts",
-   "at": "2026-11-24T23:34:02+05:30",
+   "at": "2026-11-25T00:09:44+05:30",
    "ok": true
   },
   "gta/youtube": {
@@ -64,30 +105,44 @@
    "videos": 0,
    "handle": "@wantedlevel-yts",
    "title": "Wanted Level",
-   "at": "2026-11-24T23:34:03+05:30",
+   "at": "2026-11-25T00:09:45+05:30",
    "ok": true
   },
   "horror/youtube": {
    "subscribers": 2,
-   "views": 12,
+   "views": 0,
    "videos": 5,
    "handle": "@darrdiaries-yts",
    "title": "Darr Diaries",
-   "at": "2026-11-24T23:34:03+05:30",
+   "at": "2026-11-25T00:09:48+05:30",
    "ok": true
   },
   "aesthetic/facebook": {
    "followers": 0,
    "name": "Bliss N Glow",
    "url": "https://www.facebook.com/1363246033549819",
-   "at": "2026-11-24T23:34:01+05:30",
+   "at": "2026-11-25T00:09:42+05:30",
    "ok": true
   },
   "gta/facebook": {
    "followers": 0,
    "name": "Wanted Level",
    "url": "https://www.facebook.com/1381962041676039",
-   "at": "2026-11-24T23:34:03+05:30",
+   "at": "2026-11-25T00:09:45+05:30",
+   "ok": true
+  },
+  "horror/instagram": {
+   "followers": 0,
+   "posts": 1,
+   "username": "darrdiaries_yts",
+   "at": "2026-11-25T00:09:46+05:30",
+   "ok": true
+  },
+  "horror/facebook": {
+   "followers": 153,
+   "name": "Darr Diaries",
+   "url": "https://www.facebook.com/728218937273915",
+   "at": "2026-11-25T00:09:48+05:30",
    "ok": true
   }
  },
@@ -98,7 +153,7 @@
     "at": "2026-11-24T17:03:53+0000",
     "likes": 0,
     "comments": 0,
-    "views": 8,
+    "views": 15,
     "caption": "POV: you finally romanticized your daily city walk ✨🤍\n\nWhere is your favorite pl"
    },
    {
@@ -106,7 +161,7 @@
     "at": "2026-11-24T16:31:03+0000",
     "likes": 0,
     "comments": 0,
-    "views": 0,
+    "views": 2,
     "caption": "Wait for the little detail nobody noticed at first... 🤎✨\nHow would you style thi"
    },
    {
@@ -175,7 +230,16 @@
    }
   ],
   "aesthetic/youtube": [],
-  "gta/instagram": [],
+  "gta/instagram": [
+   {
+    "url": "https://www.instagram.com/reel/DgImRc7iEFk/",
+    "at": "2026-11-24T18:28:27+0000",
+    "likes": 0,
+    "comments": 0,
+    "views": 0,
+    "caption": "Bro tried to hide from 5 stars in Assetsgalaxy.\nAbsolute zero survival IQ.\nWould"
+   }
+  ],
   "gta/youtube": [],
   "horror/youtube": [],
   "aesthetic/facebook": [
@@ -196,7 +260,36 @@
     "caption": "Wait for the little detail nobody noticed at first... 🤎✨\nHow would you style thi"
    }
   ],
-  "gta/facebook": []
+  "gta/facebook": [
+   {
+    "url": "https://www.facebook.com/reel/1202032072483959/",
+    "at": "2026-11-24T18:28:35+0000",
+    "views": 0,
+    "likes": null,
+    "comments": null,
+    "caption": "Bro tried to hide from 5 stars in Assetsgalaxy.\nAbsolute zero survival IQ.\nWould"
+   }
+  ],
+  "horror/instagram": [
+   {
+    "url": "https://www.instagram.com/reel/DgIm1-2gqwe/",
+    "at": "2026-11-24T18:33:05+0000",
+    "likes": 0,
+    "comments": 0,
+    "views": 0,
+    "caption": "Something is watching you.\nWould you survive this?\nDrop your thoughts below. 🕯️\n"
+   }
+  ],
+  "horror/facebook": [
+   {
+    "url": "https://www.facebook.com/reel/1051733707939081/",
+    "at": "2026-11-24T18:33:16+0000",
+    "views": 0,
+    "likes": null,
+    "comments": null,
+    "caption": "Something is watching you.\nWould you survive this?\nDrop your thoughts below. 🕯️\n"
+   }
+  ]
  },
- "updated": "2026-11-24T23:34:03+05:30"
+ "updated": "2026-11-25T00:09:48+05:30"
 }

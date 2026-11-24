@@ -34,16 +34,16 @@ th{color:var(--mut);font-weight:500}a{color:#8ab4ff;text-decoration:none}
 .status{display:flex;gap:14px;flex-wrap:wrap;align-items:center;font-size:13.5px}
 .dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--ok);margin-right:6px}.dot.late{background:var(--warn)}.dot.dead{background:var(--yt)}
 </style></head><body><main>
-<header><h1>YTS Autopilot <small class="mut">· total audience 12</small></h1><span class="mut">followers updated 2026-11-24 23:34 IST</span></header>
+<header><h1>YTS Autopilot <small class="mut">· total audience 165</small></h1><span class="mut">followers &amp; views updated <b data-ago="2026-11-25T00:09:48+05:30">2026-11-25 00:09</b></span></header>
 <section class="card"><div class="status">
   <span><span id="dot" class="dot"></span>Bot last ran <b id="lastrun" data-t="2026-11-25T00:04:29+05:30">2026-11-25 00:04</b></span>
-  <span class="mut">checks every 30 min · page refreshes by itself when new data arrives</span>
+  <span class="mut">next update <b id="nextrun">soon</b> · the bot refreshes every number every 15 min and this page reloads by itself</span>
   <span class="mut" id="livestate"></span></div></section>
 <section class="card"><h2>📦 Videos <span class="pill ok">live count</span>
-  <span class="mut" style="font-weight:400">counted <span data-ago="2026-11-25T00:04:29+05:30">2026-11-25 00:04</span></span></h2>
+  <span class="mut" style="font-weight:400">counted <span data-ago="2026-11-25T00:09:34+05:30">2026-11-25 00:09</span></span></h2>
 <div class="scroll"><table>
 <tr><th>page</th><th>in Drive</th><th>new</th><th>posted (all time)</th><th>left to post</th><th>posted today</th><th>next post</th><th>dupes / failed</th><th>days left</th></tr>
-<tr><td><b>Bliss n Glow — aesthetic girl reels</b></td><td class="num">2,041</td><td class="num okc">2,039</td><td><span class="">IG <b>2</b></span> · <span class="">FB <b>2</b></span></td><td><span class="">IG <b>2,039</b></span> · <span class="">FB <b>2,039</b></span></td><td><span class="">IG <b>0</b></span> · <span class="">FB <b>0</b></span> <span class="mut">/ 2</span></td><td>12pm today</td><td class="num">0 / 0</td><td class="num">1,019</td></tr><tr><td><b>Wanted Level — GTA 6</b></td><td class="num">89</td><td class="num okc">88</td><td><span class="">IG <b>1</b></span> · <span class="">FB <b>1</b></span></td><td><span class="">IG <b>88</b></span> · <span class="">FB <b>88</b></span></td><td><span class="">IG <b>0</b></span> · <span class="">FB <b>0</b></span> <span class="mut">/ 2</span></td><td>12pm today</td><td class="num">0 / 0</td><td class="num">44</td></tr><tr><td><b>Darr Diaries — horror</b></td><td class="num">866</td><td class="num okc">864</td><td><span class="">IG <b>1</b></span> · <span class="">FB <b>1</b></span></td><td><span class="">IG <b>864</b></span> · <span class="">FB <b>864</b></span></td><td><span class="">IG <b>1</b></span> · <span class="">FB <b>1</b></span> <span class="mut">/ 2</span></td><td>8pm today</td><td class="num">1 / 0</td><td class="num">432</td></tr></table></div>
+<tr><td><b>Bliss n Glow — aesthetic girl reels</b></td><td class="num">2,041</td><td class="num okc">2,039</td><td><span class="">IG <b>2</b></span> · <span class="">FB <b>2</b></span></td><td><span class="">IG <b>2,039</b></span> · <span class="">FB <b>2,039</b></span></td><td><span class="">IG <b>0</b></span> · <span class="">FB <b>0</b></span> <span class="mut">/ 2</span></td><td>12pm today</td><td class="num">0 / 0</td><td class="num">1,019</td></tr><tr><td><b>Wanted Level — GTA 6</b></td><td class="num">107</td><td class="num okc">106</td><td><span class="">IG <b>1</b></span> · <span class="">FB <b>1</b></span></td><td><span class="">IG <b>106</b></span> · <span class="">FB <b>106</b></span></td><td><span class="">IG <b>0</b></span> · <span class="">FB <b>0</b></span> <span class="mut">/ 2</span></td><td>12pm today</td><td class="num">0 / 0</td><td class="num">53</td></tr><tr><td><b>Darr Diaries — horror</b></td><td class="num">866</td><td class="num okc">864</td><td><span class="">IG <b>1</b></span> · <span class="">FB <b>1</b></span></td><td><span class="">IG <b>864</b></span> · <span class="">FB <b>864</b></span></td><td><span class="">IG <b>1</b></span> · <span class="">FB <b>1</b></span> <span class="mut">/ 2</span></td><td>8pm today</td><td class="num">1 / 0</td><td class="num">432</td></tr></table></div>
 <p class="mut">in Drive = every video in the niche folder incl. _posted/_duplicates/_failed · new = never posted anywhere ·
 left to post = videos each platform still hasn't posted · days left = how long the stock lasts at the current posts/day.</p></section>
 
@@ -57,7 +57,7 @@ left to post = videos each platform still hasn't posted · days left = how long 
         <div class="meta">0.0% of 100k goal ·
           7d: — ·
           posts 7d: 2</div>
-        <div class="sparkwrap instagram"><div class="nodata">chart appears after 2 days of data</div></div>
+        <div class="sparkwrap instagram"><svg viewBox="0 0 220 46" class="spark" preserveAspectRatio="none"><polyline points="0.0,42.0 220.0,42.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg></div>
       </div>
       <div class="acct facebook">
         <div class="row"><span class="badge facebook">FB</span><b>Bliss N Glow (Page)</b></div>
@@ -66,7 +66,7 @@ left to post = videos each platform still hasn't posted · days left = how long 
         <div class="meta">0.0% of 10k goal ·
           7d: — ·
           posts 7d: 2</div>
-        <div class="sparkwrap facebook"><div class="nodata">chart appears after 2 days of data</div></div>
+        <div class="sparkwrap facebook"><svg viewBox="0 0 220 46" class="spark" preserveAspectRatio="none"><polyline points="0.0,42.0 220.0,42.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg></div>
       </div>
       <div class="acct youtube">
         <div class="row"><span class="badge youtube">YT</span><b>@blissnglowshorts</b><span class="pill warn">waiting for API audit</span></div>
@@ -75,11 +75,11 @@ left to post = videos each platform still hasn't posted · days left = how long 
         <div class="meta">0.0% of 10k goal ·
           7d: — ·
           posts 7d: 0</div>
-        <div class="sparkwrap youtube"><div class="nodata">chart appears after 2 days of data</div></div>
+        <div class="sparkwrap youtube"><svg viewBox="0 0 220 46" class="spark" preserveAspectRatio="none"><polyline points="0.0,42.0 220.0,42.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg></div>
       </div></div>
     </section>
     <section class="card">
-      <h2>Wanted Level — GTA 6 <span class="pill ok">88 new videos in Drive</span></h2>
+      <h2>Wanted Level — GTA 6 <span class="pill ok">106 new videos in Drive</span></h2>
       <div class="accts">
       <div class="acct instagram">
         <div class="row"><span class="badge instagram">IG</span><b>@wanted_level_yts</b></div>
@@ -88,7 +88,7 @@ left to post = videos each platform still hasn't posted · days left = how long 
         <div class="meta">0.0% of 100k goal ·
           7d: — ·
           posts 7d: 1</div>
-        <div class="sparkwrap instagram"><div class="nodata">chart appears after 2 days of data</div></div>
+        <div class="sparkwrap instagram"><svg viewBox="0 0 220 46" class="spark" preserveAspectRatio="none"><polyline points="0.0,42.0 220.0,42.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg></div>
       </div>
       <div class="acct facebook">
         <div class="row"><span class="badge facebook">FB</span><b>Wanted Level (Page)</b></div>
@@ -97,7 +97,7 @@ left to post = videos each platform still hasn't posted · days left = how long 
         <div class="meta">0.0% of 10k goal ·
           7d: — ·
           posts 7d: 1</div>
-        <div class="sparkwrap facebook"><div class="nodata">chart appears after 2 days of data</div></div>
+        <div class="sparkwrap facebook"><svg viewBox="0 0 220 46" class="spark" preserveAspectRatio="none"><polyline points="0.0,42.0 220.0,42.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg></div>
       </div>
       <div class="acct youtube">
         <div class="row"><span class="badge youtube">YT</span><b>@WantedLevel-YTS</b><span class="pill warn">waiting for API audit</span></div>
@@ -106,15 +106,15 @@ left to post = videos each platform still hasn't posted · days left = how long 
         <div class="meta">0.0% of 10k goal ·
           7d: — ·
           posts 7d: 0</div>
-        <div class="sparkwrap youtube"><div class="nodata">chart appears after 2 days of data</div></div>
+        <div class="sparkwrap youtube"><svg viewBox="0 0 220 46" class="spark" preserveAspectRatio="none"><polyline points="0.0,42.0 220.0,42.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg></div>
       </div></div>
     </section>
     <section class="card">
       <h2>Darr Diaries — horror <span class="pill ok">864 new videos in Drive</span></h2>
       <div class="accts">
       <div class="acct instagram">
-        <div class="row"><span class="badge instagram">IG</span><b>@darrdiaries_yts</b><span class="pill">not connected</span></div>
-        <div class="big">— <small>followers</small></div>
+        <div class="row"><span class="badge instagram">IG</span><b>@darrdiaries_yts</b></div>
+        <div class="big">0 <small>followers</small></div>
         <div class="bar"><i style="width:0.00%"></i></div>
         <div class="meta">0.0% of 100k goal ·
           7d: — ·
@@ -122,10 +122,10 @@ left to post = videos each platform still hasn't posted · days left = how long 
         <div class="sparkwrap instagram"><div class="nodata">chart appears after 2 days of data</div></div>
       </div>
       <div class="acct facebook">
-        <div class="row"><span class="badge facebook">FB</span><b>Darr Diaries (Page)</b><span class="pill">not connected</span></div>
-        <div class="big">— <small>followers</small></div>
-        <div class="bar"><i style="width:0.00%"></i></div>
-        <div class="meta">0.0% of 10k goal ·
+        <div class="row"><span class="badge facebook">FB</span><b>Darr Diaries (Page)</b></div>
+        <div class="big">153 <small>followers</small></div>
+        <div class="bar"><i style="width:1.53%"></i></div>
+        <div class="meta">1.5% of 10k goal ·
           7d: — ·
           posts 7d: 1</div>
         <div class="sparkwrap facebook"><div class="nodata">chart appears after 2 days of data</div></div>
@@ -137,11 +137,11 @@ left to post = videos each platform still hasn't posted · days left = how long 
         <div class="meta">0.0% of 10k goal ·
           7d: — ·
           posts 7d: 0</div>
-        <div class="sparkwrap youtube"><div class="nodata">chart appears after 2 days of data</div></div>
+        <div class="sparkwrap youtube"><svg viewBox="0 0 220 46" class="spark" preserveAspectRatio="none"><polyline points="0.0,42.0 220.0,42.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg></div>
       </div></div>
     </section>
 <section class="card"><h2>🎬 Posts by page <span class="pill">every niche · every channel</span></h2>
-<div class="pniche"><h3>Bliss n Glow — aesthetic girl reels</h3><div class="pcols"><div class="pcol instagram"><div class="phead"><span class="badge instagram">IG</span><b>@bliss_nglow</b><span class="mut">today 0 · total 2</span></div><ol class="plist"><li><a href="https://www.instagram.com/reel/DgIcpT8DoRN/" target="_blank">POV: you finally romanticized your daily city walk ✨🤍</a><div class="pmeta">24 Nov, 10:34 pm · 👁 8 · ♥ 0</div></li><li><a href="https://www.instagram.com/reel/DgIY4n7ALuq/" target="_blank">Wait for the little detail nobody noticed at first... 🤎✨</a><div class="pmeta">24 Nov, 10:01 pm · 👁 0 · ♥ 0</div></li><li><a href="https://www.instagram.com/reel/DYUV2ekSlaH/" target="_blank">I really Love myself 
+<div class="pniche"><h3>Bliss n Glow — aesthetic girl reels</h3><div class="pcols"><div class="pcol instagram"><div class="phead"><span class="badge instagram">IG</span><b>@bliss_nglow</b><span class="mut">today 0 · total 2</span></div><ol class="plist"><li><a href="https://www.instagram.com/reel/DgIcpT8DoRN/" target="_blank">POV: you finally romanticized your daily city walk ✨🤍</a><div class="pmeta">24 Nov, 10:34 pm · 👁 15 · ♥ 0</div></li><li><a href="https://www.instagram.com/reel/DgIY4n7ALuq/" target="_blank">Wait for the little detail nobody noticed at first... 🤎✨</a><div class="pmeta">24 Nov, 10:01 pm · 👁 2 · ♥ 0</div></li><li><a href="https://www.instagram.com/reel/DYUV2ekSlaH/" target="_blank">I really Love myself 
 .
 .
 .
@@ -163,7 +163,7 @@ left to post = videos each platform still hasn't posted · days left = how long 
 .
 .
 .#dailylife #instagramreels #model #lif</a><div class="pmeta">13 May, 6:48 pm · 👁 4 · ♥ 2</div></li><li><a href="https://www.instagram.com/reel/DYOj3XkSplY/" target="_blank">Working Time - Coffee Time #coffee #instagramreels #dailylife #lifesty</a><div class="pmeta">12 May, 11:22 am · 👁 2 · ♥ 1</div></li><li><a href="https://www.instagram.com/reel/DYJpeIaSadR/" target="_blank">Back to routine 💖
-#model #instagramreels #reelsoftheday #dailylife #li</a><div class="pmeta">10 May, 1:34 pm · 👁 4 · ♥ 1</div></li><li><a href="https://www.instagram.com/reel/DYGYC_wSpkU/" target="_blank">post</a><div class="pmeta">9 May, 7:03 am · 👁 3 · ♥ 1</div></li><li><a href="https://www.instagram.com/reel/DLzJurcoRmN/" target="_blank">POV: Life For The Day ✨✨#pov #dailylife #lifestyle #instagramreels #re</a><div class="pmeta">7 Jul, 1:38 pm · 👁 10 · ♥ 2</div></li></ol></div><div class="pcol facebook"><div class="phead"><span class="badge facebook">FB</span><b>Bliss N Glow</b><span class="mut">today 0 · total 2</span></div><ol class="plist"><li><a href="https://www.facebook.com/reel/1641162040836163/" target="_blank">POV: you finally romanticized your daily city walk ✨🤍</a><div class="pmeta">24 Nov, 10:34 pm · 👁 0</div></li><li><a href="https://www.facebook.com/reel/1040816592366573/" target="_blank">Wait for the little detail nobody noticed at first... 🤎✨</a><div class="pmeta">24 Nov, 10:34 pm · 👁 0</div></li></ol></div><div class="pcol youtube"><div class="phead"><span class="badge youtube">YT</span><b>@blissnglowshorts</b><span class="mut">today 0 · total 0</span></div><ol class="plist"><li class="mut">waiting for API audit</li></ol></div></div></div><div class="pniche"><h3>Wanted Level — GTA 6</h3><div class="pcols"><div class="pcol instagram"><div class="phead"><span class="badge instagram">IG</span><b>@wanted_level_yts</b><span class="mut">today 0 · total 1</span></div><ol class="plist"><li><a href="https://www.instagram.com/reel/DgImRc7iEFk/" target="_blank">Bro tried to hide from 5 stars in Assetsgalaxy.</a><div class="pmeta">24 Nov, 11:58 pm</div></li></ol></div><div class="pcol facebook"><div class="phead"><span class="badge facebook">FB</span><b>Wanted Level</b><span class="mut">today 0 · total 1</span></div><ol class="plist"><li><a href="https://www.facebook.com/reel/1202032072483959/" target="_blank">Bro tried to hide from 5 stars in Assetsgalaxy.</a><div class="pmeta">24 Nov, 11:59 pm</div></li></ol></div><div class="pcol youtube"><div class="phead"><span class="badge youtube">YT</span><b>@WantedLevel-YTS</b><span class="mut">today 0 · total 0</span></div><ol class="plist"><li class="mut">waiting for API audit</li></ol></div></div></div><div class="pniche"><h3>Darr Diaries — horror</h3><div class="pcols"><div class="pcol instagram"><div class="phead"><span class="badge instagram">IG</span><b>@darrdiaries_yts</b><span class="mut">today 1 · total 1</span></div><ol class="plist"><li><a href="https://www.instagram.com/reel/DgIm1-2gqwe/" target="_blank">Something is watching you.</a><div class="pmeta">25 Nov, 12:03 am</div></li></ol></div><div class="pcol facebook"><div class="phead"><span class="badge facebook">FB</span><b>Darr Diaries</b><span class="mut">today 1 · total 1</span></div><ol class="plist"><li><a href="https://www.facebook.com/reel/1051733707939081/" target="_blank">Something is watching you.</a><div class="pmeta">25 Nov, 12:03 am</div></li></ol></div><div class="pcol youtube"><div class="phead"><span class="badge youtube">YT</span><b>@DarrDiaries-YTS</b><span class="mut">today 0 · total 0</span></div><ol class="plist"><li class="mut">waiting for API audit</li></ol></div></div></div></section>
+#model #instagramreels #reelsoftheday #dailylife #li</a><div class="pmeta">10 May, 1:34 pm · 👁 4 · ♥ 1</div></li><li><a href="https://www.instagram.com/reel/DYGYC_wSpkU/" target="_blank">post</a><div class="pmeta">9 May, 7:03 am · 👁 3 · ♥ 1</div></li><li><a href="https://www.instagram.com/reel/DLzJurcoRmN/" target="_blank">POV: Life For The Day ✨✨#pov #dailylife #lifestyle #instagramreels #re</a><div class="pmeta">7 Jul, 1:38 pm · 👁 10 · ♥ 2</div></li></ol></div><div class="pcol facebook"><div class="phead"><span class="badge facebook">FB</span><b>Bliss N Glow</b><span class="mut">today 0 · total 2</span></div><ol class="plist"><li><a href="https://www.facebook.com/reel/1641162040836163/" target="_blank">POV: you finally romanticized your daily city walk ✨🤍</a><div class="pmeta">24 Nov, 10:34 pm · 👁 0</div></li><li><a href="https://www.facebook.com/reel/1040816592366573/" target="_blank">Wait for the little detail nobody noticed at first... 🤎✨</a><div class="pmeta">24 Nov, 10:34 pm · 👁 0</div></li></ol></div><div class="pcol youtube"><div class="phead"><span class="badge youtube">YT</span><b>@blissnglowshorts</b><span class="mut">today 0 · total 0</span></div><ol class="plist"><li class="mut">waiting for API audit</li></ol></div></div></div><div class="pniche"><h3>Wanted Level — GTA 6</h3><div class="pcols"><div class="pcol instagram"><div class="phead"><span class="badge instagram">IG</span><b>@wanted_level_yts</b><span class="mut">today 0 · total 1</span></div><ol class="plist"><li><a href="https://www.instagram.com/reel/DgImRc7iEFk/" target="_blank">Bro tried to hide from 5 stars in Assetsgalaxy.</a><div class="pmeta">24 Nov, 11:58 pm · 👁 0 · ♥ 0</div></li></ol></div><div class="pcol facebook"><div class="phead"><span class="badge facebook">FB</span><b>Wanted Level</b><span class="mut">today 0 · total 1</span></div><ol class="plist"><li><a href="https://www.facebook.com/reel/1202032072483959/" target="_blank">Bro tried to hide from 5 stars in Assetsgalaxy.</a><div class="pmeta">24 Nov, 11:59 pm · 👁 0</div></li></ol></div><div class="pcol youtube"><div class="phead"><span class="badge youtube">YT</span><b>@WantedLevel-YTS</b><span class="mut">today 0 · total 0</span></div><ol class="plist"><li class="mut">waiting for API audit</li></ol></div></div></div><div class="pniche"><h3>Darr Diaries — horror</h3><div class="pcols"><div class="pcol instagram"><div class="phead"><span class="badge instagram">IG</span><b>@darrdiaries_yts</b><span class="mut">today 1 · total 1</span></div><ol class="plist"><li><a href="https://www.instagram.com/reel/DgIm1-2gqwe/" target="_blank">Something is watching you.</a><div class="pmeta">25 Nov, 12:03 am · 👁 0 · ♥ 0</div></li></ol></div><div class="pcol facebook"><div class="phead"><span class="badge facebook">FB</span><b>Darr Diaries</b><span class="mut">today 1 · total 1</span></div><ol class="plist"><li><a href="https://www.facebook.com/reel/1051733707939081/" target="_blank">Something is watching you.</a><div class="pmeta">25 Nov, 12:03 am · 👁 0</div></li></ol></div><div class="pcol youtube"><div class="phead"><span class="badge youtube">YT</span><b>@DarrDiaries-YTS</b><span class="mut">today 0 · total 0</span></div><ol class="plist"><li class="mut">waiting for API audit</li></ol></div></div></div></section>
 <section class="card"><h2>📈 Niche Trends <span class="pill">what others are winning with</span></h2>
 <p class="mut">Twice a week the bot studies the most-viewed new Shorts and Instagram hashtags in each niche, then tests
 the best ideas on your pages. Full report: <a href="https://github.com/yusufnoor786/YTS--Automations/blob/main/TRENDS.md" target="_blank">TRENDS.md</a></p>
@@ -206,15 +206,17 @@ Score above 0 = better than usual. Full history: <a href="https://github.com/yus
 <tr><th>time</th><th>status</th><th>details</th></tr><tr><td>2026-11-25 00:04</td><td>✅</td><td>aesthetic/all: nothing due — next slot 12pm (today: 12pm, 11pm); gta/all: nothing due — next slot 12pm (today: 12pm, 9pm); horror/all: nothing due — next slot 7pm (today: 7pm, 8pm)</td></tr><tr><td>2026-11-25 00:03</td><td>✅</td><td>aesthetic/all: daily limit reached (2); gta/instagram: ✅ https://www.instagram.com/reel/DgImRc7iEFk/; gta/facebook: ✅ https://www.facebook.com/reel/1202032072483959/; horror/instagram: ✅ https://www.instagram.com/reel/DgIm1-2gqwe/; horror/facebook: ✅ https://www.facebook.com/reel/1051733707939081/</td></tr><tr><td>2026-11-24 23:32</td><td>✅</td><td>aesthetic/all: daily limit reached (2); gta/instagram: ⚠️ no new videos in Drive; gta/facebook: ⚠️ no new videos in Drive; gta/drive: ⚠️ only 0 new videos left — refill Drive; horror/—: no platform connected yet</td></tr><tr><td>2026-11-24 23:02</td><td>✅</td><td>aesthetic/all: daily limit reached (2); gta/instagram: ⚠️ no new videos in Drive; gta/facebook: ⚠️ no new videos in Drive; gta/drive: ⚠️ only 0 new videos left — refill Drive; horror/—: no platform connected yet</td></tr><tr><td>2026-11-24 22:34</td><td>✅</td><td>aesthetic/instagram: ✅ https://www.instagram.com/reel/DgIcpT8DoRN/; aesthetic/facebook: ✅ https://www.facebook.com/reel/1641162040836163/; gta/instagram: ⚠️ no new videos in Drive; gta/facebook: ⚠️ no new videos in Drive; gta/drive: ⚠️ only 0 new videos left — refill Drive; horror/—: no platform con</td></tr><tr><td>2026-11-24 22:01</td><td>❌ 1</td><td>aesthetic/instagram: ✅ https://www.instagram.com/reel/DgIY4n7ALuq/; aesthetic/facebook: ❌ FBError: Unsupported get request. Object with ID &#x27;1040816592366573&#x27; does not exist, cannot be loaded due to missing permissions, or does not support this opera; gta/instagram: ⚠️ no new videos in Drive; gta/fac</td></tr></table></div></section>
 </main>
 <script>
-const BUILT="2026-11-25T00:04:29+05:30";
+const BUILT="2026-11-25T00:09:51+05:30";
 function ago(t){if(!t)return"never";const m=Math.round((Date.now()-new Date(t))/60000);
  if(m<1)return"just now";if(m<60)return m+" min ago";const h=Math.floor(m/60);return h+"h "+(m%60)+"m ago";}
 function tick(){const lr=document.getElementById("lastrun");const t=lr.dataset.t;lr.textContent=ago(t);
- const m=t?(Date.now()-new Date(t))/60000:1e9;document.getElementById("dot").className="dot"+(m>75?" dead":m>40?" late":"");
- document.querySelectorAll("[data-ago]").forEach(e=>e.textContent=ago(e.dataset.ago));}
+ const m=t?(Date.now()-new Date(t))/60000:1e9;document.getElementById("dot").className="dot"+(m>60?" dead":m>30?" late":"");
+ document.querySelectorAll("[data-ago]").forEach(e=>e.textContent=ago(e.dataset.ago));
+ const q=15*60000, nxt=Math.ceil((Date.now()-90000)/q)*q+90000+150000, mm=Math.max(0,Math.round((nxt-Date.now())/60000));
+ document.getElementById("nextrun").textContent= mm<=1?"any moment":"in ~"+mm+" min";}
 async function poll(){try{const r=await fetch("https://api.github.com/repos/yusufnoor786/YTS--Automations/contents/docs/live.json?ref=main",
  {headers:{Accept:"application/vnd.github.raw+json"},cache:"no-store"});if(!r.ok)return;const j=await r.json();
  if(j.built&&new Date(j.built)>new Date(BUILT)){document.getElementById("livestate").textContent="new data — refreshing…";
- setTimeout(()=>location.reload(),45000);}}catch(e){}}
+ setTimeout(()=>location.reload(),60000);}}catch(e){}}
 tick();setInterval(tick,20000);poll();setInterval(poll,120000);
 </script></body></html>
