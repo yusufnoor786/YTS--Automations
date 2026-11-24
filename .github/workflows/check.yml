@@ -38,6 +38,8 @@ jobs:
       YT_TOKEN_COMEDY: ${{ secrets.YT_TOKEN_COMEDY }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main   # always the newest state, even when this run waited in the queue
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"

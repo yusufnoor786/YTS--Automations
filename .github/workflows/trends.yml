@@ -44,6 +44,8 @@ jobs:
       YT_TOKEN_COMEDY: ${{ secrets.YT_TOKEN_COMEDY }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main   # always the newest state, even when this run waited in the queue
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -62,5 +64,5 @@ jobs:
           git add state docs; for f in TRENDS.md GROWTH_LOG.md; do [ -f "$f" ] && git add "$f"; done
           git diff --cached --quiet && exit 0
           git commit -q -m "bot: update state [skip ci]"
-          for i in 1 2 3 4; do git pull -q --rebase --autostash && git push -q && exit 0; sleep $((i*5)); done
+          for i in 1 2 3 4; do git pull -q --rebase --autostash -X theirs && git push -q && exit 0; sleep $((i*5)); done
           exit 1
