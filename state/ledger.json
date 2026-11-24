@@ -1,1 +1,10 @@
-{"version": 1, "videos": {}, "runs": []}
+{
+ "version": 1,
+ "videos": {},
+ "runs": [],
+ "stock": {
+  "aesthetic": 1673,
+  "gta": 0,
+  "horror": 866
+ }
+}

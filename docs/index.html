@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>YTS Autopilot — Dashboard</title>
 <style>
-:root{--bg:#0f1115;--card:#171a21;--line:#262b36;--txt:#e8eaf0;--mut:#8b93a7;--ig:#e1306c;--yt:#ff3d3d;--ok:#2fbf71;--warn:#e0a526}
+:root{--bg:#0f1115;--card:#171a21;--line:#262b36;--txt:#e8eaf0;--mut:#8b93a7;--ig:#e1306c;--yt:#ff3d3d;--fb:#1877f2;--ok:#2fbf71;--warn:#e0a526}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
 main{max-width:1100px;margin:0 auto;padding:20px 16px 60px}
 header{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:18px}
@@ -13,11 +13,11 @@ h1{font-size:22px;margin:0}h2{font-size:16px;margin:0 0 12px;display:flex;gap:10
 .accts{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
 .acct{border:1px solid var(--line);border-radius:12px;padding:12px}
 .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.badge{font-size:11px;font-weight:700;padding:2px 6px;border-radius:6px;color:#fff}.badge.instagram{background:var(--ig)}.badge.youtube{background:var(--yt)}
+.badge{font-size:11px;font-weight:700;padding:2px 6px;border-radius:6px;color:#fff}.badge.instagram{background:var(--ig)}.badge.youtube{background:var(--yt)}.badge.facebook{background:var(--fb)}
 .big{font-size:28px;font-weight:700;margin:6px 0 4px}.big small{font-size:13px;color:var(--mut);font-weight:400}
 .bar{height:6px;background:var(--line);border-radius:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--ok)}
 .meta{color:var(--mut);font-size:12.5px;margin-top:6px}
-.sparkwrap{margin-top:8px}.sparkwrap.instagram{color:var(--ig)}.sparkwrap.youtube{color:var(--yt)}
+.sparkwrap{margin-top:8px}.sparkwrap.instagram{color:var(--ig)}.sparkwrap.youtube{color:var(--yt)}.sparkwrap.facebook{color:var(--fb)}
 .spark{width:100%;height:46px}.nodata{color:var(--mut);font-size:12px}
 .pill{font-size:12px;font-weight:500;padding:2px 8px;border-radius:99px;border:1px solid var(--line);color:var(--mut)}
 .pill.ok{color:var(--ok);border-color:var(--ok)}.pill.bad{color:var(--yt);border-color:var(--yt)}.pill.warn{color:var(--warn);border-color:var(--warn)}
@@ -25,24 +25,33 @@ table{width:100%;border-collapse:collapse;font-size:13.5px}td,th{text-align:left
 th{color:var(--mut);font-weight:500}a{color:#8ab4ff;text-decoration:none}
 .scroll{overflow-x:auto}
 </style></head><body><main>
-<header><h1>YTS Autopilot</h1><span class="mut">updated — IST</span></header>
+<header><h1>YTS Autopilot <small class="mut">· total audience 12</small></h1><span class="mut">updated 2026-11-24 18:43 IST</span></header>
 
     <section class="card">
-      <h2>Bliss n Glow — aesthetic girl reels </h2>
+      <h2>Bliss n Glow — aesthetic girl reels <span class="pill ok">1673 videos left in Drive</span></h2>
       <div class="accts">
       <div class="acct instagram">
-        <div class="row"><span class="badge instagram">IG</span><b>@bliss_nglow</b><span class="pill">not connected</span></div>
-        <div class="big">— <small>followers</small></div>
+        <div class="row"><span class="badge instagram">IG</span><b>@bliss_nglow</b></div>
+        <div class="big">2 <small>followers</small></div>
         <div class="bar"><i style="width:0.00%"></i></div>
         <div class="meta">0.0% of 100k goal ·
           7d: — ·
           posts 7d: 0</div>
         <div class="sparkwrap instagram"><div class="nodata">chart appears after 2 days of data</div></div>
+      </div>
+      <div class="acct facebook">
+        <div class="row"><span class="badge facebook">FB</span><b>Bliss N Glow (Page)</b><span class="pill">not connected</span></div>
+        <div class="big">— <small>followers</small></div>
+        <div class="bar"><i style="width:0.00%"></i></div>
+        <div class="meta">0.0% of 10k goal ·
+          7d: — ·
+          posts 7d: 0</div>
+        <div class="sparkwrap facebook"><div class="nodata">chart appears after 2 days of data</div></div>
       </div>
       <div class="acct youtube">
         <div class="row"><span class="badge youtube">YT</span><b>@blissnglowshorts</b><span class="pill warn">waiting for API audit</span></div>
-        <div class="big">— <small>subscribers</small></div>
-        <div class="bar"><i style="width:0.00%"></i></div>
+        <div class="big">1 <small>subscribers</small></div>
+        <div class="bar"><i style="width:0.01%"></i></div>
         <div class="meta">0.0% of 10k goal ·
           7d: — ·
           posts 7d: 0</div>
@@ -50,20 +59,29 @@ th{color:var(--mut);font-weight:500}a{color:#8ab4ff;text-decoration:none}
       </div></div>
     </section>
     <section class="card">
-      <h2>Wanted Level — GTA 6 </h2>
+      <h2>Wanted Level — GTA 6 <span class="pill bad">0 videos left in Drive</span></h2>
       <div class="accts">
       <div class="acct instagram">
-        <div class="row"><span class="badge instagram">IG</span><b>@wanted_level_yts</b><span class="pill">not connected</span></div>
-        <div class="big">— <small>followers</small></div>
-        <div class="bar"><i style="width:0.00%"></i></div>
+        <div class="row"><span class="badge instagram">IG</span><b>@wanted_level_yts</b></div>
+        <div class="big">7 <small>followers</small></div>
+        <div class="bar"><i style="width:0.01%"></i></div>
         <div class="meta">0.0% of 100k goal ·
           7d: — ·
           posts 7d: 0</div>
         <div class="sparkwrap instagram"><div class="nodata">chart appears after 2 days of data</div></div>
       </div>
+      <div class="acct facebook">
+        <div class="row"><span class="badge facebook">FB</span><b>Wanted Level (Page)</b><span class="pill">not connected</span></div>
+        <div class="big">— <small>followers</small></div>
+        <div class="bar"><i style="width:0.00%"></i></div>
+        <div class="meta">0.0% of 10k goal ·
+          7d: — ·
+          posts 7d: 0</div>
+        <div class="sparkwrap facebook"><div class="nodata">chart appears after 2 days of data</div></div>
+      </div>
       <div class="acct youtube">
         <div class="row"><span class="badge youtube">YT</span><b>@WantedLevel-YTS</b><span class="pill warn">waiting for API audit</span></div>
-        <div class="big">— <small>subscribers</small></div>
+        <div class="big">0 <small>subscribers</small></div>
         <div class="bar"><i style="width:0.00%"></i></div>
         <div class="meta">0.0% of 10k goal ·
           7d: — ·
@@ -72,7 +90,7 @@ th{color:var(--mut);font-weight:500}a{color:#8ab4ff;text-decoration:none}
       </div></div>
     </section>
     <section class="card">
-      <h2>Darr Diaries — horror </h2>
+      <h2>Darr Diaries — horror <span class="pill ok">866 videos left in Drive</span></h2>
       <div class="accts">
       <div class="acct instagram">
         <div class="row"><span class="badge instagram">IG</span><b>@darrdiaries_yts</b><span class="pill">not connected</span></div>
@@ -83,10 +101,19 @@ th{color:var(--mut);font-weight:500}a{color:#8ab4ff;text-decoration:none}
           posts 7d: 0</div>
         <div class="sparkwrap instagram"><div class="nodata">chart appears after 2 days of data</div></div>
       </div>
+      <div class="acct facebook">
+        <div class="row"><span class="badge facebook">FB</span><b>Darr Diaries (Page)</b><span class="pill">not connected</span></div>
+        <div class="big">— <small>followers</small></div>
+        <div class="bar"><i style="width:0.00%"></i></div>
+        <div class="meta">0.0% of 10k goal ·
+          7d: — ·
+          posts 7d: 0</div>
+        <div class="sparkwrap facebook"><div class="nodata">chart appears after 2 days of data</div></div>
+      </div>
       <div class="acct youtube">
         <div class="row"><span class="badge youtube">YT</span><b>@DarrDiaries-YTS</b><span class="pill warn">waiting for API audit</span></div>
-        <div class="big">— <small>subscribers</small></div>
-        <div class="bar"><i style="width:0.00%"></i></div>
+        <div class="big">2 <small>subscribers</small></div>
+        <div class="bar"><i style="width:0.02%"></i></div>
         <div class="meta">0.0% of 10k goal ·
           7d: — ·
           posts 7d: 0</div>
@@ -94,7 +121,29 @@ th{color:var(--mut);font-weight:500}a{color:#8ab4ff;text-decoration:none}
       </div></div>
     </section>
 <section class="card"><h2>Latest posts</h2><div class="scroll"><table>
-<tr><th>account</th><th>post</th><th>views</th><th>likes</th><th>comments</th><th>date</th></tr><tr><td colspan="6">No posts yet</td></tr></table></div></section>
+<tr><th>account</th><th>post</th><th>views</th><th>likes</th><th>comments</th><th>date</th></tr><tr><td>aesthetic/instagram</td><td><a href="https://www.instagram.com/reel/DYUV2ekSlaH/" target="_blank">I really Love myself 
+.
+.
+.
+.
+.
+.
+.
+.
+.
+#lifestyle #model #instagramreels #daily</a></td><td>12</td><td>2</td><td>0</td><td>2026-05-14</td></tr><tr><td>aesthetic/instagram</td><td><a href="https://www.instagram.com/reel/DYR7sEwyfKf/" target="_blank">Cat are 😍 
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.#dailylife #instagramreels #model #lifestyle #ca</a></td><td>4</td><td>2</td><td>0</td><td>2026-05-13</td></tr><tr><td>aesthetic/instagram</td><td><a href="https://www.instagram.com/reel/DYOj3XkSplY/" target="_blank">Working Time - Coffee Time #coffee #instagramreels #dailylife #lifestyle #model</a></td><td>2</td><td>1</td><td>0</td><td>2026-05-12</td></tr><tr><td>aesthetic/instagram</td><td><a href="https://www.instagram.com/reel/DYJpeIaSadR/" target="_blank">Back to routine 💖
+#model #instagramreels #reelsoftheday #dailylife #lifestyle</a></td><td>4</td><td>1</td><td>0</td><td>2026-05-10</td></tr></table></div></section>
 <section class="card"><h2>Bot runs</h2><div class="scroll"><table>
 <tr><th>time</th><th>status</th><th>details</th></tr><tr><td colspan="3">No runs yet</td></tr></table></div></section>
 </main></body></html>
