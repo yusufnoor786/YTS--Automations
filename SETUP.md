@@ -129,6 +129,13 @@ python tools/get_meta_tokens.py
 Paste the App ID, App secret and the token. The script prints `IG_ID_…` and `IG_TOKEN_…` for each page,
 and checks that every token **never expires ✅**.
 
+## Step 6d — Facebook Pages (Reels + stats)
+
+The same Facebook Pages also post every reel, Facebook Reels style. The Meta app needs the
+`pages_manage_posts` and `read_insights` permissions, then you re-run the token step. Secrets per Page:
+`FB_PAGE_ID_<NICHE>` and `FB_TOKEN_<NICHE>` (the Page token, never expires).
+Facebook allows 30 API reels per Page per day.
+
 ## Step 7 — Gemini key (for AI captions) — free
 
 <https://aistudio.google.com/apikey> → **Create API key** → `GEMINI_API_KEY`.

@@ -10,7 +10,7 @@ from .util import has_secret
 
 ROOT = Path(__file__).resolve().parent.parent
 CONFIG_PATH = ROOT / "config" / "accounts.yaml"
-PLATFORMS = ("instagram", "youtube")
+PLATFORMS = ("instagram", "youtube", "facebook")
 
 
 @dataclass
@@ -23,6 +23,7 @@ class Niche:
     hashtags: list[str]
     instagram: dict = field(default_factory=dict)
     youtube: dict = field(default_factory=dict)
+    facebook: dict = field(default_factory=dict)
 
     def platform(self, p: str) -> dict:
         return getattr(self, p) or {}
@@ -55,6 +56,8 @@ class Config:
                 continue
             if p == "youtube" and not has_secret(pc["token_secret"]):
                 continue
+            if p == "facebook" and not (has_secret(pc["token_secret"]) and has_secret(pc["page_id_secret"])):
+                continue
             out.append(p)
         return out
 
@@ -72,5 +75,6 @@ def load(path: Path = CONFIG_PATH) -> Config:
             hashtags=list(n.get("hashtags") or []),
             instagram=n.get("instagram") or {},
             youtube=n.get("youtube") or {},
+            facebook=n.get("facebook") or {},
         )
     return Config(raw=raw, niches=niches)

@@ -11,6 +11,7 @@ GitHub Actions — 2×/day per account
   → Gemini caption/title/hashtags → publish → move to _posted
         │
         ├─► Instagram Reels   @bliss_nglow · @wanted_level_yts · @darrdiaries_yts
+        ├─► Facebook Reels    Bliss N Glow · Wanted Level · Darr Diaries (Pages)
         └─► YouTube Shorts    @blissnglowshorts · @WantedLevel-YTS · @DarrDiaries-YTS
         ▼
 Dashboard (GitHub Pages) — followers, goal %, growth, views, videos left

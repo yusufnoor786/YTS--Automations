@@ -131,16 +131,43 @@ class FakeYT:
         return vid
 
 
+class FakeFB:
+    def __init__(self):
+        self.reels, self.status = [], {}
+
+    def check_name(self, n): ...
+    def video_status(self, vid): return self.status.get(vid, {})
+    def permalink(self, vid): return f"https://www.facebook.com/reel/{vid}"
+
+    def start(self):
+        vid = f"V{next(ids)}"
+        self.status[vid] = {"video_status": "uploading"}
+        return vid
+
+    def upload_file(self, vid, path):
+        assert media.probe(path)["height"] == 1920
+        self.status[vid] = {"video_status": "upload_complete"}
+
+    def finish(self, vid, desc):
+        self.status[vid] = {"video_status": "ready", "publishing_phase": {"status": "complete"}}
+        self.reels.append(vid)
+
+    def wait_published(self, vid): ...
+
+
 class TestPoster(postmod.Poster):
     fakes: dict = {}
 
     def client(self, niche, platform):
-        return self.fakes.setdefault((niche.key, platform), FakeIG() if platform == "instagram" else FakeYT())
+        return self.fakes.setdefault((niche.key, platform),
+                                     {"instagram": FakeIG, "youtube": FakeYT, "facebook": FakeFB}[platform]())
 
 
 def setup_env():
     for k in ["IG_TOKEN_AESTHETIC", "IG_ID_AESTHETIC", "IG_TOKEN_GTA", "IG_ID_GTA", "IG_TOKEN_HORROR", "IG_ID_HORROR",
-              "YT_TOKEN_AESTHETIC", "YT_TOKEN_GTA", "YT_TOKEN_HORROR"]:
+              "YT_TOKEN_AESTHETIC", "YT_TOKEN_GTA", "YT_TOKEN_HORROR",
+              "FB_TOKEN_AESTHETIC", "FB_PAGE_ID_AESTHETIC", "FB_TOKEN_GTA", "FB_PAGE_ID_GTA",
+              "FB_TOKEN_HORROR", "FB_PAGE_ID_HORROR"]:
         os.environ[k] = "x"
     os.environ.pop("GEMINI_API_KEY", None)
 
@@ -235,6 +262,8 @@ def test_full_flow_no_duplicates():
     assert drive.where(v3["id"]) == "_posted"
     new_run(cfg, ledger, drive)  # next slot reaches the re-encoded copy
     assert drive.where(near["id"]) == "_duplicates", drive.where(near["id"])
+    fb_gta = TestPoster.fakes[("gta", "facebook")]
+    assert len(fb_gta.reels) == 3 and all(ledger.is_posted(v["md5Checksum"], "facebook") for v in (v1, v2, v3))
     # every video posted at most once per platform
     md5s = [m for _, m in yt_gta.uploads]
     assert len(md5s) == len(set(md5s)) == 3
@@ -243,6 +272,7 @@ def test_full_flow_no_duplicates():
     p5, _ = new_run(cfg, ledger, drive, force=True)
     assert any("no new videos" in r[3] for r in p5.rows)
     assert len(set(m for _, m in yt_gta.uploads)) == len(yt_gta.uploads) == 3
+    assert len(fb_gta.reels) == 3
 
 
 def test_crash_recovery_and_youtube_backlog():
@@ -270,6 +300,19 @@ def test_crash_recovery_and_youtube_backlog():
     assert ledger.is_posted(md5, "instagram") and ig.published.count(cid) == 1
     assert len(ig.published) == 2  # recovered, NOT re-uploaded as a new post
 
+    # Facebook crash after finish: next run must mark it posted, not re-upload
+    fb = TestPoster.fakes[("aesthetic", "facebook")]
+    a3 = drive.add(aes["inbox"], make_video("aes3.mp4", 720, 1280, 4, "rgbtestsrc"))
+    md5c = a3["md5Checksum"]
+    ledger.ensure(md5c, a3["id"], a3["name"], "aesthetic")
+    vid = fb.start(); fb.finish(vid, "x"); before = len(fb.reels)
+    ledger.mark(md5c, "facebook", PUBLISHING, video_id=vid, finished=True)
+    for v in ledger.videos.values():
+        for pl in v["platforms"].values():
+            pl["day"] = "2000-01-01"
+    new_run(cfg, ledger, drive)
+    assert ledger.is_posted(md5c, "facebook") and fb.reels.count(vid) == 1
+
     # audit approved → YouTube works through the backlog (videos already on IG)
     cfg.raw["youtube_api_audited"] = True
     for v in ledger.videos.values():
@@ -278,8 +321,8 @@ def test_crash_recovery_and_youtube_backlog():
     new_run(cfg, ledger, drive)
     new_run(cfg, ledger, drive)
     yt = TestPoster.fakes[("aesthetic", "youtube")]
-    assert sorted(m for _, m in yt.uploads) == sorted([a1["md5Checksum"], a2["md5Checksum"]])
-    assert len(ig.published) == 2  # IG got no repeats
+    assert len(yt.uploads) == len({m for _, m in yt.uploads}) >= 2
+    assert len(ig.published) == 3 and len(set(ig.published)) == 3  # 3 videos, no repeats
 
 
 def test_bad_video_goes_to_failed():

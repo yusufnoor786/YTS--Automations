@@ -48,7 +48,11 @@ niches:
       handle: "@blissnglowshorts"
       token_secret: YT_TOKEN_AESTHETIC
       category_id: "22"        # People & Blogs
-
+    facebook:
+      enabled: true
+      page_name: "Bliss N Glow"
+      token_secret: FB_TOKEN_AESTHETIC
+      page_id_secret: FB_PAGE_ID_AESTHETIC
   gta:
     label: "Wanted Level — GTA 6"
     enabled: true
@@ -67,7 +71,11 @@ niches:
       handle: "@WantedLevel-YTS"
       token_secret: YT_TOKEN_GTA
       category_id: "20"        # Gaming
-
+    facebook:
+      enabled: true
+      page_name: "Wanted Level"
+      token_secret: FB_TOKEN_GTA
+      page_id_secret: FB_PAGE_ID_GTA
   horror:
     label: "Darr Diaries — horror"
     enabled: true
@@ -86,7 +94,11 @@ niches:
       handle: "@DarrDiaries-YTS"
       token_secret: YT_TOKEN_HORROR
       category_id: "24"        # Entertainment
-
+    facebook:
+      enabled: true
+      page_name: "Darr Diaries"
+      token_secret: FB_TOKEN_HORROR
+      page_id_secret: FB_PAGE_ID_HORROR
   # Planned. Accounts not created yet — set enabled: true and fill in once they exist.
   # Use ORIGINAL Mr-Bean-STYLE comedy, not real Mr Bean clips (copyright strikes).
   comedy:
@@ -107,3 +119,8 @@ niches:
       handle: "@CHANGE_ME"
       token_secret: YT_TOKEN_COMEDY
       category_id: "23"        # Comedy
+    facebook:
+      enabled: false
+      page_name: "CHANGE_ME"
+      token_secret: FB_TOKEN_COMEDY
+      page_id_secret: FB_PAGE_ID_COMEDY

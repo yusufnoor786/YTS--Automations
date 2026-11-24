@@ -84,6 +84,19 @@ def main() -> int:
                        f"{p.get('followers_count', 0)} followers, {c.quota_left()} API posts left today")
                 except Exception as e:  # noqa: BLE001
                     bad(f"Instagram @{ig['username']}", str(e)[:200])
+        fb = n.facebook
+        if fb.get("enabled"):
+            if not (has_secret(fb["token_secret"]) and has_secret(fb["page_id_secret"])):
+                bad(f"Facebook '{fb['page_name']}'", f"set secrets {fb['token_secret']} and {fb['page_id_secret']}")
+            else:
+                try:
+                    from .facebook import Facebook
+                    c = Facebook(secret(fb["page_id_secret"]), secret(fb["token_secret"]))
+                    c.check_name(fb.get("page_name"))
+                    p = c.profile()
+                    ok(f"Facebook '{fb['page_name']}'", f"{p.get('followers_count', p.get('fan_count', 0))} followers")
+                except Exception as e:  # noqa: BLE001
+                    bad(f"Facebook '{fb['page_name']}'", str(e)[:200])
         yt = n.youtube
         if yt.get("enabled"):
             if not has_secret(yt["token_secret"]):

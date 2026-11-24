@@ -30,6 +30,14 @@ jobs:
       IG_ID_HORROR: ${{ secrets.IG_ID_HORROR }}
       IG_TOKEN_COMEDY: ${{ secrets.IG_TOKEN_COMEDY }}
       IG_ID_COMEDY: ${{ secrets.IG_ID_COMEDY }}
+      FB_TOKEN_AESTHETIC: ${{ secrets.FB_TOKEN_AESTHETIC }}
+      FB_PAGE_ID_AESTHETIC: ${{ secrets.FB_PAGE_ID_AESTHETIC }}
+      FB_TOKEN_GTA: ${{ secrets.FB_TOKEN_GTA }}
+      FB_PAGE_ID_GTA: ${{ secrets.FB_PAGE_ID_GTA }}
+      FB_TOKEN_HORROR: ${{ secrets.FB_TOKEN_HORROR }}
+      FB_PAGE_ID_HORROR: ${{ secrets.FB_PAGE_ID_HORROR }}
+      FB_TOKEN_COMEDY: ${{ secrets.FB_TOKEN_COMEDY }}
+      FB_PAGE_ID_COMEDY: ${{ secrets.FB_PAGE_ID_COMEDY }}
       YT_TOKEN_AESTHETIC: ${{ secrets.YT_TOKEN_AESTHETIC }}
       YT_TOKEN_GTA: ${{ secrets.YT_TOKEN_GTA }}
       YT_TOKEN_HORROR: ${{ secrets.YT_TOKEN_HORROR }}

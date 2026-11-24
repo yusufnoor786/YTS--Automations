@@ -6,6 +6,7 @@ import json
 import sys
 
 from .config import ROOT, load
+from .facebook import Facebook
 from .instagram import Instagram
 from .ledger import Ledger
 from .util import has_secret, log, now_iso, secret, summary, today
@@ -46,6 +47,24 @@ def collect(cfg, ledger: Ledger) -> dict:
                 day[key] = snap
             except Exception as e:  # noqa: BLE001
                 log.exception("IG stats failed for %s", niche.key)
+                stats["latest"].setdefault(key, {})
+                stats["latest"][key].update({"ok": False, "error": str(e)[:200], "at": now_iso()})
+        fb = niche.facebook
+        if fb.get("enabled") and has_secret(fb["token_secret"]) and has_secret(fb["page_id_secret"]):
+            key = f"{niche.key}/facebook"
+            try:
+                c = Facebook(secret(fb["page_id_secret"]), secret(fb["token_secret"]))
+                prof = c.profile()
+                followers = int(prof.get("followers_count") or prof.get("fan_count") or 0)
+                reels = c.recent_reels(12)
+                stats["latest"][key] = {"followers": followers, "name": prof.get("name"),
+                                        "url": prof.get("link"), "at": now_iso(), "ok": True}
+                stats["recent"][key] = [{"url": r.get("permalink_url"), "at": r.get("created_time"),
+                                         "views": r.get("views"), "likes": None, "comments": None,
+                                         "caption": (r.get("description") or "")[:80]} for r in reels]
+                day[key] = {"followers": followers}
+            except Exception as e:  # noqa: BLE001
+                log.exception("FB stats failed for %s", niche.key)
                 stats["latest"].setdefault(key, {})
                 stats["latest"][key].update({"ok": False, "error": str(e)[:200], "at": now_iso()})
         yt = niche.youtube

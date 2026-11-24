@@ -17,6 +17,7 @@ from pathlib import Path
 from . import captions, media
 from .config import Config, Niche, load
 from .drive import Drive
+from .facebook import Facebook, FBError
 from .instagram import IGError, Instagram
 from .ledger import FAILED, POSTED, PUBLISHING, Ledger
 from .util import MissingSecret, log, secret, summary
@@ -43,6 +44,9 @@ class Poster:
         if platform == "instagram":
             c = Instagram(secret(pc["user_id_secret"]), secret(pc["token_secret"]))
             c.check_username(pc.get("username"))
+        elif platform == "facebook":
+            c = Facebook(secret(pc["page_id_secret"]), secret(pc["token_secret"]))
+            c.check_name(pc.get("page_name"))
         else:
             c = YouTube(pc["token_secret"])
             c.check_handle(pc.get("handle"))
@@ -65,6 +69,16 @@ class Poster:
                 if st == "FINISHED" and not self.dry:
                     res = client.publish(p["container_id"])
                     self.ledger.mark(md5, platform, POSTED, id=res["id"], url=res["url"], recovered=True)
+                    continue
+            if platform == "facebook" and p.get("video_id"):
+                try:
+                    st = client.video_status(p["video_id"])
+                except FBError:
+                    st = {}
+                if (st.get("publishing_phase") or {}).get("status") in ("complete", "in_progress") or \
+                        st.get("video_status") in ("ready", "processing") and p.get("finished"):
+                    self.ledger.mark(md5, platform, POSTED, id=p["video_id"],
+                                     url=client.permalink(p["video_id"]), recovered=True)
                     continue
             if platform == "youtube":
                 vid = client.find_existing(md5)
@@ -144,14 +158,14 @@ class Poster:
                 p = self.ledger.plat(md5, platform)
                 if p.get("status") == PUBLISHING and not isinstance(e, VideoProblem):
                     raise  # may have gone live — next run's recovery checks before retrying
-                if not isinstance(e, VideoProblem) and isinstance(e, (MissingSecret, IGError)):
+                if not isinstance(e, VideoProblem) and isinstance(e, (MissingSecret, IGError, FBError)):
                     raise  # account problem, not the video's fault
                 self.errors += 1
                 att = self.ledger.fail(md5, platform, str(e))
                 log.error("✗ %s on %s: %s (attempt %d/%d)", f["name"], platform, e, att, max_att)
                 self.rows.append((niche.key, platform, f["name"], f"failed ({att}/{max_att}): {str(e)[:80]}"))
                 if att >= max_att and f["_where"] == "inbox" and not any(
-                        self.ledger.is_posted(md5, q) for q in ("instagram", "youtube")):
+                        self.ledger.is_posted(md5, q) for q in ("instagram", "youtube", "facebook")):
                     self._move(f, folders["_failed"])
                 return
             if done == "skip":
@@ -203,7 +217,7 @@ class Poster:
 
         if self.dry:
             log.info("[dry-run] would post %s to %s/%s\n  caption: %s", f["name"], niche.key, platform,
-                     cap["ig_caption"] if platform == "instagram" else cap["yt_title"])
+                     cap["yt_title"] if platform == "youtube" else cap["ig_caption"])
             self.rows.append((niche.key, platform, f["name"], "dry-run OK"))
             return "done"
 
@@ -221,6 +235,19 @@ class Poster:
                     raise VideoProblem(str(e)) from e
                 raise
             res = client.publish(cid)
+        elif platform == "facebook":
+            vid = client.start()
+            self.ledger.mark(md5, platform, PUBLISHING, video_id=vid)
+            client.upload_file(vid, out)
+            client.finish(vid, cap["ig_caption"])
+            self.ledger.mark(md5, platform, PUBLISHING, video_id=vid, finished=True)
+            try:
+                client.wait_published(vid)
+            except FBError as e:
+                if "rejected" in str(e):
+                    raise VideoProblem(str(e)) from e
+                raise
+            res = {"id": vid, "url": client.permalink(vid)}
         else:
             self.ledger.mark(md5, platform, PUBLISHING)
             vid = client.upload(out, md5, cap["yt_title"], cap["yt_description"], cap["yt_tags"],
@@ -259,7 +286,7 @@ class Poster:
                     if not self.force and self.ledger.posted_today(niche.key, platform) >= niche.posts_per_day:
                         continue
                     self.post_one(niche, platform, client, folders)
-                except (MissingSecret, IGError, Exception) as e:  # noqa: BLE001
+                except Exception as e:  # noqa: BLE001
                     self.errors += 1
                     log.exception("%s/%s failed", niche.key, platform)
                     self.rows.append((niche.key, platform, "—", f"❌ {type(e).__name__}: {str(e)[:150]}"))

@@ -7,8 +7,8 @@ from html import escape
 from .config import ROOT
 
 OUT = ROOT / "docs" / "index.html"
-GOALS = {"instagram": 100_000, "youtube": 10_000}
-ICON = {"instagram": "IG", "youtube": "YT"}
+GOALS = {"instagram": 100_000, "youtube": 10_000, "facebook": 10_000}
+ICON = {"instagram": "IG", "youtube": "YT", "facebook": "FB"}
 
 
 def fmt(n) -> str:
@@ -71,7 +71,7 @@ def build(cfg, ledger, stats: dict) -> None:
             continue
         stock = ledger.data.get("stock", {}).get(niche.key)
         accts = []
-        for p in ("instagram", "youtube"):
+        for p in ("instagram", "facebook", "youtube"):
             pc = niche.platform(p)
             if not pc.get("enabled"):
                 continue
@@ -81,7 +81,8 @@ def build(cfg, ledger, stats: dict) -> None:
             goal = GOALS[p]
             pct = min(100, (followers or 0) / goal * 100)
             d7 = delta(stats, key, 7)
-            name = "@" + pc.get("username", "") if p == "instagram" else pc.get("handle", "")
+            name = {"instagram": "@" + pc.get("username", ""), "youtube": pc.get("handle", ""),
+                    "facebook": pc.get("page_name", "") + " (Page)"}[p]
             status = ""
             if p == "youtube" and not cfg.get("youtube_api_audited"):
                 status = '<span class="pill warn">waiting for API audit</span>'
@@ -92,7 +93,7 @@ def build(cfg, ledger, stats: dict) -> None:
             accts.append(f"""
       <div class="acct {p}">
         <div class="row"><span class="badge {p}">{ICON[p]}</span><b>{escape(name)}</b>{status}</div>
-        <div class="big">{fmt(followers)} <small>{'followers' if p == 'instagram' else 'subscribers'}</small></div>
+        <div class="big">{fmt(followers)} <small>{'subscribers' if p == 'youtube' else 'followers'}</small></div>
         <div class="bar"><i style="width:{pct:.2f}%"></i></div>
         <div class="meta">{pct:.1f}% of {fmt(goal)} goal ·
           7d: {('+' if (d7 or 0) >= 0 else '') + fmt(d7) if d7 is not None else '—'} ·
@@ -131,7 +132,7 @@ def build(cfg, ledger, stats: dict) -> None:
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>YTS Autopilot — Dashboard</title>
 <style>
-:root{{--bg:#0f1115;--card:#171a21;--line:#262b36;--txt:#e8eaf0;--mut:#8b93a7;--ig:#e1306c;--yt:#ff3d3d;--ok:#2fbf71;--warn:#e0a526}}
+:root{{--bg:#0f1115;--card:#171a21;--line:#262b36;--txt:#e8eaf0;--mut:#8b93a7;--ig:#e1306c;--yt:#ff3d3d;--fb:#1877f2;--ok:#2fbf71;--warn:#e0a526}}
 *{{box-sizing:border-box}}body{{margin:0;background:var(--bg);color:var(--txt);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}}
 main{{max-width:1100px;margin:0 auto;padding:20px 16px 60px}}
 header{{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:18px}}
@@ -141,11 +142,11 @@ h1{{font-size:22px;margin:0}}h2{{font-size:16px;margin:0 0 12px;display:flex;gap
 .accts{{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}}
 .acct{{border:1px solid var(--line);border-radius:12px;padding:12px}}
 .row{{display:flex;gap:8px;align-items:center;flex-wrap:wrap}}
-.badge{{font-size:11px;font-weight:700;padding:2px 6px;border-radius:6px;color:#fff}}.badge.instagram{{background:var(--ig)}}.badge.youtube{{background:var(--yt)}}
+.badge{{font-size:11px;font-weight:700;padding:2px 6px;border-radius:6px;color:#fff}}.badge.instagram{{background:var(--ig)}}.badge.youtube{{background:var(--yt)}}.badge.facebook{{background:var(--fb)}}
 .big{{font-size:28px;font-weight:700;margin:6px 0 4px}}.big small{{font-size:13px;color:var(--mut);font-weight:400}}
 .bar{{height:6px;background:var(--line);border-radius:6px;overflow:hidden}}.bar i{{display:block;height:100%;background:var(--ok)}}
 .meta{{color:var(--mut);font-size:12.5px;margin-top:6px}}
-.sparkwrap{{margin-top:8px}}.sparkwrap.instagram{{color:var(--ig)}}.sparkwrap.youtube{{color:var(--yt)}}
+.sparkwrap{{margin-top:8px}}.sparkwrap.instagram{{color:var(--ig)}}.sparkwrap.youtube{{color:var(--yt)}}.sparkwrap.facebook{{color:var(--fb)}}
 .spark{{width:100%;height:46px}}.nodata{{color:var(--mut);font-size:12px}}
 .pill{{font-size:12px;font-weight:500;padding:2px 8px;border-radius:99px;border:1px solid var(--line);color:var(--mut)}}
 .pill.ok{{color:var(--ok);border-color:var(--ok)}}.pill.bad{{color:var(--yt);border-color:var(--yt)}}.pill.warn{{color:var(--warn);border-color:var(--warn)}}
@@ -153,7 +154,7 @@ table{{width:100%;border-collapse:collapse;font-size:13.5px}}td,th{{text-align:l
 th{{color:var(--mut);font-weight:500}}a{{color:#8ab4ff;text-decoration:none}}
 .scroll{{overflow-x:auto}}
 </style></head><body><main>
-<header><h1>YTS Autopilot</h1><span class="mut">updated {escape(stats.get("updated", "—")[:16].replace("T", " "))} IST</span></header>
+<header><h1>YTS Autopilot <small class="mut">· total audience {fmt(sum(int(v.get("followers", v.get("subscribers", 0)) or 0) for v in stats.get("latest", {}).values() if v.get("ok")))}</small></h1><span class="mut">updated {escape(stats.get("updated", "—")[:16].replace("T", " "))} IST</span></header>
 {''.join(cards)}
 <section class="card"><h2>Latest posts</h2><div class="scroll"><table>
 <tr><th>account</th><th>post</th><th>views</th><th>likes</th><th>comments</th><th>date</th></tr>{recent_html}</table></div></section>
