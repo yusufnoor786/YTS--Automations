@@ -25,6 +25,12 @@
     "followers": 2,
     "views": 12,
     "posts": 5
+   },
+   "aesthetic/facebook": {
+    "followers": 0
+   },
+   "gta/facebook": {
+    "followers": 0
    }
   }
  },
@@ -33,7 +39,7 @@
    "followers": 2,
    "posts": 8,
    "username": "bliss_nglow",
-   "at": "2026-11-24T18:43:32+05:30",
+   "at": "2026-11-24T21:44:02+05:30",
    "ok": true
   },
   "aesthetic/youtube": {
@@ -42,14 +48,14 @@
    "videos": 0,
    "handle": "@blissnglowshorts",
    "title": "Bliss N Glow",
-   "at": "2026-11-24T18:43:32+05:30",
+   "at": "2026-11-24T21:44:03+05:30",
    "ok": true
   },
   "gta/instagram": {
    "followers": 7,
    "posts": 0,
    "username": "wanted_level_yts",
-   "at": "2026-11-24T18:43:33+05:30",
+   "at": "2026-11-24T21:44:03+05:30",
    "ok": true
   },
   "gta/youtube": {
@@ -58,7 +64,7 @@
    "videos": 0,
    "handle": "@wantedlevel-yts",
    "title": "Wanted Level",
-   "at": "2026-11-24T18:43:34+05:30",
+   "at": "2026-11-24T21:44:04+05:30",
    "ok": true
   },
   "horror/youtube": {
@@ -67,7 +73,21 @@
    "videos": 5,
    "handle": "@darrdiaries-yts",
    "title": "Darr Diaries",
-   "at": "2026-11-24T18:43:34+05:30",
+   "at": "2026-11-24T21:44:04+05:30",
+   "ok": true
+  },
+  "aesthetic/facebook": {
+   "followers": 0,
+   "name": "Bliss N Glow",
+   "url": "https://www.facebook.com/1363246033549819",
+   "at": "2026-11-24T21:44:03+05:30",
+   "ok": true
+  },
+  "gta/facebook": {
+   "followers": 0,
+   "name": "Wanted Level",
+   "url": "https://www.facebook.com/1381962041676039",
+   "at": "2026-11-24T21:44:04+05:30",
    "ok": true
   }
  },
@@ -141,7 +161,9 @@
   "aesthetic/youtube": [],
   "gta/instagram": [],
   "gta/youtube": [],
-  "horror/youtube": []
+  "horror/youtube": [],
+  "aesthetic/facebook": [],
+  "gta/facebook": []
  },
- "updated": "2026-11-24T18:43:34+05:30"
+ "updated": "2026-11-24T21:44:04+05:30"
 }
