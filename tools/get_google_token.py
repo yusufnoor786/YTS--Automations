@@ -34,8 +34,11 @@ def main():
                        "token_uri": "https://oauth2.googleapis.com/token",
                        "redirect_uris": ["http://localhost"]}},
         SCOPES[mode])
-    creds = flow.run_local_server(port=0, prompt="consent", access_type="offline",
-                                  authorization_prompt_message="Opening your browser to log in…")
+    print("\nIf your browser does not open by itself, copy the whole link below into Chrome/Edge")
+    print("(on THIS computer), log in, and allow. Keep this window open until it finishes.\n")
+    creds = flow.run_local_server(port=0, prompt="consent", access_type="offline", open_browser=True,
+                                  authorization_prompt_message="{url}\n",
+                                  success_message="Done! You can close this tab and go back to the black window.")
     if not creds.refresh_token:
         print("No refresh token returned. Remove the app at https://myaccount.google.com/permissions and retry.")
         sys.exit(1)
