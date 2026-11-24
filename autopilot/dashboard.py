@@ -64,6 +64,80 @@ def posts_count(ledger, niche: str, platform: str, days: int) -> int:
                and v["platforms"][platform].get("day", "") >= since)
 
 
+def _when(iso: str) -> str:
+    """'25 Nov, 9:31 pm' in IST."""
+    from datetime import datetime
+    from .util import TZ
+    try:
+        t = datetime.fromisoformat(iso.replace("Z", "+00:00").replace("+0000", "+00:00"))
+    except Exception:  # noqa: BLE001
+        return escape(iso[:16])
+    if t.tzinfo is None:
+        t = t.replace(tzinfo=TZ)
+    t = t.astimezone(TZ)
+    return f"{t.day} {t.strftime('%b')}, {(t.hour % 12) or 12}:{t.minute:02d} {'am' if t.hour < 12 else 'pm'}"
+
+
+def niche_posts(ledger, stats: dict, niche: str, platform: str, n: int = 8) -> list[dict]:
+    """Bot posts from the ledger (real time) merged with the platform's own latest posts (analytics)."""
+    items: dict[str, dict] = {}
+    for v in ledger.videos.values():
+        if v["niche"] != niche:
+            continue
+        pd = v["platforms"].get(platform) or {}
+        if pd.get("status") != "posted":
+            continue
+        cap = v.get("caption") or {}
+        text = (cap.get("yt_title") if platform == "youtube" else (cap.get("ig_caption") or "").split("\n")[0]) or v["name"]
+        key = pd.get("url") or pd.get("id") or v["name"]
+        items[key] = {"url": pd.get("url"), "at": pd.get("at", ""), "text": text, "views": pd.get("views"),
+                      "likes": None, "file": v["name"]}
+    for it in stats.get("recent", {}).get(f"{niche}/{platform}", []):
+        url = it.get("url")
+        match = next((k for k, x in items.items() if url and x.get("url") and
+                      (url.rstrip("/").split("/")[-1] == x["url"].rstrip("/").split("/")[-1])), None)
+        if match:
+            items[match]["views"] = it.get("views") if it.get("views") is not None else items[match]["views"]
+            items[match]["likes"] = it.get("likes")
+            continue
+        items[url or str(len(items))] = {"url": url, "at": it.get("at") or "", "text": it.get("caption") or "post",
+                                         "views": it.get("views"), "likes": it.get("likes"), "file": None}
+    return sorted(items.values(), key=lambda x: x["at"] or "", reverse=True)[:n]
+
+
+def posts_board(cfg, ledger, stats: dict) -> str:
+    blocks = []
+    for niche in cfg.niches.values():
+        if not niche.enabled:
+            continue
+        cols = []
+        for p in ("instagram", "facebook", "youtube"):
+            pc = niche.platform(p)
+            if not pc.get("enabled"):
+                continue
+            name = {"instagram": "@" + pc.get("username", ""), "youtube": pc.get("handle", ""),
+                    "facebook": (pc.get("page_name") if isinstance(pc.get("page_name"), str)
+                                 else (pc.get("page_name") or [""])[0])}[p]
+            posts = niche_posts(ledger, stats, niche.key, p)
+            total = sum(1 for v in ledger.videos.values() if v["niche"] == niche.key
+                        and (v["platforms"].get(p) or {}).get("status") == "posted")
+            today = ledger.posted_today(niche.key, p)
+            rows = "".join(
+                f'<li><a href="{escape(x["url"] or "#")}" target="_blank">{escape((x["text"] or "")[:70])}</a>'
+                f'<div class="pmeta">{_when(x["at"]) if x["at"] else ""}'
+                f'{" · 👁 " + fmt(x["views"]) if x["views"] is not None else ""}'
+                f'{" · ♥ " + fmt(x["likes"]) if x.get("likes") is not None else ""}</div></li>'
+                for x in posts)
+            if not rows:
+                rows = ('<li class="mut">waiting for API audit</li>' if p == "youtube" and not cfg.get("youtube_api_audited")
+                        else '<li class="mut">no posts yet</li>')
+            cols.append(f'<div class="pcol {p}"><div class="phead"><span class="badge {p}">{ICON[p]}</span>'
+                        f'<b>{escape(name)}</b><span class="mut">today {today} · total {total}</span></div>'
+                        f'<ol class="plist">{rows}</ol></div>')
+        blocks.append(f'<div class="pniche"><h3>{escape(niche.label)}</h3><div class="pcols">{"".join(cols)}</div></div>')
+    return "".join(blocks)
+
+
 def build(cfg, ledger, stats: dict) -> None:
     cards = []
     for niche in cfg.niches.values():
@@ -111,16 +185,7 @@ def build(cfg, ledger, stats: dict) -> None:
       <div class="accts">{''.join(accts)}</div>
     </section>""")
 
-    recent_rows = []
-    for key, items in stats.get("recent", {}).items():
-        for it in items[:4]:
-            recent_rows.append((it.get("at") or "", key, it))
-    recent_rows.sort(key=lambda r: r[0], reverse=True)
-    recent_html = "".join(
-        f'<tr><td>{escape(k)}</td><td><a href="{escape(it.get("url") or "#")}" target="_blank">'
-        f'{escape(it.get("caption") or "open")}</a></td><td>{fmt(it.get("views"))}</td>'
-        f'<td>{fmt(it.get("likes"))}</td><td>{fmt(it.get("comments"))}</td><td>{escape((at or "")[:10])}</td></tr>'
-        for at, k, it in recent_rows[:20]) or '<tr><td colspan="6">No posts yet</td></tr>'
+    recent_html = posts_board(cfg, ledger, stats)
 
     from . import growth
     gs = growth.load_state()
@@ -249,6 +314,12 @@ h1{{font-size:22px;margin:0}}h2{{font-size:16px;margin:0 0 12px;display:flex;gap
 table{{width:100%;border-collapse:collapse;font-size:13.5px}}td,th{{text-align:left;padding:7px 6px;border-bottom:1px solid var(--line);vertical-align:top}}
 th{{color:var(--mut);font-weight:500}}a{{color:#8ab4ff;text-decoration:none}}
 .scroll{{overflow-x:auto}}
+.pniche{{margin-top:14px}}.pniche h3{{font-size:15px;margin:0 0 8px}}
+.pcols{{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px}}
+.pcol{{border:1px solid var(--line);border-radius:12px;padding:10px;border-top:3px solid var(--line)}}
+.pcol.instagram{{border-top-color:var(--ig)}}.pcol.facebook{{border-top-color:var(--fb)}}.pcol.youtube{{border-top-color:var(--yt)}}
+.phead{{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px}}.phead .mut{{margin-left:auto}}
+.plist{{margin:0;padding-left:20px;font-size:13.5px}}.plist li{{margin:6px 0}}.pmeta{{color:var(--mut);font-size:12px}}
 .num{{font-variant-numeric:tabular-nums;font-weight:600}}.okc{{color:var(--ok)}}td.bad{{color:var(--yt)}}
 .status{{display:flex;gap:14px;flex-wrap:wrap;align-items:center;font-size:13.5px}}
 .dot{{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--ok);margin-right:6px}}.dot.late{{background:var(--warn)}}.dot.dead{{background:var(--yt)}}
@@ -266,8 +337,8 @@ th{{color:var(--mut);font-weight:500}}a{{color:#8ab4ff;text-decoration:none}}
 <p class="mut">in Drive = every video in the niche folder incl. _posted/_duplicates/_failed · new = never posted anywhere ·
 left to post = videos each platform still hasn't posted · days left = how long the stock lasts at the current posts/day.</p></section>
 {''.join(cards)}
-<section class="card"><h2>Latest posts</h2><div class="scroll"><table>
-<tr><th>account</th><th>post</th><th>views</th><th>likes</th><th>comments</th><th>date</th></tr>{recent_html}</table></div></section>
+<section class="card"><h2>🎬 Posts by page <span class="pill">every niche · every channel</span></h2>
+{recent_html}</section>
 <section class="card"><h2>📈 Niche Trends <span class="pill">what others are winning with</span></h2>
 <p class="mut">Twice a week the bot studies the most-viewed new Shorts and Instagram hashtags in each niche, then tests
 the best ideas on your pages. Full report: <a href="https://github.com/yusufnoor786/YTS--Automations/blob/main/TRENDS.md" target="_blank">TRENDS.md</a></p>
