@@ -18,6 +18,9 @@ drive_root_folder_id: "1NKH5PCvrmoZ1DHNpNMCsClG7PzHbH_OG"
 # YouTube and keeps a backlog — every video is uploaded later, once.
 youtube_api_audited: false
 
+# YouTube API quota per day (raise this after Google approves a higher quota)
+youtube_daily_quota: 10000
+
 # Video rules
 max_video_seconds: 180        # YouTube Shorts limit is 3 min
 min_video_seconds: 3          # Instagram minimum
@@ -35,6 +38,7 @@ growth:
     curiosity: "Open with a curiosity hook that makes people watch till the end ('wait for it', 'nobody noticed…')."
     short: "Ultra short: max 6 words + 1 emoji. No question."
     story: "Tell a tiny 1-line story or confession that sets up the clip."
+    trend: "(filled automatically every week from niche research)"
   tag_counts: [3, 6, 10]
   min_samples: 3        # each option is tried at least this many times before judging
   explore: 0.25         # share of posts that keep testing other options
@@ -53,6 +57,9 @@ niches:
       caption, 1-2 lines, gentle emojis (✨🤍🌸). Vibe: glow-up, self-love,
       soft life. Never describe the person's body.
     hashtags: [aesthetic, thatgirl, softlife, glowup, aestheticvibes, reels, explorepage]
+    research:
+      youtube_queries: ["aesthetic shorts", "glow up routine shorts", "that girl morning routine"]
+      instagram_hashtags: [aesthetic, thatgirl, glowup, softlife, selfcare, aestheticreels]
     instagram:
       enabled: true
       username: bliss_nglow
@@ -76,6 +83,9 @@ niches:
       Hype gaming page about GTA 6 / Vice City. Punchy hook in the first line,
       gamer slang, a question to drive comments ("would you do this?"). 🔥🎮🚔
     hashtags: [gta6, gta, vicecity, rockstargames, gaming, gtaonline, gamingshorts]
+    research:
+      youtube_queries: ["gta 6 shorts", "gta 6 funny moments", "gta 6 hindi"]
+      instagram_hashtags: [gta6, gtavi, vicecity, gtaonline, gamingreels, rockstargames]
     instagram:
       enabled: true
       username: wanted_level_yts
@@ -99,6 +109,9 @@ niches:
       Creepy, suspenseful horror page ("Darr" = fear). Short eerie hook,
       cliff-hanger feel, Hinglish allowed. Ask viewers if they'd survive. 👻🕯️😱
     hashtags: [horror, scary, creepy, horrorstories, paranormal, darr, bhoot]
+    research:
+      youtube_queries: ["horror story hindi shorts", "bhoot ki kahani shorts", "real horror story hindi"]
+      instagram_hashtags: [horrorstories, hindihorror, bhoot, scarystories, paranormal, darr]
     instagram:
       enabled: true
       username: darrdiaries_yts
@@ -124,6 +137,9 @@ niches:
       Silent physical comedy, wholesome and clumsy. Very short funny caption,
       ask "what would you do?". 😂🤦
     hashtags: [comedy, funny, silentcomedy, lol, funnyvideos, relatable]
+    research:
+      youtube_queries: ["silent comedy shorts", "funny shorts india"]
+      instagram_hashtags: [comedy, funnyreels, silentcomedy, lol]
     instagram:
       enabled: false
       username: CHANGE_ME

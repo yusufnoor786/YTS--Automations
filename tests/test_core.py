@@ -475,9 +475,9 @@ def test_growth_lab_learns_and_logs():
     # fake 30 scored posts: 'curiosity' gets 10x views, 'short' gets few
     from datetime import timedelta
     old = (growth.now() - timedelta(hours=60)).isoformat(timespec="seconds")
-    for i in range(50):
-        style = ["curiosity", "short", "question", "relatable", "story"][i % 5]
-        views = {"curiosity": 5000, "short": 50, "question": 500, "relatable": 800, "story": 300}[style]
+    for i in range(60):
+        style = ["curiosity", "short", "question", "relatable", "story", "trend"][i % 6]
+        views = {"curiosity": 5000, "short": 50, "question": 500, "relatable": 800, "story": 300, "trend": 700}[style]
         md5 = f"{i:032x}"
         led.videos[md5] = {"file_id": str(i), "name": f"v{i}", "niche": "aesthetic", "first_seen": old, "phash": None,
                            "caption": {}, "duplicate_of": None,
@@ -494,6 +494,75 @@ def test_growth_lab_learns_and_logs():
     rows = growth.dashboard_rows(cfg, st)
     assert any(r["leader"] and r["option"] == "curiosity" for r in rows)
     growth.save_state(st)
+
+
+
+def test_niche_research_pipeline():
+    from autopilot import trends
+    trends.STATE = TMP / "trends.json"
+    trends.REPORT = TMP / "TRENDS.md"
+    cfg = load()
+    n = cfg.niches["gta"]
+
+    class Exec:
+        def __init__(self, v): self.v = v
+        def execute(self): return self.v
+
+    class Svc:
+        def search(self):
+            class S:
+                def list(_, **kw):
+                    assert kw["videoDuration"] == "short" and kw["order"] == "viewCount"
+                    return Exec({"items": [{"id": {"videoId": f"v{i}"}} for i in range(5)]})
+            return S()
+
+        def videos(self):
+            class V:
+                def list(_, **kw):
+                    items = []
+                    for i, vid in enumerate(kw["id"].split(",")):
+                        items.append({"id": vid, "snippet": {"title": f"GTA 6 police chase insane #{'gta6'} {i}",
+                                      "channelTitle": f"Chan{i % 2}", "description": "#vicecity #gta6",
+                                      "publishedAt": "2026-11-20T10:00:00Z", "tags": ["gta 6"]},
+                                      "statistics": {"viewCount": str(10000 * (i + 1)), "likeCount": "10"},
+                                      "contentDetails": {"duration": "PT0M24S"}})
+                    return Exec({"items": items})
+            return V()
+
+    import autopilot.youtube as ytmod
+    orig = ytmod.YouTube
+    ytmod.YouTube = lambda tok: type("Y", (), {"svc": Svc()})()
+    os.environ["YT_TOKEN_GTA"] = "x"
+    try:
+        yt = trends.youtube_research(cfg, n, 2)
+    finally:
+        ytmod.YouTube = orig
+    assert yt["videos_scanned"] == 5 and yt["top"][0]["views_per_day"] > 0 and "gta6" in yt["hashtags"]
+    assert yt["median_seconds"] == 24
+
+    class FakeIGc:
+        ig = "IG1"
+        def _req(self, method, path, **kw):
+            if path == "ig_hashtag_search":
+                return {"data": [{"id": "H" + kw["q"]}]}
+            return {"data": [{"caption": "wow #gta6 #gtavi #gaming", "like_count": 100, "comments_count": 5,
+                              "media_type": "VIDEO", "permalink": "https://instagram.com/p/x"}]}
+    ig = trends.instagram_research(cfg, n, FakeIGc())
+    assert ig["hashtags"][0]["avg_engagement"] == 110 and "gaming" in ig["related_hashtags"]
+    assert trends.youtube_query_budget(cfg) >= 3
+    st = {"gta": {"updated": "x", "youtube": yt, "instagram": ig,
+                  "plan": {"summary": "Police chases win.", "content_ideas": ["chase compilation"],
+                           "hashtags_to_try": ["gta6", "vicecity"], "new_style": {"name": "chase hype",
+                           "instruction": "Start with 'Cops never saw this coming'."}}}}
+    trends.save_state(st)
+    rep = trends.write_report(cfg, st)
+    assert "Police chases win" in rep and "#vicecity" in rep
+    v = growth.choose_caption_variant(cfg, {"arms": {}, "plans": {}, "leaders": {}, "changes": [], "daily": {}},
+                                      n, "f" * 32)
+    assert v["trend_tags"] == ["gta6", "vicecity"]
+    cfg.raw["growth"]["styles"] = {"trend": "x"}
+    v2 = growth.choose_caption_variant(cfg, {"arms": {}}, n, "e" * 32)
+    assert v2["style"] == "trend" and "Cops never" in v2["style_hint"]
 
 
 if __name__ == "__main__":

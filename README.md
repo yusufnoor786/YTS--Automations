@@ -22,8 +22,9 @@ Dashboard (GitHub Pages) — followers, goal %, growth, views, videos left
 
 | Workflow | When | What |
 |---|---|---|
-| Post videos | 12:47 / 19:13 / 21:41 IST | posts up to `posts_per_day` per account |
+| Post videos | hourly :47, 7:47–23:47 IST | posts at the hours the Growth Lab picked (posts_per_day each) |
 | Analytics | 23:37 IST | followers, subs, views → dashboard |
+| Niche research | Wed + Sat 09:11 IST | top Shorts, hashtags & ideas in each niche → TRENDS.md |
 | Check setup | manual | tests every connection, shows ✅/❌ |
 
 Code: `autopilot/` (Python) · settings: `config/accounts.yaml` · memory: `state/ledger.json` · tests: `python tests/test_core.py`

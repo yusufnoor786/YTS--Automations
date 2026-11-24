@@ -24,6 +24,7 @@ class Niche:
     instagram: dict = field(default_factory=dict)
     youtube: dict = field(default_factory=dict)
     facebook: dict = field(default_factory=dict)
+    research: dict = field(default_factory=dict)
 
     def platform(self, p: str) -> dict:
         return getattr(self, p) or {}
@@ -77,5 +78,6 @@ def load(path: Path = CONFIG_PATH) -> Config:
             instagram=n.get("instagram") or {},
             youtube=n.get("youtube") or {},
             facebook=n.get("facebook") or {},
+            research=n.get("research") or {},
         )
     return Config(raw=raw, niches=niches)

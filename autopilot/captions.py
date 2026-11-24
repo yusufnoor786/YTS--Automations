@@ -97,6 +97,7 @@ Voice and style: {niche.style}
 
 Look at the attached frames from the video. Write in the page's voice. Hook in the first 5 words.
 Caption style for this post (follow it): {variant.get("style_hint", "your best viral style")}
+{("Hashtags trending in this niche this week (use the ones that fit): " + ", ".join(variant.get("trend_tags") or [])) if variant.get("trend_tags") else ""}
 No fake claims, no clickbait lies, don't mention "frames" or "video clip". Max 2 emojis per line.
 Return ONLY JSON with these keys:
   "ig_caption": 1-3 short lines, ends with a question or call to comment, NO hashtags,

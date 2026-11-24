@@ -138,6 +138,29 @@ def build(cfg, ledger, stats: dict) -> None:
     changes_html = "".join(f"<li>{escape(c['at'][:10])} — {escape(c['text']).replace('**', '')}</li>"
                            for c in gs.get("changes", [])[-8:][::-1]) or "<li>No changes yet.</li>"
 
+    from . import trends
+    tstate = trends.load_state()
+    trend_cards = []
+    for key, d in tstate.items():
+        n = cfg.niches.get(key)
+        if not n or not isinstance(d, dict):
+            continue
+        yt, plan = d.get("youtube", {}), d.get("plan", {}) or {}
+        top = "".join(f'<li><a href="{escape(x["url"])}" target="_blank">{escape(x["title"][:70])}</a> '
+                      f'<span class="mut">· {escape(x["channel"][:22])} · {fmt(x["views_per_day"])}/day · {x["seconds"]}s</span></li>'
+                      for x in yt.get("top", [])[:5]) or f'<li class="mut">{escape(yt.get("skipped", "no data yet"))}</li>'
+        ideas = "".join(f"<li>{escape(i)}</li>" for i in plan.get("content_ideas", [])[:5])
+        tags = " ".join("#" + escape(t) for t in plan.get("hashtags_to_try", [])[:8])
+        style = plan.get("new_style") or {}
+        trend_cards.append(f"""<div class="acct"><b>{escape(n.label)}</b>
+<p class="mut">{escape(plan.get("summary", ""))}</p>
+<div class="mut">Top Shorts in this niche (7 days):</div><ul>{top}</ul>
+{"<div class='mut'>Ideas to film:</div><ul>" + ideas + "</ul>" if ideas else ""}
+{"<div class='mut'>Hashtags being tested: " + tags + "</div>" if tags else ""}
+{"<div class='mut'>New caption style being tested: <b>" + escape(style.get("name", "")) + "</b> — " + escape(style.get("instruction", "")) + "</div>" if style else ""}
+<div class="mut" style="margin-top:6px">updated {escape(str(d.get("updated", ""))[:10])}</div></div>""")
+    trends_html = "".join(trend_cards) or '<p class="mut">First research runs on Wednesday / Saturday.</p>'
+
     runs = ledger.data.get("runs", [])[-12:][::-1]
     runs_html = "".join(
         f'<tr><td>{escape(r.get("at", "")[:16].replace("T", " "))}</td>'
@@ -176,6 +199,10 @@ th{{color:var(--mut);font-weight:500}}a{{color:#8ab4ff;text-decoration:none}}
 {''.join(cards)}
 <section class="card"><h2>Latest posts</h2><div class="scroll"><table>
 <tr><th>account</th><th>post</th><th>views</th><th>likes</th><th>comments</th><th>date</th></tr>{recent_html}</table></div></section>
+<section class="card"><h2>📈 Niche Trends <span class="pill">what others are winning with</span></h2>
+<p class="mut">Twice a week the bot studies the most-viewed new Shorts and Instagram hashtags in each niche, then tests
+the best ideas on your pages. Full report: <a href="https://github.com/yusufnoor786/YTS--Automations/blob/main/TRENDS.md" target="_blank">TRENDS.md</a></p>
+<div class="accts">{trends_html}</div></section>
 <section class="card"><h2>🧪 Growth Lab <span class="pill">what's working</span></h2>
 <p class="mut">The bot tests posting times, caption styles and hashtag amounts, scores every post by its views
 after 48 hours (vs. that account's normal), and shifts toward the winners while still testing.

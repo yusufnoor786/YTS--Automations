@@ -39,6 +39,7 @@ DEFAULTS = {
         "curiosity": "Open with a curiosity hook that makes people watch till the end ('wait for it', 'nobody noticed…').",
         "short": "Ultra short: max 6 words + 1 emoji. No question.",
         "story": "Tell a tiny 1-line story or confession that sets up the clip.",
+        "trend": "(filled automatically every week from niche research)",
     },
     "tag_counts": [3, 6, 10],
     "min_samples": 3,
@@ -126,7 +127,16 @@ def choose_caption_variant(cfg, state: dict, niche, md5: str) -> dict:
     rng = random.Random(f"{md5}-{today()}")
     style = _pick(cfg, state, niche.key, "style", rng)
     tags = _pick(cfg, state, niche.key, "tags", rng)
-    return {"style": style, "style_hint": settings(cfg)["styles"][style], "tags": int(tags)}
+    hint = settings(cfg)["styles"].get(style, "")
+    try:
+        from .trends import niche_hints
+        th = niche_hints(niche.key)
+    except Exception:  # noqa: BLE001
+        th = {}
+    if style == "trend":
+        hint = th.get("style") or settings(cfg)["styles"].get("curiosity", "")
+    return {"style": style, "style_hint": hint, "tags": int(tags),
+            "trend_tags": th.get("hashtags", []), "trend_ideas": th.get("ideas", [])[:3]}
 
 
 # ── scoring ──────────────────────────────────────────────────
