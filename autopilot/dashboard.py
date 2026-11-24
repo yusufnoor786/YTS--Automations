@@ -181,7 +181,7 @@ def build(cfg, ledger, stats: dict) -> None:
     plat_short = {"instagram": "IG", "facebook": "FB", "youtube": "YT"}
 
     def per_plat(d: dict, active: list, cls: str = "") -> str:
-        return " · ".join(f'<span class="{cls}">{plat_short[p]} <b>{fmt(d.get(p, 0)) if d.get(p) is not None else "—"}</b></span>'
+        return " · ".join(f'<span class="{cls}">{plat_short[p]} <b>{d[p]:,}</b></span>' if d.get(p) is not None else f"{plat_short[p]} —"
                           for p in ("instagram", "facebook", "youtube") if p in active) or "—"
 
     inv_rows = []
@@ -195,17 +195,21 @@ def build(cfg, ledger, stats: dict) -> None:
         act = iv.get("active") or []
         nh = iv.get("next_hour")
         nxt = ("due now" if iv.get("due_now") else growth._label("hour", nh) + " today") if nh is not None else "tomorrow"
+        if not act:
+            nxt = "no page connected"
+        elif not any((iv.get("left") or {}).values()):
+            nxt = "⚠️ add videos to Drive"
         low = iv.get("new", 0) <= cfg.get("low_stock_warning", 5)
         inv_rows.append(
             f'<tr><td><b>{escape(niche.label)}</b></td>'
-            f'<td class="num">{iv.get("in_drive", 0)}</td>'
-            f'<td class="num {"bad" if low else "okc"}">{iv.get("new", 0)}</td>'
+            f'<td class="num">{iv.get("in_drive", 0):,}</td>'
+            f'<td class="num {"bad" if low else "okc"}">{iv.get("new", 0):,}</td>'
             f'<td>{per_plat(iv.get("posted", {}), act)}</td>'
             f'<td>{per_plat(iv.get("left", {}), act)}</td>'
             f'<td>{per_plat(iv.get("posted_today", {}), act)} <span class="mut">/ {iv.get("per_day")}</span></td>'
             f'<td>{escape(nxt)}</td>'
             f'<td class="num">{iv.get("duplicates", 0)} / {iv.get("failed", 0)}</td>'
-            f'<td class="num">{iv.get("days_left", 0)}</td></tr>')
+            f'<td class="num">{iv.get("days_left", 0):,}</td></tr>')
     inv_html = "".join(inv_rows)
     inv_at = max((v.get("at", "") for v in inv_all.values()), default="")
 
