@@ -1,10 +1,219 @@
 {
  "version": 1,
- "videos": {},
- "runs": [],
+ "videos": {
+  "c2f6e2ca76ecc1dadcc1df031269302c": {
+   "file_id": "1vQFiM-LkcMui1LIiqfKOtKKgmL15mNmc",
+   "name": "NICOLE~1.MP4",
+   "niche": "aesthetic",
+   "first_seen": "2026-11-24T21:59:40+05:30",
+   "phash": [
+    15561893191097545925,
+    14531349588712069809,
+    17544743645385126162
+   ],
+   "caption": {
+    "ig_caption": "Wait for the little detail nobody noticed at first... 🤎✨\nHow would you style this piece? 🤍\n.\n.\n#aestheticreels #thatgirl #softlife #explore #aesthetic",
+    "yt_title": "Wait for it... nobody noticed this little detail ✨🤍 #shorts",
+    "yt_description": "Embracing quiet city strolls and soft mornings in neutral layers. ☕️🤎\n\n#thatgirlaesthetic #softlife #neutraloutfit #citystrolls #aestheticreels",
+    "yt_tags": [
+     "thatgirlaesthetic",
+     "softlife",
+     "neutraloutfit",
+     "citystrolls",
+     "aestheticreels",
+     "quietluxury",
+     "morningroutine",
+     "fallfashion",
+     "cozyvibes",
+     "dailystyling",
+     "aesthetic",
+     "thatgirl",
+     "glowup",
+     "aestheticvibes",
+     "reels"
+    ],
+    "source": "gemini"
+   },
+   "duplicate_of": null,
+   "platforms": {
+    "instagram": {
+     "status": "posted",
+     "attempts": 0,
+     "updated": "2026-11-24T22:01:09+05:30",
+     "container_id": "17922491196529906",
+     "at": "2026-11-24T22:01:09+05:30",
+     "day": "2026-11-24",
+     "id": "18135701224760541",
+     "url": "https://www.instagram.com/reel/DgIY4n7ALuq/"
+    },
+    "facebook": {
+     "status": "publishing",
+     "attempts": 0,
+     "updated": "2026-11-24T22:01:24+05:30",
+     "video_id": "1040816592366573",
+     "finished": true
+    }
+   },
+   "variant": {
+    "style": "trend",
+    "tags": 5,
+    "hour": 22
+   }
+  }
+ },
+ "runs": [
+  {
+   "type": "post",
+   "errors": 1,
+   "rows": [
+    [
+     "aesthetic",
+     "instagram",
+     "NICOLE~1.MP4",
+     "✅ https://www.instagram.com/reel/DgIY4n7ALuq/"
+    ],
+    [
+     "aesthetic",
+     "facebook",
+     "—",
+     "❌ FBError: Unsupported get request. Object with ID '1040816592366573' does not exist, cannot be loaded due to missing permissions, or does not support this opera"
+    ],
+    [
+     "gta",
+     "instagram",
+     "—",
+     "⚠️ no new videos in Drive"
+    ],
+    [
+     "gta",
+     "facebook",
+     "—",
+     "⚠️ no new videos in Drive"
+    ],
+    [
+     "gta",
+     "drive",
+     "—",
+     "⚠️ only 0 new videos left — refill Drive"
+    ],
+    [
+     "horror",
+     "—",
+     "—",
+     "no platform connected yet"
+    ]
+   ],
+   "at": "2026-11-24T22:01:38+05:30"
+  }
+ ],
  "stock": {
-  "aesthetic": 2041,
+  "aesthetic": 2040,
   "gta": 0,
-  "horror": 866
+  "horror": 865
+ },
+ "inventory": {
+  "aesthetic": {
+   "at": "2026-11-24T22:01:30+05:30",
+   "in_drive": 2041,
+   "inbox": 2040,
+   "posted_folder": 1,
+   "duplicates": 0,
+   "failed": 0,
+   "new": 2040,
+   "left": {
+    "instagram": 2040,
+    "facebook": 2041
+   },
+   "posted": {
+    "instagram": 1,
+    "facebook": 0,
+    "youtube": 0
+   },
+   "posted_today": {
+    "instagram": 1,
+    "facebook": 0,
+    "youtube": 0
+   },
+   "per_day": 2,
+   "active": [
+    "instagram",
+    "facebook"
+   ],
+   "days_left": 1020,
+   "plan_today": [
+    18,
+    21
+   ],
+   "next_hour": 18,
+   "due_now": true
+  },
+  "gta": {
+   "at": "2026-11-24T22:01:34+05:30",
+   "in_drive": 0,
+   "inbox": 0,
+   "posted_folder": 0,
+   "duplicates": 0,
+   "failed": 0,
+   "new": 0,
+   "left": {
+    "instagram": 0,
+    "facebook": 0
+   },
+   "posted": {
+    "instagram": 0,
+    "facebook": 0,
+    "youtube": 0
+   },
+   "posted_today": {
+    "instagram": 0,
+    "facebook": 0,
+    "youtube": 0
+   },
+   "per_day": 2,
+   "active": [
+    "instagram",
+    "facebook"
+   ],
+   "days_left": 0,
+   "plan_today": [
+    18,
+    20
+   ],
+   "next_hour": 18,
+   "due_now": true
+  },
+  "horror": {
+   "at": "2026-11-24T22:01:38+05:30",
+   "in_drive": 866,
+   "inbox": 866,
+   "posted_folder": 0,
+   "duplicates": 1,
+   "failed": 0,
+   "new": 865,
+   "left": {
+    "instagram": 865
+   },
+   "posted": {
+    "instagram": 0,
+    "facebook": 0,
+    "youtube": 0
+   },
+   "posted_today": {
+    "instagram": 0,
+    "facebook": 0,
+    "youtube": 0
+   },
+   "per_day": 2,
+   "active": [
+    "instagram"
+   ],
+   "days_left": 432,
+   "plan_today": [
+    8,
+    15
+   ],
+   "next_hour": 8,
+   "due_now": true
+  }
  }
 }
