@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>YTS Autopilot — Dashboard</title>
+<style>
+:root{--bg:#0f1115;--card:#171a21;--line:#262b36;--txt:#e8eaf0;--mut:#8b93a7;--ig:#e1306c;--yt:#ff3d3d;--ok:#2fbf71;--warn:#e0a526}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:20px 16px 60px}
+header{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+h1{font-size:22px;margin:0}h2{font-size:16px;margin:0 0 12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.mut{color:var(--mut);font-size:13px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
+.accts{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.acct{border:1px solid var(--line);border-radius:12px;padding:12px}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.badge{font-size:11px;font-weight:700;padding:2px 6px;border-radius:6px;color:#fff}.badge.instagram{background:var(--ig)}.badge.youtube{background:var(--yt)}
+.big{font-size:28px;font-weight:700;margin:6px 0 4px}.big small{font-size:13px;color:var(--mut);font-weight:400}
+.bar{height:6px;background:var(--line);border-radius:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--ok)}
+.meta{color:var(--mut);font-size:12.5px;margin-top:6px}
+.sparkwrap{margin-top:8px}.sparkwrap.instagram{color:var(--ig)}.sparkwrap.youtube{color:var(--yt)}
+.spark{width:100%;height:46px}.nodata{color:var(--mut);font-size:12px}
+.pill{font-size:12px;font-weight:500;padding:2px 8px;border-radius:99px;border:1px solid var(--line);color:var(--mut)}
+.pill.ok{color:var(--ok);border-color:var(--ok)}.pill.bad{color:var(--yt);border-color:var(--yt)}.pill.warn{color:var(--warn);border-color:var(--warn)}
+table{width:100%;border-collapse:collapse;font-size:13.5px}td,th{text-align:left;padding:7px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--mut);font-weight:500}a{color:#8ab4ff;text-decoration:none}
+.scroll{overflow-x:auto}
+</style></head><body><main>
+<header><h1>YTS Autopilot</h1><span class="mut">updated — IST</span></header>
+
+    <section class="card">
+      <h2>Bliss n Glow — aesthetic girl reels </h2>
+      <div class="accts">
+      <div class="acct instagram">
+        <div class="row"><span class="badge instagram">IG</span><b>@bliss_nglow</b><span class="pill">not connected</span></div>
+        <div class="big">— <small>followers</small></div>
+        <div class="bar"><i style="width:0.00%"></i></div>
+        <div class="meta">0.0% of 100k goal ·
+          7d: — ·
+          posts 7d: 0</div>
+        <div class="sparkwrap instagram"><div class="nodata">chart appears after 2 days of data</div></div>
+      </div>
+      <div class="acct youtube">
+        <div class="row"><span class="badge youtube">YT</span><b>@blissnglowshorts</b><span class="pill warn">waiting for API audit</span></div>
+        <div class="big">— <small>subscribers</small></div>
+        <div class="bar"><i style="width:0.00%"></i></div>
+        <div class="meta">0.0% of 10k goal ·
+          7d: — ·
+          posts 7d: 0</div>
+        <div class="sparkwrap youtube"><div class="nodata">chart appears after 2 days of data</div></div>
+      </div></div>
+    </section>
+    <section class="card">
+      <h2>Wanted Level — GTA 6 </h2>
+      <div class="accts">
+      <div class="acct instagram">
+        <div class="row"><span class="badge instagram">IG</span><b>@wanted_level_yts</b><span class="pill">not connected</span></div>
+        <div class="big">— <small>followers</small></div>
+        <div class="bar"><i style="width:0.00%"></i></div>
+        <div class="meta">0.0% of 100k goal ·
+          7d: — ·
+          posts 7d: 0</div>
+        <div class="sparkwrap instagram"><div class="nodata">chart appears after 2 days of data</div></div>
+      </div>
+      <div class="acct youtube">
+        <div class="row"><span class="badge youtube">YT</span><b>@WantedLevel-YTS</b><span class="pill warn">waiting for API audit</span></div>
+        <div class="big">— <small>subscribers</small></div>
+        <div class="bar"><i style="width:0.00%"></i></div>
+        <div class="meta">0.0% of 10k goal ·
+          7d: — ·
+          posts 7d: 0</div>
+        <div class="sparkwrap youtube"><div class="nodata">chart appears after 2 days of data</div></div>
+      </div></div>
+    </section>
+    <section class="card">
+      <h2>Darr Diaries — horror </h2>
+      <div class="accts">
+      <div class="acct instagram">
+        <div class="row"><span class="badge instagram">IG</span><b>@darrdiaries_yts</b><span class="pill">not connected</span></div>
+        <div class="big">— <small>followers</small></div>
+        <div class="bar"><i style="width:0.00%"></i></div>
+        <div class="meta">0.0% of 100k goal ·
+          7d: — ·
+          posts 7d: 0</div>
+        <div class="sparkwrap instagram"><div class="nodata">chart appears after 2 days of data</div></div>
+      </div>
+      <div class="acct youtube">
+        <div class="row"><span class="badge youtube">YT</span><b>@DarrDiaries-YTS</b><span class="pill warn">waiting for API audit</span></div>
+        <div class="big">— <small>subscribers</small></div>
+        <div class="bar"><i style="width:0.00%"></i></div>
+        <div class="meta">0.0% of 10k goal ·
+          7d: — ·
+          posts 7d: 0</div>
+        <div class="sparkwrap youtube"><div class="nodata">chart appears after 2 days of data</div></div>
+      </div></div>
+    </section>
+<section class="card"><h2>Latest posts</h2><div class="scroll"><table>
+<tr><th>account</th><th>post</th><th>views</th><th>likes</th><th>comments</th><th>date</th></tr><tr><td colspan="6">No posts yet</td></tr></table></div></section>
+<section class="card"><h2>Bot runs</h2><div class="scroll"><table>
+<tr><th>time</th><th>status</th><th>details</th></tr><tr><td colspan="3">No runs yet</td></tr></table></div></section>
+</main></body></html>

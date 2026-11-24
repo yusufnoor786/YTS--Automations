@@ -1,0 +1,87 @@
+name: Post videos
+
+on:
+  schedule:
+    # times are UTC → 12:47, 19:13 and 21:41 IST. posts_per_day caps the total;
+    # the 3rd slot only posts if an earlier slot failed or was skipped.
+    - cron: "17 7 * * *"
+    - cron: "43 13 * * *"
+    - cron: "11 16 * * *"
+  workflow_dispatch:
+    inputs:
+      niche:
+        description: "Only this niche (aesthetic / gta / horror). Empty = all"
+        required: false
+        default: ""
+      dry_run:
+        description: "Dry run — prepare everything but don't publish"
+        type: boolean
+        default: false
+      force:
+        description: "Ignore today's posts_per_day limit (posts 1 more)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: yts-state
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      YTS_TZ: Asia/Kolkata
+      GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+      GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+      GDRIVE_REFRESH_TOKEN: ${{ secrets.GDRIVE_REFRESH_TOKEN }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      IG_TOKEN_AESTHETIC: ${{ secrets.IG_TOKEN_AESTHETIC }}
+      IG_ID_AESTHETIC: ${{ secrets.IG_ID_AESTHETIC }}
+      IG_TOKEN_GTA: ${{ secrets.IG_TOKEN_GTA }}
+      IG_ID_GTA: ${{ secrets.IG_ID_GTA }}
+      IG_TOKEN_HORROR: ${{ secrets.IG_TOKEN_HORROR }}
+      IG_ID_HORROR: ${{ secrets.IG_ID_HORROR }}
+      IG_TOKEN_COMEDY: ${{ secrets.IG_TOKEN_COMEDY }}
+      IG_ID_COMEDY: ${{ secrets.IG_ID_COMEDY }}
+      YT_TOKEN_AESTHETIC: ${{ secrets.YT_TOKEN_AESTHETIC }}
+      YT_TOKEN_GTA: ${{ secrets.YT_TOKEN_GTA }}
+      YT_TOKEN_HORROR: ${{ secrets.YT_TOKEN_HORROR }}
+      YT_TOKEN_COMEDY: ${{ secrets.YT_TOKEN_COMEDY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install
+        run: |
+          command -v ffmpeg >/dev/null || (sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg)
+          pip install -q -r requirements.txt
+      - name: Post
+        env:
+          IN_NICHE: ${{ inputs.niche }}
+          IN_DRY: ${{ inputs.dry_run }}
+          IN_FORCE: ${{ inputs.force }}
+        run: |
+          ARGS=()
+          [ -n "$IN_NICHE" ] && ARGS+=(--niche "$IN_NICHE")
+          [ "$IN_DRY" = "true" ] && ARGS+=(--dry-run)
+          [ "$IN_FORCE" = "true" ] && ARGS+=(--force)
+          python -m autopilot.post "${ARGS[@]}"
+      - name: Rebuild dashboard
+        if: always()
+        run: python -m autopilot.dashboard
+      - name: Save state & dashboard
+        if: always()
+        run: |
+          git config user.name "yts-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add state docs
+          git diff --cached --quiet && exit 0
+          git commit -q -m "bot: update state [skip ci]"
+          for i in 1 2 3 4; do git pull -q --rebase && git push -q && exit 0; sleep $((i*5)); done
+          exit 1

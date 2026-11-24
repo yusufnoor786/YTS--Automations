@@ -1,0 +1,41 @@
+name: Check setup
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      YTS_TZ: Asia/Kolkata
+      GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+      GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+      GDRIVE_REFRESH_TOKEN: ${{ secrets.GDRIVE_REFRESH_TOKEN }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      IG_TOKEN_AESTHETIC: ${{ secrets.IG_TOKEN_AESTHETIC }}
+      IG_ID_AESTHETIC: ${{ secrets.IG_ID_AESTHETIC }}
+      IG_TOKEN_GTA: ${{ secrets.IG_TOKEN_GTA }}
+      IG_ID_GTA: ${{ secrets.IG_ID_GTA }}
+      IG_TOKEN_HORROR: ${{ secrets.IG_TOKEN_HORROR }}
+      IG_ID_HORROR: ${{ secrets.IG_ID_HORROR }}
+      IG_TOKEN_COMEDY: ${{ secrets.IG_TOKEN_COMEDY }}
+      IG_ID_COMEDY: ${{ secrets.IG_ID_COMEDY }}
+      YT_TOKEN_AESTHETIC: ${{ secrets.YT_TOKEN_AESTHETIC }}
+      YT_TOKEN_GTA: ${{ secrets.YT_TOKEN_GTA }}
+      YT_TOKEN_HORROR: ${{ secrets.YT_TOKEN_HORROR }}
+      YT_TOKEN_COMEDY: ${{ secrets.YT_TOKEN_COMEDY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install
+        run: |
+          command -v ffmpeg >/dev/null || (sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg)
+          pip install -q -r requirements.txt
+      - run: python -m autopilot.check

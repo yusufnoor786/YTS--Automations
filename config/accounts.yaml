@@ -1,0 +1,109 @@
+# ─────────────────────────────────────────────────────────────
+#  YTS Autopilot — account configuration
+#  Only edit the values marked "EDIT". Everything else is automatic.
+# ─────────────────────────────────────────────────────────────
+
+timezone: Asia/Kolkata
+
+# EDIT: the ID of ONE Google Drive folder called "YTS".
+# Open the folder in Drive → copy the last part of the URL:
+#   https://drive.google.com/drive/folders/THIS_PART_IS_THE_ID
+# The bot creates one sub-folder per niche inside it (aesthetic, gta, horror …)
+# and, inside each, _posted / _duplicates / _failed.
+drive_root_folder_id: "PASTE_YTS_FOLDER_ID_HERE"
+
+# EDIT: set to true ONLY after Google approves your YouTube API audit
+# (see SETUP.md step 6). Until then, YouTube uploads made through the API are
+# force-locked to Private by YouTube and cannot be appealed, so the bot skips
+# YouTube and keeps a backlog — every video is uploaded later, once.
+youtube_api_audited: false
+
+# Video rules
+max_video_seconds: 180        # YouTube Shorts limit is 3 min
+min_video_seconds: 3          # Instagram minimum
+low_stock_warning: 5          # dashboard warns when a niche has fewer videos left
+max_attempts: 3               # failures per platform before a video goes to _failed
+near_duplicate_threshold: 10  # lower = stricter "same video" detection (0-192)
+
+# Gemini model used for captions (free tier). The alias always points to the latest Flash.
+gemini_model: gemini-flash-latest
+
+niches:
+  aesthetic:
+    label: "Bliss n Glow — aesthetic girl reels"
+    enabled: true
+    posts_per_day: 2
+    style: >
+      Soft, dreamy, feminine "that girl" aesthetic. Short poetic or relatable
+      caption, 1-2 lines, gentle emojis (✨🤍🌸). Vibe: glow-up, self-love,
+      soft life. Never describe the person's body.
+    hashtags: [aesthetic, thatgirl, softlife, glowup, aestheticvibes, reels, explorepage]
+    instagram:
+      enabled: true
+      username: bliss_nglow
+      token_secret: IG_TOKEN_AESTHETIC
+      user_id_secret: IG_ID_AESTHETIC
+    youtube:
+      enabled: true
+      handle: "@blissnglowshorts"
+      token_secret: YT_TOKEN_AESTHETIC
+      category_id: "22"        # People & Blogs
+
+  gta:
+    label: "Wanted Level — GTA 6"
+    enabled: true
+    posts_per_day: 2
+    style: >
+      Hype gaming page about GTA 6 / Vice City. Punchy hook in the first line,
+      gamer slang, a question to drive comments ("would you do this?"). 🔥🎮🚔
+    hashtags: [gta6, gta, vicecity, rockstargames, gaming, gtaonline, gamingshorts]
+    instagram:
+      enabled: true
+      username: wanted_level_yts
+      token_secret: IG_TOKEN_GTA
+      user_id_secret: IG_ID_GTA
+    youtube:
+      enabled: true
+      handle: "@WantedLevel-YTS"
+      token_secret: YT_TOKEN_GTA
+      category_id: "20"        # Gaming
+
+  horror:
+    label: "Darr Diaries — horror"
+    enabled: true
+    posts_per_day: 2
+    style: >
+      Creepy, suspenseful horror page ("Darr" = fear). Short eerie hook,
+      cliff-hanger feel, Hinglish allowed. Ask viewers if they'd survive. 👻🕯️😱
+    hashtags: [horror, scary, creepy, horrorstories, paranormal, darr, bhoot]
+    instagram:
+      enabled: true
+      username: darrdiaries_yts
+      token_secret: IG_TOKEN_HORROR
+      user_id_secret: IG_ID_HORROR
+    youtube:
+      enabled: true
+      handle: "@DarrDiaries-YTS"
+      token_secret: YT_TOKEN_HORROR
+      category_id: "24"        # Entertainment
+
+  # Planned. Accounts not created yet — set enabled: true and fill in once they exist.
+  # Use ORIGINAL Mr-Bean-STYLE comedy, not real Mr Bean clips (copyright strikes).
+  comedy:
+    label: "Silent comedy (Mr Bean style)"
+    enabled: false
+    posts_per_day: 2
+    style: >
+      Silent physical comedy, wholesome and clumsy. Very short funny caption,
+      ask "what would you do?". 😂🤦
+    hashtags: [comedy, funny, silentcomedy, lol, funnyvideos, relatable]
+    instagram:
+      enabled: false
+      username: CHANGE_ME
+      token_secret: IG_TOKEN_COMEDY
+      user_id_secret: IG_ID_COMEDY
+    youtube:
+      enabled: false
+      handle: "@CHANGE_ME"
+      token_secret: YT_TOKEN_COMEDY
+      category_id: "23"        # Comedy
