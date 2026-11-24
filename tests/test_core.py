@@ -602,6 +602,43 @@ def test_niche_research_pipeline():
     assert v2["style"] == "trend" and "Cops never" in v2["style_hint"]
 
 
+def test_facebook_unreadable_status_is_never_reposted():
+    from autopilot import facebook
+    from autopilot.facebook import FBError
+
+    class FB(facebook.Facebook):
+        listed = False
+        def _req(self, method, path, **params):
+            if path in ("V1", "V2"):
+                raise FBError(f"Unsupported get request. Object with ID '{path}' does not exist (code 100/33)")
+            if path.endswith("/video_reels") or path.endswith("/videos"):
+                return {"data": [{"id": "V1", "permalink_url": "/reel/V1"}] if self.listed else []}
+            raise AssertionError(path)
+    fb = FB("PAGE", "tok")
+    assert fb.video_status("V1") == {"unknown": True}
+    fb.listed = True
+    st = fb.video_status("V1")
+    assert st["publishing_phase"]["status"] == "complete" and st["on_page"]
+    assert fb.permalink("V1") == "https://www.facebook.com/reel/V1"
+
+    # crash-recovery: an accepted reel with unreadable status is marked posted, not re-uploaded
+    setup_env()
+    cfg = load()
+    ledger = Ledger(TMP / "ledger_fb.json")
+    ledger.ensure("a" * 32, "f1", "x.mp4", "gta")
+    ledger.mark("a" * 32, "facebook", "publishing", video_id="V1", finished=True)
+    fb.listed = False
+    p = postmod.Poster(cfg, ledger, FakeDrive(), dry_run=True)
+    p.recover(cfg.niches["gta"], "facebook", fb)
+    pd = ledger.get("a" * 32)["platforms"]["facebook"]
+    assert pd["status"] == "posted" and pd["unverified"] is True
+    # an upload that never reached "finish" is safe to retry
+    ledger.ensure("b" * 32, "f2", "y.mp4", "gta")
+    ledger.mark("b" * 32, "facebook", "publishing", video_id="V2")
+    p.recover(cfg.niches["gta"], "facebook", fb)
+    assert ledger.get("b" * 32)["platforms"]["facebook"]["status"] is None
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

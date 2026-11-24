@@ -76,11 +76,14 @@ class Poster:
                 try:
                     st = client.video_status(p["video_id"])
                 except FBError:
-                    st = {}
-                if (st.get("publishing_phase") or {}).get("status") in ("complete", "in_progress") or \
-                        st.get("video_status") in ("ready", "processing") and p.get("finished"):
+                    st = {"unknown": True}
+                live = (st.get("publishing_phase") or {}).get("status") in ("complete", "in_progress") or \
+                    st.get("video_status") in ("ready", "processing")
+                # Facebook accepted the reel (finish OK) → never re-post it, even if its status is unreadable
+                if live or (p.get("finished") and (st.get("unknown") or st.get("video_status") != "error")):
                     self.ledger.mark(md5, platform, POSTED, id=p["video_id"],
-                                     url=client.permalink(p["video_id"]), recovered=True)
+                                     url=client.permalink(p["video_id"]), recovered=True,
+                                     unverified=bool(st.get("unknown")) or None)
                     continue
             if platform == "youtube":
                 vid = client.find_existing(md5)
@@ -106,7 +109,7 @@ class Poster:
         """Exact live count of every video in this niche's Drive folders + what is posted / left.
         Saved to ledger['inventory'][niche] and shown on the dashboard after every run."""
         lists = {w: self.drive.list_videos(folders[w]) for w in ("inbox", "_posted", "_duplicates", "_failed")}
-        active = self.cfg.active_platforms(niche) or ["instagram"]
+        active = self.cfg.active_platforms(niche)
         max_att = int(self.cfg.get("max_attempts", 3))
         seen: set[str] = set()
         copies = 0
@@ -148,7 +151,7 @@ class Poster:
             "duplicates": len(lists["_duplicates"]) + copies, "failed": len(lists["_failed"]),
             "new": new, "left": left, "posted": posted, "posted_today": today,
             "per_day": niche.posts_per_day, "active": active,
-            "days_left": (min(left.values()) // max(1, niche.posts_per_day)) if left else 0,
+            "days_left": (min(left.values()) if left else new) // max(1, niche.posts_per_day),
             "plan_today": plan, "next_hour": nxt, "due_now": nxt is not None and nxt <= growth.now().hour,
         }
         self.ledger.data.setdefault("inventory", {})[niche.key] = inv

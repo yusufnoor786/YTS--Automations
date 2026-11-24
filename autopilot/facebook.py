@@ -53,7 +53,34 @@ class Facebook:
             raise FBError(f"Token/ID belongs to Page '{got}', config expects {' or '.join(names)}")
 
     def video_status(self, video_id: str) -> dict:
-        return self._req("GET", video_id, fields="status,permalink_url").get("status", {}) or {}
+        """Status of a reel. Some Page tokens can't read the video object right after publishing
+        (error 100/33) — then we look for it in the Page's reel list instead.
+        Returns {"unknown": True} if it can't be seen at all (never treat that as 'not posted')."""
+        try:
+            return self._req("GET", video_id, fields="status,permalink_url").get("status", {}) or {}
+        except FBError as e:
+            if "code 100" not in str(e):
+                raise
+        item = self.find_on_page(video_id)
+        if item is None:
+            return {"unknown": True}
+        st = dict(item.get("status") or {})
+        if not st.get("publishing_phase"):
+            st["publishing_phase"] = {"status": "complete"}  # it is listed on the Page → it is live
+        st["on_page"] = True
+        return st
+
+    def find_on_page(self, video_id: str) -> dict | None:
+        for edge, fields in (("video_reels", "id,status,permalink_url"), ("video_reels", "id,permalink_url"),
+                             ("videos", "id,permalink_url")):
+            try:
+                data = self._req("GET", f"{self.page}/{edge}", limit=50, fields=fields).get("data", [])
+            except FBError:
+                continue
+            for v in data:
+                if str(v.get("id")) == str(video_id):
+                    return v
+        return None
 
     def is_published(self, video_id: str) -> bool:
         st = self.video_status(video_id)
@@ -61,13 +88,17 @@ class Facebook:
         return st.get("video_status") == "ready" and pub == "complete"
 
     def permalink(self, video_id: str) -> str | None:
+        link = None
         try:
             link = self._req("GET", video_id, fields="permalink_url").get("permalink_url")
-            if link and link.startswith("/"):
-                link = "https://www.facebook.com" + link
-            return link
         except Exception:  # noqa: BLE001
-            return None
+            try:
+                link = (self.find_on_page(video_id) or {}).get("permalink_url")
+            except Exception:  # noqa: BLE001
+                link = None
+        if link and link.startswith("/"):
+            link = "https://www.facebook.com" + link
+        return link or f"https://www.facebook.com/reel/{video_id}"
 
     def recent_reels(self, n: int = 12) -> list[dict]:
         try:
@@ -121,10 +152,19 @@ class Facebook:
         if not d.get("success", False):
             raise FBError(f"Facebook did not accept the reel: {d}")
 
-    def wait_published(self, video_id: str, timeout: int = 900) -> None:
+    def wait_published(self, video_id: str, timeout: int = 600) -> None:
+        """Returns once the reel is live — or once its status can't be read any more after Facebook
+        accepted it (finish succeeded). Never raises for 'unknown', so the video is NOT posted twice."""
         start = time.time()
         while time.time() - start < timeout:
             st = self.video_status(video_id)
+            if st.get("unknown"):
+                if time.time() - start > 120:
+                    log.warning("Can't read status of reel %s (token permission) — Facebook accepted it, "
+                                "counting it as posted", video_id)
+                    return
+                time.sleep(15)
+                continue
             if st.get("video_status") == "error" or (st.get("processing_phase") or {}).get("status") == "error":
                 raise FBError(f"Facebook rejected the video: {st}")
             if (st.get("publishing_phase") or {}).get("status") == "complete":
