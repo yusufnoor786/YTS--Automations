@@ -46,7 +46,7 @@
      "id": "18135701224760541",
      "url": "https://www.instagram.com/reel/DgIY4n7ALuq/",
      "views": 5,
-     "views_checked": "2026-11-25T01:18:03+05:30"
+     "views_checked": "2026-11-25T01:32:40+05:30"
     },
     "facebook": {
      "status": "posted",
@@ -61,7 +61,7 @@
      "recovered": true,
      "unverified": null,
      "views": 0,
-     "views_checked": "2026-11-25T01:18:04+05:30"
+     "views_checked": "2026-11-25T01:32:41+05:30"
     }
    },
    "variant": {
@@ -113,8 +113,8 @@
      "day": "2026-11-24",
      "id": "18139966972631740",
      "url": "https://www.instagram.com/reel/DgIcpT8DoRN/",
-     "views": 25,
-     "views_checked": "2026-11-25T01:18:03+05:30"
+     "views": 26,
+     "views_checked": "2026-11-25T01:32:41+05:30"
     },
     "facebook": {
      "status": "posted",
@@ -127,7 +127,7 @@
      "id": "1641162040836163",
      "url": "https://www.facebook.com/reel/1641162040836163/",
      "views": 0,
-     "views_checked": "2026-11-25T01:18:04+05:30"
+     "views_checked": "2026-11-25T01:32:42+05:30"
     }
    },
    "variant": {
@@ -180,7 +180,7 @@
      "id": "18038464649852322",
      "url": "https://www.instagram.com/reel/DgImRc7iEFk/",
      "views": 158,
-     "views_checked": "2026-11-25T01:18:04+05:30"
+     "views_checked": "2026-11-25T01:32:42+05:30"
     },
     "facebook": {
      "status": "posted",
@@ -193,7 +193,7 @@
      "id": "1202032072483959",
      "url": "https://www.facebook.com/reel/1202032072483959/",
      "views": 0,
-     "views_checked": "2026-11-25T01:18:05+05:30"
+     "views_checked": "2026-11-25T01:32:42+05:30"
     }
    },
    "variant": {
@@ -243,7 +243,7 @@
      "id": "18169336075524960",
      "url": "https://www.instagram.com/reel/DgIm1-2gqwe/",
      "views": 0,
-     "views_checked": "2026-11-25T01:18:05+05:30"
+     "views_checked": "2026-11-25T01:32:43+05:30"
     },
     "facebook": {
      "status": "posted",
@@ -256,7 +256,7 @@
      "id": "1051733707939081",
      "url": "https://www.facebook.com/reel/1051733707939081/",
      "views": 0,
-     "views_checked": "2026-11-25T01:18:05+05:30"
+     "views_checked": "2026-11-25T01:32:43+05:30"
     }
    },
    "variant": {
@@ -588,16 +588,41 @@
     ]
    ],
    "at": "2026-11-25T01:17:41+05:30"
+  },
+  {
+   "type": "post",
+   "errors": 0,
+   "rows": [
+    [
+     "aesthetic",
+     "all",
+     "—",
+     "nothing due — next slot 12pm (today: 12pm, 11pm)"
+    ],
+    [
+     "gta",
+     "all",
+     "—",
+     "nothing due — next slot 12pm (today: 12pm, 9pm)"
+    ],
+    [
+     "horror",
+     "all",
+     "—",
+     "nothing due — next slot 7pm (today: 7pm, 8pm)"
+    ]
+   ],
+   "at": "2026-11-25T01:32:14+05:30"
   }
  ],
  "stock": {
   "aesthetic": 2039,
-  "gta": 438,
+  "gta": 494,
   "horror": 864
  },
  "inventory": {
   "aesthetic": {
-   "at": "2026-11-25T01:17:46+05:30",
+   "at": "2026-11-25T01:32:18+05:30",
    "in_drive": 2041,
    "inbox": 2039,
    "posted_folder": 2,
@@ -632,16 +657,16 @@
    "due_now": false
   },
   "gta": {
-   "at": "2026-11-25T01:17:48+05:30",
-   "in_drive": 447,
-   "inbox": 446,
+   "at": "2026-11-25T01:32:20+05:30",
+   "in_drive": 504,
+   "inbox": 503,
    "posted_folder": 1,
-   "duplicates": 8,
+   "duplicates": 9,
    "failed": 0,
-   "new": 438,
+   "new": 494,
    "left": {
-    "instagram": 438,
-    "facebook": 438
+    "instagram": 494,
+    "facebook": 494
    },
    "posted": {
     "instagram": 1,
@@ -658,7 +683,7 @@
     "instagram",
     "facebook"
    ],
-   "days_left": 219,
+   "days_left": 247,
    "plan_today": [
     12,
     21
@@ -667,7 +692,7 @@
    "due_now": false
   },
   "horror": {
-   "at": "2026-11-25T01:17:51+05:30",
+   "at": "2026-11-25T01:32:23+05:30",
    "in_drive": 866,
    "inbox": 865,
    "posted_folder": 1,
