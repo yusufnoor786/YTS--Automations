@@ -64,7 +64,7 @@ def fallback(niche, md5: str) -> dict:
     return _finish(niche, {"ig_caption": line, "yt_title": line, "yt_description": line, "_source": "fallback"})
 
 
-@retry(times=3, wait=8)
+@retry(times=3, wait=15)
 def _call(model: str, parts: list[dict]) -> dict:
     r = requests.post(
         API.format(model=model),
@@ -100,10 +100,17 @@ Return ONLY JSON with these keys:
   "yt_title": max 70 characters, curiosity hook, no hashtags,
   "yt_description": 1-2 sentences,
   "yt_tags": 8-12 search keywords."""
-    parts = [{"text": prompt}] + [{"inline_data": {"mime_type": "image/jpeg", "data": f}} for f in frames_b64]
-    for m in dict.fromkeys([model, "gemini-flash-latest", "gemini-flash-lite-latest"]):
+    with_frames = [{"text": prompt}] + [{"inline_data": {"mime_type": "image/jpeg", "data": f}} for f in frames_b64]
+    text_only = [{"text": prompt.replace("Look at the attached frames from the video. ", "")
+                  .replace("Look at the frames to understand the clip.", "Write a caption that fits the page.")}]
+    attempts = [(m, with_frames) for m in dict.fromkeys([model, "gemini-flash-lite-latest"])]
+    attempts += [(m, text_only) for m in dict.fromkeys(["gemini-flash-lite-latest", model])]
+    for m, parts in attempts:
         try:
-            return _finish(niche, _call(m, parts))
+            out = _finish(niche, _call(m, parts))
+            if parts is text_only:
+                out["source"] = "gemini-text"
+            return out
         except Exception as e:  # noqa: BLE001
-            log.warning("Gemini (%s) caption failed: %s", m, e)
+            log.warning("Gemini (%s, %s) caption failed: %s", m, "frames" if parts is with_frames else "text", e)
     return fallback(niche, md5)
