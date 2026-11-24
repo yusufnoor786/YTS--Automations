@@ -124,7 +124,7 @@ niches:
       category_id: "24"        # Entertainment
     facebook:
       enabled: true
-      page_name: "Darr Diaries"
+      page_name: ["Darr Diaries", "Omegle Spy"]   # old name accepted while the rename is pending
       token_secret: FB_TOKEN_HORROR
       page_id_secret: FB_PAGE_ID_HORROR
   # Planned. Accounts not created yet — set enabled: true and fill in once they exist.

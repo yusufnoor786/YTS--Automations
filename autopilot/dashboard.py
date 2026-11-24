@@ -82,7 +82,8 @@ def build(cfg, ledger, stats: dict) -> None:
             pct = min(100, (followers or 0) / goal * 100)
             d7 = delta(stats, key, 7)
             name = {"instagram": "@" + pc.get("username", ""), "youtube": pc.get("handle", ""),
-                    "facebook": pc.get("page_name", "") + " (Page)"}[p]
+                    "facebook": (pc.get("page_name") if isinstance(pc.get("page_name"), str)
+                                 else (pc.get("page_name") or [""])[0]) + " (Page)"}[p]
             status = ""
             if p == "youtube" and not cfg.get("youtube_api_audited"):
                 status = '<span class="pill warn">waiting for API audit</span>'

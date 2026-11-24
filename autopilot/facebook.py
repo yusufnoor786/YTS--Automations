@@ -43,10 +43,14 @@ class Facebook:
     def profile(self) -> dict:
         return self._req("GET", self.page, fields="name,followers_count,fan_count,link")
 
-    def check_name(self, expected: str | None) -> None:
+    def check_name(self, expected) -> None:
+        """expected may be a name or a list of accepted names (e.g. old + new name while a rename is pending)."""
+        if not expected:
+            return
+        names = [expected] if isinstance(expected, str) else list(expected)
         got = self.profile().get("name", "")
-        if expected and got.strip().lower() != expected.strip().lower():
-            raise FBError(f"Token/ID belongs to Page '{got}', config expects '{expected}'")
+        if got.strip().lower() not in {n.strip().lower() for n in names}:
+            raise FBError(f"Token/ID belongs to Page '{got}', config expects {' or '.join(names)}")
 
     def video_status(self, video_id: str) -> dict:
         return self._req("GET", video_id, fields="status,permalink_url").get("status", {}) or {}

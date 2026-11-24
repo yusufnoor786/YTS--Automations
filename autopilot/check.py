@@ -88,15 +88,16 @@ def main() -> int:
         if fb.get("enabled"):
             from .facebook import client_for, has_credentials
             if not has_credentials(n):
-                bad(f"Facebook '{fb['page_name']}'", "no token yet (uses the Instagram token of this niche)")
+                bad(f"Facebook '{fb['page_name'] if isinstance(fb['page_name'], str) else fb['page_name'][0]}'",
+                    "no token yet (uses the Instagram token of this niche)")
             else:
                 try:
                     c = client_for(n)
                     c.check_name(fb.get("page_name"))
                     p = c.profile()
-                    ok(f"Facebook '{fb['page_name']}'", f"{p.get('followers_count', p.get('fan_count', 0))} followers")
+                    ok(f"Facebook '{p.get('name')}'", f"{p.get('followers_count', p.get('fan_count', 0))} followers")
                 except Exception as e:  # noqa: BLE001
-                    bad(f"Facebook '{fb['page_name']}'", str(e)[:200])
+                    bad("Facebook (" + n.key + ")", str(e)[:200])
         yt = n.youtube
         if yt.get("enabled"):
             if not has_secret(yt["token_secret"]):
