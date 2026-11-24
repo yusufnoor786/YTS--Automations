@@ -120,6 +120,24 @@ def build(cfg, ledger, stats: dict) -> None:
         f'<td>{fmt(it.get("likes"))}</td><td>{fmt(it.get("comments"))}</td><td>{escape((at or "")[:10])}</td></tr>'
         for at, k, it in recent_rows[:20]) or '<tr><td colspan="6">No posts yet</td></tr>'
 
+    from . import growth
+    gs = growth.load_state()
+    lab_rows = growth.dashboard_rows(cfg, gs)
+    dim_name = {"hour": "posting time", "style": "caption style", "tags": "hashtags"}
+    lab_html = "".join(
+        f'<tr><td>{escape(r["niche"])}</td><td>{dim_name.get(r["dim"], r["dim"])}</td>'
+        f'<td>{"🏆 " if r["leader"] else ""}{escape(r["option"])}</td><td>{r["n"]}</td>'
+        f'<td style="color:{"var(--ok)" if r["score"] > 0 else "var(--yt)" if r["score"] < 0 else "inherit"}">'
+        f'{r["score"]:+.2f}</td><td>{"testing" if r["testing"] else "measured"}</td></tr>'
+        for r in lab_rows) or ('<tr><td colspan="6">Collecting data — the first scores appear 2–3 days after the '
+                               'first posts (each post is scored 48h after it goes live).</td></tr>')
+    plans_today = {k.split("/", 1)[1]: v["hours"] for k, v in gs.get("plans", {}).items()
+                   if k.startswith(growth.today() + "/")}
+    plan_html = " · ".join(f"<b>{escape(n)}</b>: {', '.join(growth._label('hour', h) for h in hs)}"
+                           for n, hs in plans_today.items()) or "—"
+    changes_html = "".join(f"<li>{escape(c['at'][:10])} — {escape(c['text']).replace('**', '')}</li>"
+                           for c in gs.get("changes", [])[-8:][::-1]) or "<li>No changes yet.</li>"
+
     runs = ledger.data.get("runs", [])[-12:][::-1]
     runs_html = "".join(
         f'<tr><td>{escape(r.get("at", "")[:16].replace("T", " "))}</td>'
@@ -158,6 +176,13 @@ th{{color:var(--mut);font-weight:500}}a{{color:#8ab4ff;text-decoration:none}}
 {''.join(cards)}
 <section class="card"><h2>Latest posts</h2><div class="scroll"><table>
 <tr><th>account</th><th>post</th><th>views</th><th>likes</th><th>comments</th><th>date</th></tr>{recent_html}</table></div></section>
+<section class="card"><h2>🧪 Growth Lab <span class="pill">what's working</span></h2>
+<p class="mut">The bot tests posting times, caption styles and hashtag amounts, scores every post by its views
+after 48 hours (vs. that account's normal), and shifts toward the winners while still testing.
+Score above 0 = better than usual. Full history: <a href="https://github.com/yusufnoor786/YTS--Automations/blob/main/GROWTH_LOG.md" target="_blank">GROWTH_LOG.md</a></p>
+<p class="mut">Today's posting times: {plan_html}</p>
+<div class="scroll"><table><tr><th>page</th><th>testing</th><th>option</th><th>posts</th><th>score</th><th>status</th></tr>{lab_html}</table></div>
+<h2 style="margin-top:14px">Latest changes</h2><ul class="mut">{changes_html}</ul></section>
 <section class="card"><h2>Bot runs</h2><div class="scroll"><table>
 <tr><th>time</th><th>status</th><th>details</th></tr>{runs_html}</table></div></section>
 </main></body></html>"""

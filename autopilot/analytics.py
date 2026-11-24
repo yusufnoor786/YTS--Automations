@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import sys
 
+from . import growth
 from .config import ROOT, load
 from .facebook import Facebook
 from .instagram import Instagram
@@ -96,6 +97,67 @@ def collect(cfg, ledger: Ledger) -> dict:
     return stats
 
 
+def collect_post_metrics(cfg, ledger: Ledger, max_age_days: int = 8) -> int:
+    """Fetch views for every post younger than max_age_days; freeze `views_48h` once a post is 48h old."""
+    after = growth.settings(cfg)["score_after_hours"]
+    updated = 0
+    for niche in cfg.niches.values():
+        if not niche.enabled:
+            continue
+        posts = {p: [] for p in ("instagram", "facebook", "youtube")}
+        for md5, v in ledger.videos.items():
+            if v["niche"] != niche.key:
+                continue
+            for p, pd in v["platforms"].items():
+                if pd.get("status") == "posted" and pd.get("id") and pd.get("views_48h") is None:
+                    age = growth._age_hours(pd.get("at", ""))
+                    if age <= max_age_days * 24:
+                        posts.setdefault(p, []).append((pd, age))
+        clients = {}
+        try:
+            ig = niche.instagram
+            if posts["instagram"] and has_secret(ig.get("token_secret", "")) and has_secret(ig.get("user_id_secret", "")):
+                clients["instagram"] = Instagram(secret(ig["user_id_secret"]), secret(ig["token_secret"]))
+            fb = niche.facebook
+            if posts["facebook"] and has_secret(fb.get("token_secret", "")) and has_secret(fb.get("page_id_secret", "")):
+                clients["facebook"] = Facebook(secret(fb["page_id_secret"]), secret(fb["token_secret"]))
+            yt = niche.youtube
+            if posts["youtube"] and has_secret(yt.get("token_secret", "")):
+                clients["youtube"] = YouTube(yt["token_secret"])
+        except Exception:  # noqa: BLE001
+            log.exception("metrics clients failed for %s", niche.key)
+        for p, items in posts.items():
+            c = clients.get(p)
+            if not c or not items:
+                continue
+            yt_views = {}
+            if p == "youtube":
+                ids = [pd["id"] for pd, _ in items]
+                for i in range(0, len(ids), 50):
+                    res = c.svc.videos().list(part="statistics", id=",".join(ids[i:i + 50])).execute()
+                    for it in res.get("items", []):
+                        yt_views[it["id"]] = int(it["statistics"].get("viewCount", 0))
+            for pd, age in items:
+                try:
+                    if p == "instagram":
+                        views = c.media_views(pd["id"])
+                    elif p == "facebook":
+                        views = c.reel_plays(pd["id"])
+                    else:
+                        views = yt_views.get(pd["id"])
+                except Exception:  # noqa: BLE001
+                    views = None
+                if views is None:
+                    continue
+                pd["views"] = int(views)
+                pd["views_checked"] = now_iso()
+                if age >= after:
+                    pd["views_48h"] = int(views)
+                updated += 1
+    ledger.save()
+    return updated
+
+
 def main() -> int:
     from . import dashboard
 
@@ -115,6 +177,20 @@ def main() -> int:
         except Exception:  # noqa: BLE001
             log.exception("Could not count Drive stock")
     stats = collect(cfg, ledger)
+    try:
+        n = collect_post_metrics(cfg, ledger)
+        log.info("Updated views for %d posts", n)
+    except Exception:  # noqa: BLE001
+        log.exception("post metrics failed")
+    gs = growth.load_state()
+    changes = growth.rescore(cfg, ledger, gs)
+    growth.record_daily(gs, stats, ledger)
+    report = growth.weekly_report(cfg, gs, ledger, stats)
+    growth.save_state(gs)
+    for c in changes:
+        log.info("Growth Lab: %s", c)
+    if report:
+        summary(report)
     dashboard.build(cfg, ledger, stats)
     rows = [f"| {k} | {v.get('followers', v.get('subscribers', '—'))} | {'✅' if v.get('ok') else '❌ ' + v.get('error', '')} |"
             for k, v in stats["latest"].items()]

@@ -41,9 +41,9 @@ def _clean_tags(tags, limit: int) -> list[str]:
     return out[:limit]
 
 
-def _finish(niche, data: dict) -> dict:
+def _finish(niche, data: dict, n_tags: int = 12) -> dict:
     base_tags = niche.hashtags
-    ig_tags = _clean_tags(list(data.get("hashtags") or []) + base_tags, 12)
+    ig_tags = _clean_tags(list(data.get("hashtags") or []) + base_tags, max(1, int(n_tags)))
     ig_caption = (data.get("ig_caption") or "").strip()
     ig_caption = re.sub(r"(\s#\w+)+\s*$", "", ig_caption)  # we add hashtags ourselves
     ig_full = (ig_caption + "\n.\n.\n" + " ".join("#" + t for t in ig_tags))[:2200]
@@ -58,10 +58,11 @@ def _finish(niche, data: dict) -> dict:
             "source": data.get("_source", "gemini")}
 
 
-def fallback(niche, md5: str) -> dict:
+def fallback(niche, md5: str, n_tags: int = 12) -> dict:
     lines = FALLBACK.get(niche.key, GENERIC)
     line = lines[int(md5[:8], 16) % len(lines)]
-    return _finish(niche, {"ig_caption": line, "yt_title": line, "yt_description": line, "_source": "fallback"})
+    return _finish(niche, {"ig_caption": line, "yt_title": line, "yt_description": line, "_source": "fallback"},
+                   n_tags)
 
 
 @retry(times=3, wait=15)
@@ -83,9 +84,11 @@ def _call(model: str, parts: list[dict]) -> dict:
 
 
 def generate(niche, md5: str, file_name: str, description: str | None, frames_b64: list[str],
-             model: str = "gemini-flash-latest") -> dict:
+             model: str = "gemini-flash-latest", variant: dict | None = None) -> dict:
+    variant = variant or {}
+    n_tags = int(variant.get("tags", 12))
     if not has_secret("GEMINI_API_KEY"):
-        return fallback(niche, md5)
+        return fallback(niche, md5, n_tags)
     hint = " ".join(x for x in [(description or "").strip(), _hint_from_name(file_name)] if x)
     prompt = f"""You write viral short-video captions for an Instagram Reels page and its matching YouTube Shorts channel.
 Page: {niche.label}
@@ -93,10 +96,11 @@ Voice and style: {niche.style}
 {"What the uploader says the clip is about: " + hint if hint else "Look at the frames to understand the clip."}
 
 Look at the attached frames from the video. Write in the page's voice. Hook in the first 5 words.
+Caption style for this post (follow it): {variant.get("style_hint", "your best viral style")}
 No fake claims, no clickbait lies, don't mention "frames" or "video clip". Max 2 emojis per line.
 Return ONLY JSON with these keys:
   "ig_caption": 1-3 short lines, ends with a question or call to comment, NO hashtags,
-  "hashtags": 6-10 relevant niche hashtags without '#',
+  "hashtags": {max(n_tags, 3)} relevant niche hashtags without '#', most specific first,
   "yt_title": max 70 characters, curiosity hook, no hashtags,
   "yt_description": 1-2 sentences,
   "yt_tags": 8-12 search keywords."""
@@ -107,10 +111,10 @@ Return ONLY JSON with these keys:
     attempts += [(m, text_only) for m in dict.fromkeys(["gemini-flash-lite-latest", model])]
     for m, parts in attempts:
         try:
-            out = _finish(niche, _call(m, parts))
+            out = _finish(niche, _call(m, parts), n_tags)
             if parts is text_only:
                 out["source"] = "gemini-text"
             return out
         except Exception as e:  # noqa: BLE001
             log.warning("Gemini (%s, %s) caption failed: %s", m, "frames" if parts is with_frames else "text", e)
-    return fallback(niche, md5)
+    return fallback(niche, md5, n_tags)

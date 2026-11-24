@@ -2,11 +2,9 @@ name: Post videos
 
 on:
   schedule:
-    # times are UTC → 12:47, 19:13 and 21:41 IST. posts_per_day caps the total;
-    # the 3rd slot only posts if an earlier slot failed or was skipped.
-    - cron: "17 7 * * *"
-    - cron: "43 13 * * *"
-    - cron: "11 16 * * *"
+    # Every hour at :47 IST from 7:47 to 23:47. The Growth Lab decides each day WHICH hours
+    # actually post (posts_per_day per page); other runs exit in ~30s without posting.
+    - cron: "17 2-18 * * *"
   workflow_dispatch:
     inputs:
       niche:

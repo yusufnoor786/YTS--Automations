@@ -14,7 +14,7 @@ import shutil
 import sys
 from pathlib import Path
 
-from . import captions, media
+from . import captions, growth, media
 from .config import Config, Niche, load
 from .drive import Drive
 from .facebook import Facebook, FBError
@@ -37,6 +37,8 @@ class Poster:
         self.dry, self.force = dry_run, force
         self.rows: list[tuple] = []
         self.errors = 0
+        self.gs = growth.load_state()
+        self.respect_schedule = not force
 
     # ── clients ──────────────────────────────────────────────
     def client(self, niche: Niche, platform: str):
@@ -203,10 +205,16 @@ class Poster:
             self.ledger.save()
 
         if not rec.get("caption"):
+            variant = growth.choose_caption_variant(self.cfg, self.gs, niche, md5)
             frames = media.preview_frames(src, info["duration"])
             rec["caption"] = captions.generate(niche, md5, f["name"], f.get("description"), frames,
-                                               model=self.cfg.get("gemini_model", "gemini-flash-latest"))
+                                               model=self.cfg.get("gemini_model", "gemini-flash-latest"),
+                                               variant=variant)
+            rec["variant"] = {"style": variant["style"], "tags": variant["tags"]}
             self.ledger.save()
+        rec.setdefault("variant", {})
+        if rec["variant"].get("hour") is None and not self.dry:
+            rec["variant"]["hour"] = growth.now().hour
         cap = rec["caption"]
 
         if not out.exists():
@@ -270,20 +278,36 @@ class Poster:
                 continue
             if not niche.enabled:
                 continue
-            folders = self.drive.niche_folders(root, niche.key)
-            self.sweep_exact_duplicates(niche, folders)
             active = self.cfg.active_platforms(niche)
             if not active:
                 self.rows.append((niche.key, "—", "—", "no platform connected yet"))
+            plan = growth.plan_for_today(self.cfg, self.gs, niche)
+            allowed = niche.posts_per_day
+            if self.respect_schedule:
+                allowed = min(niche.posts_per_day, growth.due_count(self.cfg, self.gs, niche))
+            if active and not self.force and all(self.ledger.posted_today(niche.key, p) >= allowed for p in active):
+                nxt = [h for h in plan if h > growth.now().hour]
+                if all(self.ledger.posted_today(niche.key, p) >= niche.posts_per_day for p in active):
+                    self.rows.append((niche.key, "all", "—", f"daily limit reached ({niche.posts_per_day})"))
+                    continue
+                self.rows.append((niche.key, "all", "—", f"nothing due — next slot "
+                                  f"{growth._label('hour', nxt[0]) if nxt else 'tomorrow'} (today: "
+                                  f"{', '.join(growth._label('hour', h) for h in plan)})"))
+                continue
+            folders = self.drive.niche_folders(root, niche.key)
+            self.sweep_exact_duplicates(niche, folders)
             for platform in active:
                 done_today = self.ledger.posted_today(niche.key, platform)
-                if not self.force and done_today >= niche.posts_per_day:
-                    self.rows.append((niche.key, platform, "—", f"daily limit reached ({done_today})"))
+                if not self.force and done_today >= allowed:
+                    nxt = [h for h in plan if h > growth.now().hour]
+                    why = (f"daily limit reached ({done_today})" if done_today >= niche.posts_per_day
+                           else f"next slot {growth._label('hour', nxt[0]) if nxt else 'tomorrow'}")
+                    self.rows.append((niche.key, platform, "—", why))
                     continue
                 try:
                     client = self.client(niche, platform)
                     self.recover(niche, platform, client)
-                    if not self.force and self.ledger.posted_today(niche.key, platform) >= niche.posts_per_day:
+                    if not self.force and self.ledger.posted_today(niche.key, platform) >= allowed:
                         continue
                     self.post_one(niche, platform, client, folders)
                 except Exception as e:  # noqa: BLE001
@@ -293,6 +317,8 @@ class Poster:
             left = self.stock(niche, folders)
             if left <= int(self.cfg.get("low_stock_warning", 5)):
                 self.rows.append((niche.key, "drive", "—", f"⚠️ only {left} new videos left — refill Drive"))
+        if not self.dry:
+            growth.save_state(self.gs)
         self.ledger.log_run({"type": "post", "errors": self.errors, "rows": [list(r) for r in self.rows]})
         summary("### YTS Autopilot run\n\n| niche | platform | video | result |\n|---|---|---|---|\n" +
                 "\n".join(f"| {a} | {b} | {c} | {d} |" for a, b, c, d in self.rows))

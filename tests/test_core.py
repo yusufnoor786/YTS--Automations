@@ -19,6 +19,9 @@ from autopilot.config import load  # noqa: E402
 from autopilot.ledger import POSTED, PUBLISHING, Ledger  # noqa: E402
 
 TMP = Path(tempfile.mkdtemp(prefix="yts-test-"))
+from autopilot import growth  # noqa: E402
+growth.STATE = TMP / "growth.json"
+growth.LOG_MD = TMP / "GROWTH_LOG.md"
 ids = itertools.count(1)
 
 
@@ -157,6 +160,10 @@ class FakeFB:
 
 class TestPoster(postmod.Poster):
     fakes: dict = {}
+
+    def __init__(self, *a, **kw):
+        super().__init__(*a, **kw)
+        self.respect_schedule = False  # tests don't wait for real clock slots
 
     def client(self, niche, platform):
         return self.fakes.setdefault((niche.key, platform),
@@ -451,6 +458,42 @@ def test_instagram_and_gemini_http_flow(monkeypatch=None):
     finally:
         requests.request, requests.post = orig_req, orig_post
         os.environ.pop("GEMINI_API_KEY", None)
+
+
+
+def test_growth_lab_learns_and_logs():
+    from autopilot.ledger import Ledger as L
+    cfg = load()
+    led = L(TMP / "ledger_growth.json")
+    st = growth.load_state()
+    n = cfg.niches["aesthetic"]
+    # every option gets tried before exploiting
+    seen = {growth.choose_caption_variant(cfg, st, n, f"{i:032x}")["style"] for i in range(40)}
+    assert seen == set(growth.options(cfg, "style"))
+    hours = growth.plan_for_today(cfg, st, n)
+    assert len(hours) == n.posts_per_day and len(set(hours)) == len(hours)
+    # fake 30 scored posts: 'curiosity' gets 10x views, 'short' gets few
+    from datetime import timedelta
+    old = (growth.now() - timedelta(hours=60)).isoformat(timespec="seconds")
+    for i in range(50):
+        style = ["curiosity", "short", "question", "relatable", "story"][i % 5]
+        views = {"curiosity": 5000, "short": 50, "question": 500, "relatable": 800, "story": 300}[style]
+        md5 = f"{i:032x}"
+        led.videos[md5] = {"file_id": str(i), "name": f"v{i}", "niche": "aesthetic", "first_seen": old, "phash": None,
+                           "caption": {}, "duplicate_of": None,
+                           "variant": {"style": style, "tags": [3, 6, 10][i % 3], "hour": [8, 19, 21][i % 3]},
+                           "platforms": {"instagram": {"status": "posted", "id": f"m{i}", "at": old,
+                                                       "day": old[:10], "views_48h": views}}}
+    changes = growth.rescore(cfg, led, st)
+    assert st["leaders"]["aesthetic"]["style"] == "curiosity" and any("curiosity" in c for c in changes)
+    # exploitation now mostly picks the winner
+    picks = [growth.choose_caption_variant(cfg, st, n, f"{1000 + i:032x}")["style"] for i in range(200)]
+    assert picks.count("curiosity") > 120, picks.count("curiosity")
+    rep = growth.weekly_report(cfg, st, led, {"latest": {}}, force=True)
+    assert "What's working" in rep and growth.LOG_MD.exists()
+    rows = growth.dashboard_rows(cfg, st)
+    assert any(r["leader"] and r["option"] == "curiosity" for r in rows)
+    growth.save_state(st)
 
 
 if __name__ == "__main__":
