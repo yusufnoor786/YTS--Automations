@@ -58,11 +58,11 @@ def _finish(niche, data: dict, n_tags: int = 12) -> dict:
             "source": data.get("_source", "gemini")}
 
 
-def fallback(niche, md5: str, n_tags: int = 12) -> dict:
+def fallback(niche, md5: str, n_tags: int = 12, extra_tags=()) -> dict:
     lines = FALLBACK.get(niche.key, GENERIC)
     line = lines[int(md5[:8], 16) % len(lines)]
-    return _finish(niche, {"ig_caption": line, "yt_title": line, "yt_description": line, "_source": "fallback"},
-                   n_tags)
+    return _finish(niche, {"ig_caption": line, "yt_title": line, "yt_description": line, "_source": "fallback",
+                           "hashtags": list(extra_tags)[:4]}, n_tags)
 
 
 @retry(times=3, wait=15)
@@ -87,8 +87,9 @@ def generate(niche, md5: str, file_name: str, description: str | None, frames_b6
              model: str = "gemini-flash-latest", variant: dict | None = None) -> dict:
     variant = variant or {}
     n_tags = int(variant.get("tags", 12))
+    extra = variant.get("trend_tags") or []
     if not has_secret("GEMINI_API_KEY"):
-        return fallback(niche, md5, n_tags)
+        return fallback(niche, md5, n_tags, extra)
     hint = " ".join(x for x in [(description or "").strip(), _hint_from_name(file_name)] if x)
     prompt = f"""You write viral short-video captions for an Instagram Reels page and its matching YouTube Shorts channel.
 Page: {niche.label}
@@ -98,6 +99,7 @@ Voice and style: {niche.style}
 Look at the attached frames from the video. Write in the page's voice. Hook in the first 5 words.
 Caption style for this post (follow it): {variant.get("style_hint", "your best viral style")}
 {("Hashtags trending in this niche this week (use the ones that fit): " + ", ".join(variant.get("trend_tags") or [])) if variant.get("trend_tags") else ""}
+{("Openings of this week's most-liked posts in the niche (inspiration only, never copy): " + " | ".join(variant.get("trend_hooks") or [])) if variant.get("trend_hooks") else ""}
 No fake claims, no clickbait lies, don't mention "frames" or "video clip". Max 2 emojis per line.
 Return ONLY JSON with these keys:
   "ig_caption": 1-3 short lines, ends with a question or call to comment, NO hashtags,
@@ -118,4 +120,4 @@ Return ONLY JSON with these keys:
             return out
         except Exception as e:  # noqa: BLE001
             log.warning("Gemini (%s, %s) caption failed: %s", m, "frames" if parts is with_frames else "text", e)
-    return fallback(niche, md5, n_tags)
+    return fallback(niche, md5, n_tags, extra)

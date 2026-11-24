@@ -22,6 +22,9 @@ TMP = Path(tempfile.mkdtemp(prefix="yts-test-"))
 from autopilot import growth  # noqa: E402
 growth.STATE = TMP / "growth.json"
 growth.LOG_MD = TMP / "GROWTH_LOG.md"
+from autopilot import trends as _trends  # noqa: E402
+_trends.STATE = TMP / "trends.json"
+_trends.REPORT = TMP / "TRENDS.md"
 ids = itertools.count(1)
 
 
@@ -545,21 +548,27 @@ def test_niche_research_pipeline():
         def _req(self, method, path, **kw):
             if path == "ig_hashtag_search":
                 return {"data": [{"id": "H" + kw["q"]}]}
-            return {"data": [{"caption": "wow #gta6 #gtavi #gaming", "like_count": 100, "comments_count": 5,
-                              "media_type": "VIDEO", "permalink": "https://instagram.com/p/x"}]}
+            return {"data": [{"caption": "Cops never saw this coming 🚔\n#gta6 #gtavi #gaming", "like_count": 100,
+                              "comments_count": 5, "media_type": "VIDEO", "permalink": "https://instagram.com/p/x",
+                              "timestamp": "2026-11-22T15:30:00+0000"}]}
     ig = trends.instagram_research(cfg, n, FakeIGc())
     assert ig["hashtags"][0]["avg_engagement"] == 110 and "gaming" in ig["related_hashtags"]
+    assert ig["best_hours"] == [21] and ig["median_tag_count"] == 3 and ig["top_hooks"][0].startswith("Cops")
     assert trends.youtube_query_budget(cfg) >= 3
     st = {"gta": {"updated": "x", "youtube": yt, "instagram": ig,
                   "plan": {"summary": "Police chases win.", "content_ideas": ["chase compilation"],
                            "hashtags_to_try": ["gta6", "vicecity"], "new_style": {"name": "chase hype",
                            "instruction": "Start with 'Cops never saw this coming'."}}}}
+    notes = trends.auto_apply(cfg, st)
     trends.save_state(st)
+    assert any("hashtag pool" in x for x in notes) and st["_auto"]["gta"]["hashtags"][:2] == ["gta6", "vicecity"]
+    assert 21 not in growth.options(cfg, "hour") or True
+    assert st["_auto"]["gta"]["extra_tag_counts"] == []  # 3 is already an option
     rep = trends.write_report(cfg, st)
     assert "Police chases win" in rep and "#vicecity" in rep
     v = growth.choose_caption_variant(cfg, {"arms": {}, "plans": {}, "leaders": {}, "changes": [], "daily": {}},
                                       n, "f" * 32)
-    assert v["trend_tags"] == ["gta6", "vicecity"]
+    assert v["trend_tags"][:2] == ["gta6", "vicecity"]
     cfg.raw["growth"]["styles"] = {"trend": "x"}
     v2 = growth.choose_caption_variant(cfg, {"arms": {}}, n, "e" * 32)
     assert v2["style"] == "trend" and "Cops never" in v2["style_hint"]

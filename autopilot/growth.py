@@ -78,10 +78,22 @@ def save_state(d: dict) -> None:
     STATE.write_text(json.dumps(d, indent=1, ensure_ascii=False), encoding="utf-8")
 
 
-def options(cfg, dim: str) -> list:
+def _extras(niche_key: str | None) -> dict:
+    if not niche_key:
+        return {}
+    try:
+        from .trends import niche_hints
+        return niche_hints(niche_key)
+    except Exception:  # noqa: BLE001
+        return {}
+
+
+def options(cfg, dim: str, niche_key: str | None = None) -> list:
     s = settings(cfg)
-    return {"hour": [int(h) for h in s["hours"]], "style": list(s["styles"]),
-            "tags": [int(t) for t in s["tag_counts"]]}[dim]
+    ex = _extras(niche_key)
+    hours = sorted(set(int(h) for h in s["hours"]) | set(int(h) for h in ex.get("extra_hours", [])))
+    tags = sorted(set(int(t) for t in s["tag_counts"]) | set(int(t) for t in ex.get("extra_tag_counts", [])))
+    return {"hour": hours, "style": list(s["styles"]), "tags": tags}[dim]
 
 
 def _arm_stats(state: dict, niche: str, dim: str) -> dict:
@@ -90,7 +102,7 @@ def _arm_stats(state: dict, niche: str, dim: str) -> dict:
 
 def _pick(cfg, state: dict, niche: str, dim: str, rng: random.Random, exclude=()) -> object:
     s = settings(cfg)
-    opts = [o for o in options(cfg, dim) if o not in exclude] or options(cfg, dim)
+    opts = [o for o in options(cfg, dim, niche) if o not in exclude] or options(cfg, dim, niche)
     stats = _arm_stats(state, niche, dim)
     n = {o: stats.get(str(o), {}).get("n", 0) for o in opts}
     under = [o for o in opts if n[o] < int(s["min_samples"])]
@@ -136,7 +148,8 @@ def choose_caption_variant(cfg, state: dict, niche, md5: str) -> dict:
     if style == "trend":
         hint = th.get("style") or settings(cfg)["styles"].get("curiosity", "")
     return {"style": style, "style_hint": hint, "tags": int(tags),
-            "trend_tags": th.get("hashtags", []), "trend_ideas": th.get("ideas", [])[:3]}
+            "trend_tags": th.get("hashtags", []), "trend_ideas": th.get("ideas", [])[:3],
+            "trend_hooks": th.get("hooks", [])}
 
 
 # ── scoring ──────────────────────────────────────────────────

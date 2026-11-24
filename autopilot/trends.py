@@ -120,6 +120,7 @@ def instagram_research(cfg, niche, ig_client: Instagram | None) -> dict:
     if not ig_client or not tags:
         return {"skipped": "no Instagram account connected for research"}
     out, related = [], Counter()
+    hours, tag_counts, hooks = Counter(), [], []
     for tag in tags:
         try:
             hid = ig_client._req("GET", "ig_hashtag_search", user_id=ig_client.ig, q=tag)["data"][0]["id"]
@@ -134,6 +135,19 @@ def instagram_research(cfg, niche, ig_client: Instagram | None) -> dict:
             out.append({"tag": tag, "error": msg[:120]})
             continue
         eng = [int(m.get("like_count") or 0) + 2 * int(m.get("comments_count") or 0) for m in media]
+        for m, e in zip(media, eng):
+            w = math.log1p(e)
+            ts = m.get("timestamp")
+            if ts:
+                try:
+                    hours[datetime.fromisoformat(ts.replace("+0000", "+00:00")).astimezone(now().tzinfo).hour] += w
+                except ValueError:
+                    pass
+            cap = m.get("caption") or ""
+            tag_counts.append(len(_tags(cap)))
+            first = cap.strip().split("\n")[0][:90]
+            if first and not first.startswith("#"):
+                hooks.append((e, first))
         reels = sum(1 for m in media if m.get("media_type") == "VIDEO")
         for m in media:
             for t in set(_tags(m.get("caption", ""))):
@@ -143,7 +157,11 @@ def instagram_research(cfg, niche, ig_client: Instagram | None) -> dict:
                     "reels_share": round(reels / len(media), 2) if media else 0,
                     "best": max(media, key=lambda m: int(m.get("like_count") or 0)).get("permalink") if media else None})
     out.sort(key=lambda x: -x.get("avg_engagement", 0))
-    return {"hashtags": out, "related_hashtags": [t for t, _ in related.most_common(15)]}
+    tc = sorted(tag_counts)
+    return {"hashtags": out, "related_hashtags": [t for t, _ in related.most_common(15)],
+            "best_hours": [h for h, _ in hours.most_common(4)],
+            "median_tag_count": tc[len(tc) // 2] if tc else None,
+            "top_hooks": [h for _, h in sorted(hooks, reverse=True)[:8]]}
 
 
 # ── Gemini summary ──────────────────────────────────────────
@@ -159,6 +177,8 @@ def gemini_plan(cfg, niche, yt: dict, ig: dict) -> dict:
         "instagram_hashtags_by_engagement": [{k: h.get(k) for k in ("tag", "avg_engagement", "reels_share")}
                                              for h in ig.get("hashtags", [])],
         "instagram_related_hashtags": ig.get("related_hashtags", []),
+        "instagram_top_post_hooks": ig.get("top_hooks", []),
+        "instagram_best_posting_hours_IST": ig.get("best_hours", []),
     }
     prompt = f"""You are a growth strategist for a faceless short-video page.
 Page: {niche.label}. Voice: {niche.style}
@@ -183,11 +203,60 @@ Return ONLY JSON:
 
 # ── helpers used by the bot ─────────────────────────────────
 def niche_hints(niche_key: str) -> dict:
-    d = load_state().get(niche_key) or {}
+    st = load_state()
+    d = st.get(niche_key) or {}
     plan = d.get("plan") or {}
-    return {"hashtags": [re.sub(r"\W", "", t.lower()) for t in (plan.get("hashtags_to_try") or [])][:8],
-            "style": (plan.get("new_style") or {}).get("instruction"),
-            "ideas": plan.get("content_ideas") or []}
+    auto = (st.get("_auto") or {}).get(niche_key, {})
+    tags = auto.get("hashtags") or [re.sub(r"\W", "", t.lower()) for t in (plan.get("hashtags_to_try") or [])]
+    return {"hashtags": tags[:8], "style": (plan.get("new_style") or {}).get("instruction"),
+            "ideas": plan.get("content_ideas") or [], "hooks": (d.get("instagram") or {}).get("top_hooks", [])[:3],
+            "extra_hours": auto.get("extra_hours", []), "extra_tag_counts": auto.get("extra_tag_counts", [])}
+
+
+def auto_apply(cfg, state: dict) -> list[str]:
+    """Turn this week's research into things the bot actually does (no human needed):
+      • best posting hours of top niche posts  → added to that niche's Growth Lab hour tests
+      • typical hashtag count of top posts     → added as a hashtag-count option
+      • winning hashtags (IG engagement + YT)  → niche hashtag pool used in every caption
+      • AI 'new style'                          → the Growth Lab's 'trend' caption style
+    Everything is still A/B tested, so a bad trend loses automatically."""
+    from . import growth
+
+    gs = growth.load_state()
+    notes = []
+    auto = {}
+    for key, d in state.items():
+        if not isinstance(d, dict) or key not in cfg.niches:
+            continue
+        ig, yt, plan = d.get("instagram", {}), d.get("youtube", {}), d.get("plan", {}) or {}
+        base_hours = set(int(h) for h in growth.settings(cfg)["hours"])
+        new_hours = [int(h) for h in ig.get("best_hours", [])[:2] if 7 <= int(h) <= 23 and int(h) not in base_hours]
+        base_tags = set(int(t) for t in growth.settings(cfg)["tag_counts"])
+        mtc = ig.get("median_tag_count")
+        new_tc = [min(int(mtc), 25)] if mtc and int(mtc) not in base_tags and 1 <= int(mtc) <= 25 else []
+        ig_rank = [h["tag"] for h in ig.get("hashtags", []) if h.get("avg_engagement")]
+        pool = list(dict.fromkeys(
+            [re.sub(r"\W", "", t.lower()) for t in (plan.get("hashtags_to_try") or [])]
+            + ig_rank[:3] + (ig.get("related_hashtags") or [])[:3] + (yt.get("hashtags") or [])[:3]))
+        pool = [t for t in pool if t and t not in {"shorts", "viral", "fyp", "trending", "reels"}][:10]
+        prev = (state.get("_auto") or {}).get(key, {})
+        auto[key] = {"extra_hours": new_hours, "extra_tag_counts": new_tc, "hashtags": pool}
+        if set(new_hours) - set(prev.get("extra_hours", [])):
+            notes.append(f"{key}: started testing posting at "
+                         f"{', '.join(growth._label('hour', h) for h in new_hours)} (top niche posts go out then)")
+        if new_tc and new_tc != prev.get("extra_tag_counts"):
+            notes.append(f"{key}: started testing {new_tc[0]} hashtags (typical for top posts in this niche)")
+        if pool and pool[:5] != prev.get("hashtags", [])[:5]:
+            notes.append(f"{key}: hashtag pool updated → {' '.join('#' + t for t in pool[:6])}")
+        style = (plan.get("new_style") or {})
+        if style.get("instruction") and style.get("instruction") != prev.get("style"):
+            notes.append(f"{key}: new 'trend' caption style → {style.get('name')}: {style['instruction'][:100]}")
+        auto[key]["style"] = style.get("instruction")
+    state["_auto"] = auto
+    for n in notes:
+        gs["changes"].append({"at": now_iso(), "text": "[auto from research] " + n})
+    growth.save_state(gs)
+    return notes
 
 
 def write_report(cfg, state: dict) -> str:
@@ -196,7 +265,7 @@ def write_report(cfg, state: dict) -> str:
              "The bot uses this to test new hashtags and a new caption style automatically.\n"]
     for key, d in state.items():
         n = cfg.niches.get(key)
-        if not n or not isinstance(d, dict):
+        if not n or not isinstance(d, dict) or key.startswith("_"):
             continue
         yt, ig, plan = d.get("youtube", {}), d.get("instagram", {}), d.get("plan", {})
         lines.append(f"\n## {n.label}\n")
@@ -220,6 +289,27 @@ def write_report(cfg, state: dict) -> str:
                     lines.append(f"| #{h['tag']} | {h['avg_engagement']:,} | {int(h['reels_share'] * 100)}% |")
         elif ig.get("skipped"):
             lines.append(f"\n_Instagram research skipped: {ig['skipped']}_")
+        if ig.get("best_hours"):
+            lines.append("\n**Instagram — when top posts go out (IST):** "
+                         + ", ".join(f"{(h % 12) or 12}{'am' if h < 12 else 'pm'}" for h in ig["best_hours"]))
+        if ig.get("median_tag_count") is not None:
+            lines.append(f"**Instagram — hashtags used by top posts:** about {ig['median_tag_count']}")
+        if ig.get("related_hashtags"):
+            lines.append(f"**Instagram — hashtags that appear with winners:** "
+                         f"{' '.join('#' + t for t in ig['related_hashtags'][:10])}")
+        if ig.get("top_hooks"):
+            lines.append("\n**Instagram — opening lines of the most-liked posts:**")
+            lines += [f"- {h}" for h in ig["top_hooks"][:5]]
+        auto = (state.get("_auto") or {}).get(key, {})
+        if auto:
+            lines.append("\n**Applied automatically this week:** "
+                         + "; ".join(x for x in [
+                             ("extra posting hours tested: " + ", ".join(f"{(h % 12) or 12}{'am' if h < 12 else 'pm'}"
+                                                                        for h in auto.get("extra_hours", [])))
+                             if auto.get("extra_hours") else "",
+                             (f"extra hashtag count tested: {auto['extra_tag_counts'][0]}" if auto.get("extra_tag_counts") else ""),
+                             ("hashtag pool: " + " ".join("#" + t for t in auto.get("hashtags", [])[:8]))
+                             if auto.get("hashtags") else ""] if x))
         if plan.get("content_ideas"):
             lines.append("\n**Content ideas for this week:**")
             lines += [f"- {i}" for i in plan["content_ideas"]]
@@ -277,12 +367,15 @@ def main() -> int:
         rows.append(f"| {n.key} | {d['youtube'].get('videos_scanned', d['youtube'].get('skipped', '—'))} | "
                     f"{len(d['instagram'].get('hashtags', [])) or d['instagram'].get('skipped', '—')} | "
                     f"{'✅' if d['plan'] else '—'} |")
+    notes = auto_apply(cfg, state)
     save_state(state)
     report = write_report(cfg, state)
     try:
         from .growth import LOG_MD
         ideas = "; ".join(f"{k}: {(v.get('plan') or {}).get('summary', '')[:140]}" for k, v in state.items()
-                          if isinstance(v, dict) and (v.get("plan") or {}).get("summary"))
+                          if isinstance(v, dict) and not k.startswith("_") and (v.get("plan") or {}).get("summary"))
+        if notes:
+            ideas = (ideas + " Applied automatically: " if ideas else "Applied automatically: ") + "; ".join(notes)
         if ideas:
             old = LOG_MD.read_text(encoding="utf-8") if LOG_MD.exists() else "# Growth Log\n"
             LOG_MD.write_text(old.rstrip() + f"\n\n### {today()} — niche research\n{ideas}\n"
@@ -290,7 +383,8 @@ def main() -> int:
     except Exception:  # noqa: BLE001
         log.exception("could not write growth log line")
     summary("### Niche research\n\n| niche | YouTube videos scanned | IG hashtags | AI plan |\n|---|---|---|---|\n"
-            + "\n".join(rows) + "\n\n" + report[:6000])
+            + "\n".join(rows) + "\n\n**Applied automatically:**\n" + "\n".join(f"- {x}" for x in notes or ["nothing new"])
+            + "\n\n" + report[:6000])
     return 0
 
 

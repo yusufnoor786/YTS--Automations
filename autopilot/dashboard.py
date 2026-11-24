@@ -150,12 +150,25 @@ def build(cfg, ledger, stats: dict) -> None:
         top = "".join(f'<li><a href="{escape(x["url"])}" target="_blank">{escape(x["title"][:70])}</a> '
                       f'<span class="mut">· {escape(x["channel"][:22])} · {fmt(x["views_per_day"])}/day · {x["seconds"]}s</span></li>'
                       for x in yt.get("top", [])[:5]) or f'<li class="mut">{escape(yt.get("skipped", "no data yet"))}</li>'
+        ig = d.get("instagram", {}) or {}
+        igtags = " ".join(f"#{escape(h['tag'])} ({fmt(h['avg_engagement'])})" for h in ig.get("hashtags", [])[:6]
+                          if h.get("avg_engagement") is not None)
+        ighours = ", ".join(growth._label("hour", h) for h in ig.get("best_hours", []))
+        auto = (tstate.get("_auto") or {}).get(key, {})
+        auto_txt = "; ".join(x for x in [
+            ("testing extra hours " + ", ".join(growth._label("hour", h) for h in auto.get("extra_hours", [])))
+            if auto.get("extra_hours") else "",
+            (f"testing {auto['extra_tag_counts'][0]} hashtags" if auto.get("extra_tag_counts") else ""),
+            ("hashtag pool " + " ".join("#" + t for t in auto.get("hashtags", [])[:6])) if auto.get("hashtags") else ""] if x)
         ideas = "".join(f"<li>{escape(i)}</li>" for i in plan.get("content_ideas", [])[:5])
         tags = " ".join("#" + escape(t) for t in plan.get("hashtags_to_try", [])[:8])
         style = plan.get("new_style") or {}
         trend_cards.append(f"""<div class="acct"><b>{escape(n.label)}</b>
 <p class="mut">{escape(plan.get("summary", ""))}</p>
 <div class="mut">Top Shorts in this niche (7 days):</div><ul>{top}</ul>
+{"<div class='mut'>Instagram top hashtags (avg engagement of top posts): " + igtags + "</div>" if igtags else ""}
+{"<div class='mut'>Instagram top posts go out at: " + ighours + "</div>" if ighours else ""}
+{"<div class='mut' style='color:var(--ok)'>🤖 Applied automatically: " + escape(auto_txt) + "</div>" if auto_txt else ""}
 {"<div class='mut'>Ideas to film:</div><ul>" + ideas + "</ul>" if ideas else ""}
 {"<div class='mut'>Hashtags being tested: " + tags + "</div>" if tags else ""}
 {"<div class='mut'>New caption style being tested: <b>" + escape(style.get("name", "")) + "</b> — " + escape(style.get("instruction", "")) + "</div>" if style else ""}
