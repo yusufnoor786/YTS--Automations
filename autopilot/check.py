@@ -86,12 +86,12 @@ def main() -> int:
                     bad(f"Instagram @{ig['username']}", str(e)[:200])
         fb = n.facebook
         if fb.get("enabled"):
-            if not (has_secret(fb["token_secret"]) and has_secret(fb["page_id_secret"])):
-                bad(f"Facebook '{fb['page_name']}'", f"set secrets {fb['token_secret']} and {fb['page_id_secret']}")
+            from .facebook import client_for, has_credentials
+            if not has_credentials(n):
+                bad(f"Facebook '{fb['page_name']}'", "no token yet (uses the Instagram token of this niche)")
             else:
                 try:
-                    from .facebook import Facebook
-                    c = Facebook(secret(fb["page_id_secret"]), secret(fb["token_secret"]))
+                    c = client_for(n)
                     c.check_name(fb.get("page_name"))
                     p = c.profile()
                     ok(f"Facebook '{fb['page_name']}'", f"{p.get('followers_count', p.get('fan_count', 0))} followers")

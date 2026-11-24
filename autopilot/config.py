@@ -56,7 +56,8 @@ class Config:
                 continue
             if p == "youtube" and not has_secret(pc["token_secret"]):
                 continue
-            if p == "facebook" and not (has_secret(pc["token_secret"]) and has_secret(pc["page_id_secret"])):
+            if p == "facebook" and not (has_secret(pc.get("token_secret", ""))
+                                        or has_secret((niche.instagram or {}).get("token_secret", ""))):
                 continue
             out.append(p)
         return out

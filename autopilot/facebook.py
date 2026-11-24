@@ -12,7 +12,7 @@ from pathlib import Path
 import requests
 
 from .instagram import GRAPH, VERSION
-from .util import log, retry
+from .util import has_secret, log, retry, secret
 
 RUPLOAD = f"https://rupload.facebook.com/video-upload/{VERSION}"
 
@@ -127,3 +127,23 @@ class Facebook:
                 return
             time.sleep(15)
         log.warning("Facebook still processing reel %s — it will go live by itself", video_id)
+
+
+def has_credentials(niche) -> bool:
+    fb, ig = niche.facebook or {}, niche.instagram or {}
+    return has_secret(fb.get("token_secret", "")) or has_secret(ig.get("token_secret", ""))
+
+
+def client_for(niche) -> "Facebook":
+    """Use FB_TOKEN_/FB_PAGE_ID_ secrets if set; otherwise reuse the niche's Instagram Page token
+    (it is the same Facebook Page token) and look the Page ID up from it."""
+    fb, ig = niche.facebook or {}, niche.instagram or {}
+    token = secret(fb["token_secret"]) if has_secret(fb.get("token_secret", "")) else secret(ig["token_secret"])
+    if has_secret(fb.get("page_id_secret", "")):
+        page_id = secret(fb["page_id_secret"])
+    else:
+        r = requests.get(f"{GRAPH}/me", params={"fields": "id,name", "access_token": token}, timeout=30).json()
+        if "id" not in r:
+            raise FBError(f"could not find the Facebook Page for this token: {r.get('error', r)}")
+        page_id = r["id"]
+    return Facebook(page_id, token)

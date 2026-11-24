@@ -17,7 +17,7 @@ from pathlib import Path
 from . import captions, growth, media
 from .config import Config, Niche, load
 from .drive import Drive
-from .facebook import Facebook, FBError
+from .facebook import FBError, client_for as fb_client
 from .instagram import IGError, Instagram
 from .ledger import FAILED, POSTED, PUBLISHING, Ledger
 from .util import MissingSecret, log, secret, summary
@@ -47,7 +47,7 @@ class Poster:
             c = Instagram(secret(pc["user_id_secret"]), secret(pc["token_secret"]))
             c.check_username(pc.get("username"))
         elif platform == "facebook":
-            c = Facebook(secret(pc["page_id_secret"]), secret(pc["token_secret"]))
+            c = fb_client(niche)
             c.check_name(pc.get("page_name"))
         else:
             c = YouTube(pc["token_secret"])

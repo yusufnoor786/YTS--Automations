@@ -16,6 +16,14 @@ It is not offered to, or used by, anyone else.
 - Access tokens are stored only as encrypted GitHub Actions secrets.
 - No data about other people is collected. Nothing is sold or shared with third parties.
 
+**Public niche research**
+Public YouTube search results in the owner's niches (video titles and view counts) may be read to see what topics are popular.
+Only aggregated weekly summaries are kept; raw API data is refreshed or deleted within 30 days.
+
+**Data deletion**
+Stored YouTube API data (video IDs and statistics) is deleted within 30 days after access is revoked, or immediately on request
+to the contact address below.
+
 **Google and YouTube**
 This tool uses YouTube API Services. See the YouTube Terms of Service (https://www.youtube.com/t/terms) and the
 Google Privacy Policy (https://policies.google.com/privacy). Access can be revoked at any time at

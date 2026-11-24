@@ -7,7 +7,7 @@ import sys
 
 from . import growth
 from .config import ROOT, load
-from .facebook import Facebook
+from .facebook import client_for as fb_client, has_credentials as fb_has
 from .instagram import Instagram
 from .ledger import Ledger
 from .util import has_secret, log, now_iso, secret, summary, today
@@ -51,10 +51,10 @@ def collect(cfg, ledger: Ledger) -> dict:
                 stats["latest"].setdefault(key, {})
                 stats["latest"][key].update({"ok": False, "error": str(e)[:200], "at": now_iso()})
         fb = niche.facebook
-        if fb.get("enabled") and has_secret(fb["token_secret"]) and has_secret(fb["page_id_secret"]):
+        if fb.get("enabled") and fb_has(niche):
             key = f"{niche.key}/facebook"
             try:
-                c = Facebook(secret(fb["page_id_secret"]), secret(fb["token_secret"]))
+                c = fb_client(niche)
                 prof = c.profile()
                 followers = int(prof.get("followers_count") or prof.get("fan_count") or 0)
                 reels = c.recent_reels(12)
@@ -119,8 +119,8 @@ def collect_post_metrics(cfg, ledger: Ledger, max_age_days: int = 8) -> int:
             if posts["instagram"] and has_secret(ig.get("token_secret", "")) and has_secret(ig.get("user_id_secret", "")):
                 clients["instagram"] = Instagram(secret(ig["user_id_secret"]), secret(ig["token_secret"]))
             fb = niche.facebook
-            if posts["facebook"] and has_secret(fb.get("token_secret", "")) and has_secret(fb.get("page_id_secret", "")):
-                clients["facebook"] = Facebook(secret(fb["page_id_secret"]), secret(fb["token_secret"]))
+            if posts["facebook"] and fb.get("enabled") and fb_has(niche):
+                clients["facebook"] = fb_client(niche)
             yt = niche.youtube
             if posts["youtube"] and has_secret(yt.get("token_secret", "")):
                 clients["youtube"] = YouTube(yt["token_secret"])
