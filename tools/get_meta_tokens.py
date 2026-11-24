@@ -1,20 +1,24 @@
-"""Run this ON YOUR PC once to get NON-EXPIRING Instagram tokens for all 3 pages.
+"""Run this ON YOUR PC to get NON-EXPIRING Instagram + Facebook Page tokens for every page.
 
     pip install requests pyyaml
     python tools/get_meta_tokens.py
 
-You need: your Meta App ID + App Secret, and a short-lived User token from
-Graph API Explorer with these permissions:
-  instagram_basic, instagram_content_publish, instagram_manage_insights,
-  pages_show_list, pages_read_engagement, business_management
+It asks for the App secret (developers.facebook.com → YTS Autopilot → App settings → Basic → Show),
+prints a login link, and you paste back the address-bar link you land on (the dashboard page).
 """
+import getpass
 import sys
+import urllib.parse
 from pathlib import Path
 
 import requests
 
 V = "v25.0"
 G = f"https://graph.facebook.com/{V}"
+APP_ID = "1152526460892790"   # YTS Autopilot
+REDIRECT = "https://yusufnoor786.github.io/YTS--Automations/"
+SCOPES = ("instagram_basic,instagram_content_publish,instagram_manage_insights,pages_show_list,"
+          "pages_read_engagement,pages_manage_posts,read_insights,business_management")
 
 
 def die(msg):
@@ -23,9 +27,14 @@ def die(msg):
 
 
 def main():
-    app_id = input("Meta App ID: ").strip()
-    app_secret = input("Meta App Secret: ").strip()
-    short = input("Short-lived User token from Graph API Explorer: ").strip()
+    app_id = input(f"Meta App ID [Enter = {APP_ID}]: ").strip() or APP_ID
+    app_secret = getpass.getpass("Meta App Secret (hidden while typing/pasting, then Enter): ").strip()
+    link = (f"https://www.facebook.com/{V}/dialog/oauth?client_id={app_id}"
+            f"&redirect_uri={urllib.parse.quote(REDIRECT, safe='')}&response_type=token&scope={SCOPES}")
+    print("\n1) Open this link in your browser, click Continue/Save:\n\n" + link)
+    print("\n2) You land on the YTS dashboard. Copy the WHOLE address-bar link and paste it here.")
+    got = input("\nLink (or token): ").strip()
+    short = urllib.parse.parse_qs(urllib.parse.urlparse(got).fragment).get("access_token", [got])[0]
 
     r = requests.get(f"{G}/oauth/access_token", params={
         "grant_type": "fb_exchange_token", "client_id": app_id,
@@ -63,7 +72,8 @@ def main():
         exp = "never expires ✅" if dbg.get("expires_at", 1) == 0 else f"expires_at={dbg.get('expires_at')}"
         print(f"@{uname}  (Page: {p['name']}, token {exp})")
         print(f"  {id_name} = {ig['id']}")
-        print(f"  {tok_name} = {p['access_token']}\n")
+        print(f"  {tok_name} = {p['access_token']}")
+        print(f"  (Facebook Page '{p['name']}' uses the same token — no extra secret needed)\n")
         found += 1
     print("=" * 70)
     if not found:
