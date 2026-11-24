@@ -455,16 +455,41 @@
     ]
    ],
    "at": "2026-11-25T00:03:45+05:30"
+  },
+  {
+   "type": "post",
+   "errors": 0,
+   "rows": [
+    [
+     "aesthetic",
+     "all",
+     "—",
+     "nothing due — next slot 12pm (today: 12pm, 11pm)"
+    ],
+    [
+     "gta",
+     "all",
+     "—",
+     "nothing due — next slot 12pm (today: 12pm, 9pm)"
+    ],
+    [
+     "horror",
+     "all",
+     "—",
+     "nothing due — next slot 7pm (today: 7pm, 8pm)"
+    ]
+   ],
+   "at": "2026-11-25T00:04:29+05:30"
   }
  ],
  "stock": {
   "aesthetic": 2039,
-  "gta": 66,
+  "gta": 88,
   "horror": 864
  },
  "inventory": {
   "aesthetic": {
-   "at": "2026-11-24T23:53:01+05:30",
+   "at": "2026-11-25T00:04:25+05:30",
    "in_drive": 2041,
    "inbox": 2039,
    "posted_folder": 2,
@@ -481,8 +506,8 @@
     "youtube": 0
    },
    "posted_today": {
-    "instagram": 2,
-    "facebook": 2,
+    "instagram": 0,
+    "facebook": 0,
     "youtube": 0
    },
    "per_day": 2,
@@ -492,23 +517,23 @@
    ],
    "days_left": 1019,
    "plan_today": [
-    18,
-    21
+    12,
+    23
    ],
-   "next_hour": null,
+   "next_hour": 12,
    "due_now": false
   },
   "gta": {
-   "at": "2026-11-24T23:59:19+05:30",
-   "in_drive": 67,
-   "inbox": 66,
+   "at": "2026-11-25T00:04:27+05:30",
+   "in_drive": 89,
+   "inbox": 88,
    "posted_folder": 1,
    "duplicates": 0,
    "failed": 0,
-   "new": 66,
+   "new": 88,
    "left": {
-    "instagram": 66,
-    "facebook": 66
+    "instagram": 88,
+    "facebook": 88
    },
    "posted": {
     "instagram": 1,
@@ -516,8 +541,8 @@
     "youtube": 0
    },
    "posted_today": {
-    "instagram": 1,
-    "facebook": 1,
+    "instagram": 0,
+    "facebook": 0,
     "youtube": 0
    },
    "per_day": 2,
@@ -525,16 +550,16 @@
     "instagram",
     "facebook"
    ],
-   "days_left": 33,
+   "days_left": 44,
    "plan_today": [
-    18,
-    20
+    12,
+    21
    ],
-   "next_hour": 20,
-   "due_now": true
+   "next_hour": 12,
+   "due_now": false
   },
   "horror": {
-   "at": "2026-11-25T00:03:45+05:30",
+   "at": "2026-11-25T00:04:29+05:30",
    "in_drive": 866,
    "inbox": 865,
    "posted_folder": 1,
