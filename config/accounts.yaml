@@ -10,7 +10,7 @@ timezone: Asia/Kolkata
 #   https://drive.google.com/drive/folders/THIS_PART_IS_THE_ID
 # The bot creates one sub-folder per niche inside it (aesthetic, gta, horror …)
 # and, inside each, _posted / _duplicates / _failed.
-drive_root_folder_id: "PASTE_YTS_FOLDER_ID_HERE"
+drive_root_folder_id: "1NKH5PCvrmoZ1DHNpNMCsClG7PzHbH_OG"
 
 # EDIT: set to true ONLY after Google approves your YouTube API audit
 # (see SETUP.md step 6). Until then, YouTube uploads made through the API are
