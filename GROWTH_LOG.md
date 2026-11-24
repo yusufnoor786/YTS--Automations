@@ -18,3 +18,7 @@ Details: [TRENDS.md](TRENDS.md)
 
 - Audit + quota request (20,000 units/day) sent to Google for project 5498723855.
 - YouTube uploads stay off (`youtube_api_audited: false`) until Google approves; videos already posted on Instagram/Facebook will then be uploaded to YouTube once each, oldest first.
+
+### 2026-11-24 — niche research
+gta: Relatable Indian family comedy and high-stakes character escape scenarios are dominating GTA 6 short-form views. Combining local humor with  Applied automatically: aesthetic: started testing posting at 11pm (top niche posts go out then); aesthetic: started testing 5 hashtags (typical for top posts in this niche); aesthetic: hashtag pool updated → #aestheticreels #thatgirl #softlife #explorepage #explore #aesthetic; gta: started testing 5 hashtags (typical for top posts in this niche); gta: hashtag pool updated → #gta6 #gaming #funny #vicecity #ps5 #rockstargames; gta: new 'trend' caption style → Hype Relatable: Use punchy gamer slang combined with relatable Indian household pain points to trigger instant comme; horror: started testing posting at 11pm (top niche posts go out then); horror: started testing 5 hashtags (typical for top posts in this niche); horror: hashtag pool updated → #bhoot #paranormal #horrorstories #horror #ghost #halloween
+Details: [TRENDS.md](TRENDS.md)
