@@ -46,7 +46,7 @@
      "id": "18135701224760541",
      "url": "https://www.instagram.com/reel/DgIY4n7ALuq/",
      "views": 13,
-     "views_checked": "2026-11-25T10:32:32+05:30"
+     "views_checked": "2026-11-25T10:47:41+05:30"
     },
     "facebook": {
      "status": "posted",
@@ -61,7 +61,7 @@
      "recovered": true,
      "unverified": null,
      "views": 0,
-     "views_checked": "2026-11-25T10:32:32+05:30"
+     "views_checked": "2026-11-25T10:47:42+05:30"
     }
    },
    "variant": {
@@ -114,7 +114,7 @@
      "id": "18139966972631740",
      "url": "https://www.instagram.com/reel/DgIcpT8DoRN/",
      "views": 110,
-     "views_checked": "2026-11-25T10:32:32+05:30"
+     "views_checked": "2026-11-25T10:47:41+05:30"
     },
     "facebook": {
      "status": "posted",
@@ -127,7 +127,7 @@
      "id": "1641162040836163",
      "url": "https://www.facebook.com/reel/1641162040836163/",
      "views": 0,
-     "views_checked": "2026-11-25T10:32:32+05:30"
+     "views_checked": "2026-11-25T10:47:42+05:30"
     }
    },
    "variant": {
@@ -180,7 +180,7 @@
      "id": "18038464649852322",
      "url": "https://www.instagram.com/reel/DgImRc7iEFk/",
      "views": 162,
-     "views_checked": "2026-11-25T10:32:33+05:30"
+     "views_checked": "2026-11-25T10:47:42+05:30"
     },
     "facebook": {
      "status": "posted",
@@ -193,7 +193,7 @@
      "id": "1202032072483959",
      "url": "https://www.facebook.com/reel/1202032072483959/",
      "views": 0,
-     "views_checked": "2026-11-25T10:32:33+05:30"
+     "views_checked": "2026-11-25T10:47:42+05:30"
     }
    },
    "variant": {
@@ -243,7 +243,7 @@
      "id": "18169336075524960",
      "url": "https://www.instagram.com/reel/DgIm1-2gqwe/",
      "views": 0,
-     "views_checked": "2026-11-25T10:32:33+05:30"
+     "views_checked": "2026-11-25T10:47:43+05:30"
     },
     "facebook": {
      "status": "posted",
@@ -256,7 +256,7 @@
      "id": "1051733707939081",
      "url": "https://www.facebook.com/reel/1051733707939081/",
      "views": 0,
-     "views_checked": "2026-11-25T10:32:33+05:30"
+     "views_checked": "2026-11-25T10:47:43+05:30"
     }
    },
    "variant": {
@@ -1538,6 +1538,31 @@
     ]
    ],
    "at": "2026-11-25T10:32:11+05:30"
+  },
+  {
+   "type": "post",
+   "errors": 0,
+   "rows": [
+    [
+     "aesthetic",
+     "all",
+     "—",
+     "nothing due — next slot 12pm (today: 12pm, 11pm)"
+    ],
+    [
+     "gta",
+     "all",
+     "—",
+     "nothing due — next slot 12pm (today: 12pm, 9pm)"
+    ],
+    [
+     "horror",
+     "all",
+     "—",
+     "nothing due — next slot 7pm (today: 7pm, 8pm)"
+    ]
+   ],
+   "at": "2026-11-25T10:47:14+05:30"
   }
  ],
  "stock": {
@@ -1547,7 +1572,7 @@
  },
  "inventory": {
   "aesthetic": {
-   "at": "2026-11-25T10:32:18+05:30",
+   "at": "2026-11-25T10:47:21+05:30",
    "in_drive": 2041,
    "inbox": 2039,
    "posted_folder": 2,
@@ -1582,7 +1607,7 @@
    "due_now": false
   },
   "gta": {
-   "at": "2026-11-25T10:32:21+05:30",
+   "at": "2026-11-25T10:47:25+05:30",
    "in_drive": 617,
    "inbox": 616,
    "posted_folder": 1,
@@ -1617,7 +1642,7 @@
    "due_now": false
   },
   "horror": {
-   "at": "2026-11-25T10:32:25+05:30",
+   "at": "2026-11-25T10:47:28+05:30",
    "in_drive": 866,
    "inbox": 865,
    "posted_folder": 1,
