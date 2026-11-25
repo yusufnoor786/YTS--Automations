@@ -48,3 +48,7 @@ Details: [TRENDS.md](TRENDS.md)
 - 2026-11-24: [auto from research] horror: started testing posting at 11pm (top niche posts go out then)
 - 2026-11-24: [auto from research] horror: started testing 5 hashtags (typical for top posts in this niche)
 - 2026-11-24: [auto from research] horror: hashtag pool updated → #bhoot #paranormal #horrorstories #horror #ghost #halloween
+
+### 2026-11-25 — niche research
+aesthetic: Short, highly relatable micro-vlogs combined with dreamy DIY crafts and comforting soft-life aesthetics are dominating the Indian audience. ; gta: Relatable Indian family comedy and high-stakes character escape scenarios are dominating GTA 6 short-form views. Combining local humor with  Applied automatically: aesthetic: hashtag pool updated → #aestheticreels #thatgirl #softlife #glowup #selfcare #aesthetic; aesthetic: new 'trend' caption style → Dreamy Confession: Write ultra-short, comforting captions that sound like a gentle inner monologue or a soft reminder t
+Details: [TRENDS.md](TRENDS.md)
