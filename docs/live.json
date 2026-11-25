@@ -1,9 +1,9 @@
 {
- "built": "2026-11-25T21:07:02+05:30",
- "last_run": "2026-11-25T21:06:33+05:30",
+ "built": "2026-11-26T02:12:09+05:30",
+ "last_run": "2026-11-26T02:11:36+05:30",
  "inventory": {
   "aesthetic": {
-   "at": "2026-11-25T21:06:40+05:30",
+   "at": "2026-11-26T02:11:40+05:30",
    "in_drive": 2041,
    "inbox": 2038,
    "posted_folder": 3,
@@ -20,8 +20,8 @@
     "youtube": 0
    },
    "posted_today": {
-    "instagram": 1,
-    "facebook": 1,
+    "instagram": 0,
+    "facebook": 0,
     "youtube": 0
    },
    "per_day": 2,
@@ -31,14 +31,14 @@
    ],
    "days_left": 1019,
    "plan_today": [
-    12,
-    23
+    15,
+    19
    ],
-   "next_hour": 23,
+   "next_hour": 15,
    "due_now": false
   },
   "gta": {
-   "at": "2026-11-25T21:06:43+05:30",
+   "at": "2026-11-26T02:11:42+05:30",
    "in_drive": 617,
    "inbox": 614,
    "posted_folder": 3,
@@ -55,8 +55,8 @@
     "youtube": 0
    },
    "posted_today": {
-    "instagram": 2,
-    "facebook": 2,
+    "instagram": 0,
+    "facebook": 0,
     "youtube": 0
    },
    "per_day": 2,
@@ -66,14 +66,14 @@
    ],
    "days_left": 302,
    "plan_today": [
-    12,
+    8,
     21
    ],
-   "next_hour": null,
+   "next_hour": 8,
    "due_now": false
   },
   "horror": {
-   "at": "2026-11-25T21:06:47+05:30",
+   "at": "2026-11-26T02:11:44+05:30",
    "in_drive": 866,
    "inbox": 864,
    "posted_folder": 2,
@@ -90,8 +90,8 @@
     "youtube": 0
    },
    "posted_today": {
-    "instagram": 2,
-    "facebook": 2,
+    "instagram": 0,
+    "facebook": 0,
     "youtube": 0
    },
    "per_day": 2,
@@ -101,10 +101,10 @@
    ],
    "days_left": 431,
    "plan_today": [
-    19,
-    20
+    17,
+    21
    ],
-   "next_hour": null,
+   "next_hour": 17,
    "due_now": false
   }
  }
