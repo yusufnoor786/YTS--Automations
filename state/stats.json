@@ -49,7 +49,7 @@
    },
    "gta/instagram": {
     "followers": 7,
-    "posts": 2,
+    "posts": 3,
     "username": "wanted_level_yts"
    },
    "gta/facebook": {
@@ -80,7 +80,7 @@
    "followers": 2,
    "posts": 11,
    "username": "bliss_nglow",
-   "at": "2026-11-25T20:47:35+05:30",
+   "at": "2026-11-25T21:06:51+05:30",
    "ok": true
   },
   "aesthetic/youtube": {
@@ -89,14 +89,14 @@
    "videos": 2,
    "handle": "@blissnglowshorts",
    "title": "Bliss N Glow",
-   "at": "2026-11-25T20:47:39+05:30",
+   "at": "2026-11-25T21:06:53+05:30",
    "ok": true
   },
   "gta/instagram": {
    "followers": 7,
-   "posts": 2,
+   "posts": 3,
    "username": "wanted_level_yts",
-   "at": "2026-11-25T20:47:41+05:30",
+   "at": "2026-11-25T21:06:54+05:30",
    "ok": true
   },
   "gta/youtube": {
@@ -105,7 +105,7 @@
    "videos": 0,
    "handle": "@wantedlevel-yts",
    "title": "Wanted Level",
-   "at": "2026-11-25T20:47:42+05:30",
+   "at": "2026-11-25T21:06:56+05:30",
    "ok": true
   },
   "horror/youtube": {
@@ -114,35 +114,35 @@
    "videos": 5,
    "handle": "@darrdiaries-yts",
    "title": "Darr Diaries",
-   "at": "2026-11-25T20:47:46+05:30",
+   "at": "2026-11-25T21:06:58+05:30",
    "ok": true
   },
   "aesthetic/facebook": {
    "followers": 0,
    "name": "Bliss N Glow",
    "url": "https://www.facebook.com/1363246033549819",
-   "at": "2026-11-25T20:47:39+05:30",
+   "at": "2026-11-25T21:06:52+05:30",
    "ok": true
   },
   "gta/facebook": {
    "followers": 0,
    "name": "Wanted Level",
    "url": "https://www.facebook.com/1381962041676039",
-   "at": "2026-11-25T20:47:42+05:30",
+   "at": "2026-11-25T21:06:55+05:30",
    "ok": true
   },
   "horror/instagram": {
    "followers": 0,
    "posts": 2,
    "username": "darrdiaries_yts",
-   "at": "2026-11-25T20:47:44+05:30",
+   "at": "2026-11-25T21:06:57+05:30",
    "ok": true
   },
   "horror/facebook": {
    "followers": 153,
    "name": "Darr Diaries",
    "url": "https://www.facebook.com/728218937273915",
-   "at": "2026-11-25T20:47:45+05:30",
+   "at": "2026-11-25T21:06:58+05:30",
    "ok": true
   }
  },
@@ -240,6 +240,14 @@
   "aesthetic/youtube": [],
   "gta/instagram": [
    {
+    "url": "https://www.instagram.com/reel/DgK3X65T3Am/",
+    "at": "2026-11-25T15:35:55+0000",
+    "likes": 0,
+    "comments": 0,
+    "views": 0,
+    "caption": "GTA 6 hits different 🎮\n.\n.\n#gta6 #gaming #funny #vicecity #gta"
+   },
+   {
     "url": "https://www.instagram.com/reel/DgJ5xN5zLYm/",
     "at": "2026-11-25T06:38:02+0000",
     "likes": 1,
@@ -285,6 +293,14 @@
    }
   ],
   "gta/facebook": [
+   {
+    "url": "https://www.facebook.com/reel/2143385473218381/",
+    "at": "2026-11-25T15:36:03+0000",
+    "views": 0,
+    "likes": null,
+    "comments": null,
+    "caption": "GTA 6 hits different 🎮\n.\n.\n#gta6 #gaming #funny #vicecity #gta"
+   },
    {
     "url": "https://www.facebook.com/reel/1087456394316899/",
     "at": "2026-11-25T06:38:11+0000",
@@ -339,5 +355,5 @@
    }
   ]
  },
- "updated": "2026-11-25T20:47:46+05:30"
+ "updated": "2026-11-25T21:06:58+05:30"
 }
