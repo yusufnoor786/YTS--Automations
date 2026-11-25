@@ -3,9 +3,11 @@ name: Post videos
 on:
   schedule:
     # Backup only. The real timer is the "heartbeat" job below: every run starts the next one
-    # 30 min later, because GitHub's cron is often hours late / skipped on new repos.
+    # 15 min later, because GitHub's cron is often hours late / skipped on new repos.
     # The Growth Lab decides which hours actually post; other runs just refresh the counts.
-    - cron: "23 */2 * * *"
+    - cron: "7,37 * * * *"
+  repository_dispatch:
+    types: [heartbeat]   # 2nd way to start a run, used if the normal one fails
   workflow_dispatch:
     inputs:
       niche:
@@ -102,7 +104,7 @@ jobs:
     needs: post
     if: always()
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 240
     concurrency:
       group: yts-heartbeat
       cancel-in-progress: true
@@ -126,6 +128,12 @@ jobs:
           s=$(python3 -m autopilot.heartbeat sleep)
           echo "next post run in $((s/60)) min"
           sleep "$s"
-          for i in 1 2 3 4 5; do gh workflow run post.yml --ref main && exit 0; sleep 20; done
+          # GitHub's API sometimes returns 502/503 for a while: keep trying (2 different ways) for up to ~3 hours
+          for i in $(seq 1 90); do
+            gh workflow run post.yml --ref main && exit 0
+            gh api "repos/$GH_REPO/dispatches" -f event_type=heartbeat && exit 0
+            echo "::warning::GitHub refused to start the next run (try $i) — retrying"
+            if [ "$i" -lt 10 ]; then sleep 30; else sleep 120; fi
+          done
           exit 1
 

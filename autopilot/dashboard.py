@@ -454,12 +454,13 @@ function ago(t){{if(!t)return"never";const m=Math.round((Date.now()-new Date(t))
  if(m<1)return"just now";if(m<60)return m+" min ago";const h=Math.floor(m/60);return h+"h "+(m%60)+"m ago";}}
 function tick(){{const lr=document.getElementById("lastrun");const t=lr.dataset.t;lr.textContent=ago(t);
  const m=t?(Date.now()-new Date(t))/60000:1e9;document.getElementById("dot").className="dot"+(m>60?" dead":m>30?" late":"");
+ const ls=document.getElementById("livestate"); if(m>60&&!ls.dataset.busy){{ls.innerHTML='<b style="color:var(--yt)">⚠️ the bot is late — it keeps retrying by itself (GitHub was having problems). Numbers below are from '+ago(t)+'.</b>';}}
  document.querySelectorAll("[data-ago]").forEach(e=>e.textContent=ago(e.dataset.ago));
  const q=15*60000, nxt=Math.ceil((Date.now()-90000)/q)*q+90000+150000, mm=Math.max(0,Math.round((nxt-Date.now())/60000));
  document.getElementById("nextrun").textContent= mm<=1?"any moment":"in ~"+mm+" min";}}
 async function poll(){{try{{const r=await fetch("https://api.github.com/repos/yusufnoor786/YTS--Automations/contents/docs/live.json?ref=main",
  {{headers:{{Accept:"application/vnd.github.raw+json"}},cache:"no-store"}});if(!r.ok)return;const j=await r.json();
- if(j.built&&new Date(j.built)>new Date(BUILT)){{document.getElementById("livestate").textContent="new data — refreshing…";
+ if(j.built&&new Date(j.built)>new Date(BUILT)){{const ls2=document.getElementById("livestate");ls2.dataset.busy=1;ls2.textContent="new data — refreshing…";
  setTimeout(()=>location.reload(),60000);}}}}catch(e){{}}}}
 tick();setInterval(tick,20000);poll();setInterval(poll,120000);
 </script></body></html>"""
