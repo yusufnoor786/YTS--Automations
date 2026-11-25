@@ -1,0 +1,50 @@
+name: Watchdog
+
+# Called from outside GitHub (cron-job.org, every 30 min) as a last-resort backup.
+# Does nothing if the bot ran recently; restarts the posting chain if it has been quiet for 40+ min.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "52 * * * *"
+
+permissions:
+  actions: write
+  contents: read
+
+concurrency:
+  group: yts-watchdog
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          sparse-checkout: state
+      - name: Restart the bot if it has stopped
+        run: |
+          busy=$(gh run list -w post.yml -L 10 --json status -q '[.[]|select(.status=="in_progress" or .status=="queued" or .status=="pending")]|length')
+          age=$(python3 - <<'EOF'
+          import json
+          from datetime import datetime, timezone
+          try:
+              runs = json.load(open("state/ledger.json")).get("runs", [])
+              t = datetime.fromisoformat(runs[-1]["at"])
+              print(int((datetime.now(timezone.utc) - t).total_seconds() // 60))
+          except Exception:
+              print(9999)
+          EOF
+          )
+          echo "last bot run: $age min ago · post runs active: $busy"
+          # a running post job whose heartbeat is sleeping counts as busy → healthy
+          if [ "$age" -lt 40 ] || { [ "$busy" -gt 0 ] && [ "$age" -lt 120 ]; }; then
+            echo "✅ bot is healthy — nothing to do"; exit 0
+          fi
+          echo "⚠️ bot looks stopped — restarting it"
+          gh workflow run post.yml --ref main || gh api "repos/$GH_REPO/dispatches" -f event_type=heartbeat
