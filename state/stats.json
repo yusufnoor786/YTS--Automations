@@ -62,7 +62,7 @@
    },
    "horror/instagram": {
     "followers": 0,
-    "posts": 1,
+    "posts": 2,
     "username": "darrdiaries_yts"
    },
    "horror/facebook": {
@@ -80,7 +80,7 @@
    "followers": 2,
    "posts": 11,
    "username": "bliss_nglow",
-   "at": "2026-11-25T19:47:26+05:30",
+   "at": "2026-11-25T20:06:08+05:30",
    "ok": true
   },
   "aesthetic/youtube": {
@@ -89,14 +89,14 @@
    "videos": 2,
    "handle": "@blissnglowshorts",
    "title": "Bliss N Glow",
-   "at": "2026-11-25T19:47:28+05:30",
+   "at": "2026-11-25T20:06:10+05:30",
    "ok": true
   },
   "gta/instagram": {
    "followers": 7,
    "posts": 2,
    "username": "wanted_level_yts",
-   "at": "2026-11-25T19:47:29+05:30",
+   "at": "2026-11-25T20:06:11+05:30",
    "ok": true
   },
   "gta/youtube": {
@@ -105,7 +105,7 @@
    "videos": 0,
    "handle": "@wantedlevel-yts",
    "title": "Wanted Level",
-   "at": "2026-11-25T19:47:31+05:30",
+   "at": "2026-11-25T20:06:13+05:30",
    "ok": true
   },
   "horror/youtube": {
@@ -114,35 +114,35 @@
    "videos": 5,
    "handle": "@darrdiaries-yts",
    "title": "Darr Diaries",
-   "at": "2026-11-25T19:47:34+05:30",
+   "at": "2026-11-25T20:06:17+05:30",
    "ok": true
   },
   "aesthetic/facebook": {
    "followers": 0,
    "name": "Bliss N Glow",
    "url": "https://www.facebook.com/1363246033549819",
-   "at": "2026-11-25T19:47:28+05:30",
+   "at": "2026-11-25T20:06:09+05:30",
    "ok": true
   },
   "gta/facebook": {
    "followers": 0,
    "name": "Wanted Level",
    "url": "https://www.facebook.com/1381962041676039",
-   "at": "2026-11-25T19:47:31+05:30",
+   "at": "2026-11-25T20:06:13+05:30",
    "ok": true
   },
   "horror/instagram": {
    "followers": 0,
-   "posts": 1,
+   "posts": 2,
    "username": "darrdiaries_yts",
-   "at": "2026-11-25T19:47:32+05:30",
+   "at": "2026-11-25T20:06:15+05:30",
    "ok": true
   },
   "horror/facebook": {
    "followers": 153,
    "name": "Darr Diaries",
    "url": "https://www.facebook.com/728218937273915",
-   "at": "2026-11-25T19:47:34+05:30",
+   "at": "2026-11-25T20:06:16+05:30",
    "ok": true
   }
  },
@@ -304,6 +304,14 @@
   ],
   "horror/instagram": [
    {
+    "url": "https://www.instagram.com/reel/DgKwcUQO-cB/",
+    "at": "2026-11-25T14:35:19+0000",
+    "likes": 0,
+    "comments": 0,
+    "views": 0,
+    "caption": "She smiled at me from the mirror.\nExcept I was home alone.\nWould you survive thi"
+   },
+   {
     "url": "https://www.instagram.com/reel/DgIm1-2gqwe/",
     "at": "2026-11-24T18:33:05+0000",
     "likes": 1,
@@ -314,6 +322,14 @@
   ],
   "horror/facebook": [
    {
+    "url": "https://www.facebook.com/reel/1501698765203710/",
+    "at": "2026-11-25T14:35:28+0000",
+    "views": 0,
+    "likes": null,
+    "comments": null,
+    "caption": "She smiled at me from the mirror.\nExcept I was home alone.\nWould you survive thi"
+   },
+   {
     "url": "https://www.facebook.com/reel/1051733707939081/",
     "at": "2026-11-24T18:33:16+0000",
     "views": 0,
@@ -323,5 +339,5 @@
    }
   ]
  },
- "updated": "2026-11-25T19:47:34+05:30"
+ "updated": "2026-11-25T20:06:17+05:30"
 }
