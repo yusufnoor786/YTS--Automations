@@ -45,8 +45,8 @@
      "day": "2026-11-24",
      "id": "18135701224760541",
      "url": "https://www.instagram.com/reel/DgIY4n7ALuq/",
-     "views": 14,
-     "views_checked": "2026-11-25T11:47:36+05:30"
+     "views": 16,
+     "views_checked": "2026-11-25T12:09:17+05:30"
     },
     "facebook": {
      "status": "posted",
@@ -61,7 +61,7 @@
      "recovered": true,
      "unverified": null,
      "views": 0,
-     "views_checked": "2026-11-25T11:47:36+05:30"
+     "views_checked": "2026-11-25T12:09:18+05:30"
     }
    },
    "variant": {
@@ -114,7 +114,7 @@
      "id": "18139966972631740",
      "url": "https://www.instagram.com/reel/DgIcpT8DoRN/",
      "views": 110,
-     "views_checked": "2026-11-25T11:47:36+05:30"
+     "views_checked": "2026-11-25T12:09:18+05:30"
     },
     "facebook": {
      "status": "posted",
@@ -127,7 +127,7 @@
      "id": "1641162040836163",
      "url": "https://www.facebook.com/reel/1641162040836163/",
      "views": 0,
-     "views_checked": "2026-11-25T11:47:37+05:30"
+     "views_checked": "2026-11-25T12:09:18+05:30"
     }
    },
    "variant": {
@@ -180,7 +180,7 @@
      "id": "18038464649852322",
      "url": "https://www.instagram.com/reel/DgImRc7iEFk/",
      "views": 162,
-     "views_checked": "2026-11-25T11:47:37+05:30"
+     "views_checked": "2026-11-25T12:09:19+05:30"
     },
     "facebook": {
      "status": "posted",
@@ -193,7 +193,7 @@
      "id": "1202032072483959",
      "url": "https://www.facebook.com/reel/1202032072483959/",
      "views": 0,
-     "views_checked": "2026-11-25T11:47:37+05:30"
+     "views_checked": "2026-11-25T12:09:19+05:30"
     }
    },
    "variant": {
@@ -243,7 +243,7 @@
      "id": "18169336075524960",
      "url": "https://www.instagram.com/reel/DgIm1-2gqwe/",
      "views": 0,
-     "views_checked": "2026-11-25T11:47:38+05:30"
+     "views_checked": "2026-11-25T12:09:20+05:30"
     },
     "facebook": {
      "status": "posted",
@@ -256,13 +256,164 @@
      "id": "1051733707939081",
      "url": "https://www.facebook.com/reel/1051733707939081/",
      "views": 0,
-     "views_checked": "2026-11-25T11:47:38+05:30"
+     "views_checked": "2026-11-25T12:09:20+05:30"
     }
    },
    "variant": {
     "style": "short",
     "tags": 6,
     "hour": 0
+   }
+  },
+  "38445ce5c82d04499c1fa202d47c34a4": {
+   "file_id": "197FnYHNsQAKiR2GLpm3m_GZsSGBw7aK7",
+   "name": "NI048C~1.MP4",
+   "niche": "aesthetic",
+   "first_seen": "2026-11-25T12:02:07+05:30",
+   "phash": [
+    9618491288452710448,
+    7019261793773811760,
+    3617008642948723017
+   ],
+   "caption": {
+    "ig_caption": "City strolls and quiet moments ✨🤍\n\nWhere is your favorite place to unwind?\n.\n.\n#aestheticreels #thatgirl #softlife #aesthetic #explore",
+    "yt_title": "Quiet afternoon city strolls ✨🤍 #shorts",
+    "yt_description": "Embracing the soft life with a peaceful afternoon in the city. Slow down and enjoy the little moments.\n\n#aesthetic #thatgirl #softlife #citystroll #vlog",
+    "yt_tags": [
+     "aesthetic",
+     "thatgirl",
+     "softlife",
+     "citystroll",
+     "vlog",
+     "lifestyle",
+     "gentlemoments",
+     "peaceful",
+     "glowup",
+     "aestheticreels",
+     "aestheticvibes",
+     "reels",
+     "explorepage",
+     "shorts"
+    ],
+    "source": "gemini"
+   },
+   "duplicate_of": null,
+   "platforms": {
+    "instagram": {
+     "status": "posted",
+     "attempts": 0,
+     "updated": "2026-11-25T12:04:21+05:30",
+     "container_id": "17922564852529906",
+     "at": "2026-11-25T12:04:21+05:30",
+     "day": "2026-11-25",
+     "id": "18064321946543041",
+     "url": "https://www.instagram.com/reel/DgJ5YAmzaq2/",
+     "views": 0,
+     "views_checked": "2026-11-25T12:09:18+05:30"
+    },
+    "facebook": {
+     "status": "posted",
+     "attempts": 0,
+     "updated": "2026-11-25T12:04:47+05:30",
+     "video_id": "1016203678196081",
+     "finished": true,
+     "at": "2026-11-25T12:04:47+05:30",
+     "day": "2026-11-25",
+     "id": "1016203678196081",
+     "url": "https://www.facebook.com/reel/1016203678196081/",
+     "views": 0,
+     "views_checked": "2026-11-25T12:09:19+05:30"
+    }
+   },
+   "variant": {
+    "style": "short",
+    "tags": 5,
+    "hour": 12,
+    "trend": {
+     "tags": [
+      "aestheticreels",
+      "explore"
+     ],
+     "style": false,
+     "hour": false,
+     "tag_count": true,
+     "research": "2026-11-24"
+    }
+   }
+  },
+  "df123ed27e57db1e0b22e2263acc8582": {
+   "file_id": "1EhYo9846hcbxWkWKhOm2XFXMA_CeSilT",
+   "name": "Assetsgalaxy (682).mp4",
+   "niche": "gta",
+   "first_seen": "2026-11-25T12:04:53+05:30",
+   "phash": [
+    15768744740474963397,
+    10261968210422574887,
+    16701422330254456803
+   ],
+   "caption": {
+    "ig_caption": "Selling this ride was a massive mistake 😭🚗\nWould you have kept it in your garage?\n.\n.\n#gta6 #gaming #vicecity #ps5 #rockstargames",
+    "yt_title": "Selling This Car Was A Mistake #shorts",
+    "yt_description": "Regretting selling this clean ride in Vice City. Would you have kept it?\n\n#gta6 #gtavi #vicecity #gtav #gamingmoments",
+    "yt_tags": [
+     "gta6",
+     "gtavi",
+     "vicecity",
+     "gtav",
+     "gamingmoments",
+     "ps5",
+     "rockstargames",
+     "gtaonline",
+     "funnygaming",
+     "gtagameplay",
+     "gta",
+     "gaming",
+     "gamingshorts",
+     "shorts"
+    ],
+    "source": "gemini"
+   },
+   "duplicate_of": null,
+   "platforms": {
+    "instagram": {
+     "status": "posted",
+     "attempts": 0,
+     "updated": "2026-11-25T12:08:09+05:30",
+     "container_id": "17960322387259364",
+     "at": "2026-11-25T12:08:09+05:30",
+     "day": "2026-11-25",
+     "id": "18170739100488239",
+     "url": "https://www.instagram.com/reel/DgJ5xN5zLYm/",
+     "views": 0,
+     "views_checked": "2026-11-25T12:09:19+05:30"
+    },
+    "facebook": {
+     "status": "posted",
+     "attempts": 0,
+     "updated": "2026-11-25T12:08:52+05:30",
+     "video_id": "1087456394316899",
+     "finished": true,
+     "at": "2026-11-25T12:08:52+05:30",
+     "day": "2026-11-25",
+     "id": "1087456394316899",
+     "url": "https://www.facebook.com/reel/1087456394316899/",
+     "views": 0,
+     "views_checked": "2026-11-25T12:09:20+05:30"
+    }
+   },
+   "variant": {
+    "style": "question",
+    "tags": 5,
+    "hour": 12,
+    "trend": {
+     "tags": [
+      "ps5"
+     ],
+     "style": false,
+     "hour": false,
+     "tag_count": true,
+     "research": "2026-11-24"
+    }
    }
   }
  },
@@ -1663,34 +1814,71 @@
     ]
    ],
    "at": "2026-11-25T11:47:09+05:30"
+  },
+  {
+   "type": "post",
+   "errors": 0,
+   "rows": [
+    [
+     "aesthetic",
+     "instagram",
+     "NI048C~1.MP4",
+     "✅ https://www.instagram.com/reel/DgJ5YAmzaq2/"
+    ],
+    [
+     "aesthetic",
+     "facebook",
+     "NI048C~1.MP4",
+     "✅ https://www.facebook.com/reel/1016203678196081/"
+    ],
+    [
+     "gta",
+     "instagram",
+     "Assetsgalaxy (682).mp4",
+     "✅ https://www.instagram.com/reel/DgJ5xN5zLYm/"
+    ],
+    [
+     "gta",
+     "facebook",
+     "Assetsgalaxy (682).mp4",
+     "✅ https://www.facebook.com/reel/1087456394316899/"
+    ],
+    [
+     "horror",
+     "all",
+     "—",
+     "nothing due — next slot 7pm (today: 7pm, 8pm)"
+    ]
+   ],
+   "at": "2026-11-25T12:08:55+05:30"
   }
  ],
  "stock": {
-  "aesthetic": 2039,
-  "gta": 607,
+  "aesthetic": 2038,
+  "gta": 606,
   "horror": 864
  },
  "inventory": {
   "aesthetic": {
-   "at": "2026-11-25T11:47:16+05:30",
+   "at": "2026-11-25T12:09:00+05:30",
    "in_drive": 2041,
-   "inbox": 2039,
-   "posted_folder": 2,
+   "inbox": 2038,
+   "posted_folder": 3,
    "duplicates": 0,
    "failed": 0,
-   "new": 2039,
+   "new": 2038,
    "left": {
-    "instagram": 2039,
-    "facebook": 2039
+    "instagram": 2038,
+    "facebook": 2038
    },
    "posted": {
-    "instagram": 2,
-    "facebook": 2,
+    "instagram": 3,
+    "facebook": 3,
     "youtube": 0
    },
    "posted_today": {
-    "instagram": 0,
-    "facebook": 0,
+    "instagram": 1,
+    "facebook": 1,
     "youtube": 0
    },
    "per_day": 2,
@@ -1703,29 +1891,29 @@
     12,
     23
    ],
-   "next_hour": 12,
+   "next_hour": 23,
    "due_now": false
   },
   "gta": {
-   "at": "2026-11-25T11:47:20+05:30",
+   "at": "2026-11-25T12:09:02+05:30",
    "in_drive": 617,
-   "inbox": 616,
-   "posted_folder": 1,
+   "inbox": 615,
+   "posted_folder": 2,
    "duplicates": 9,
    "failed": 0,
-   "new": 607,
+   "new": 606,
    "left": {
-    "instagram": 607,
-    "facebook": 607
+    "instagram": 606,
+    "facebook": 606
    },
    "posted": {
-    "instagram": 1,
-    "facebook": 1,
+    "instagram": 2,
+    "facebook": 2,
     "youtube": 0
    },
    "posted_today": {
-    "instagram": 0,
-    "facebook": 0,
+    "instagram": 1,
+    "facebook": 1,
     "youtube": 0
    },
    "per_day": 2,
@@ -1738,11 +1926,11 @@
     12,
     21
    ],
-   "next_hour": 12,
+   "next_hour": 21,
    "due_now": false
   },
   "horror": {
-   "at": "2026-11-25T11:47:23+05:30",
+   "at": "2026-11-25T12:09:04+05:30",
    "in_drive": 866,
    "inbox": 865,
    "posted_folder": 1,

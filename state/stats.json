@@ -36,7 +36,7 @@
   "2026-11-25": {
    "aesthetic/instagram": {
     "followers": 2,
-    "posts": 10,
+    "posts": 11,
     "username": "bliss_nglow"
    },
    "aesthetic/facebook": {
@@ -49,7 +49,7 @@
    },
    "gta/instagram": {
     "followers": 7,
-    "posts": 1,
+    "posts": 2,
     "username": "wanted_level_yts"
    },
    "gta/facebook": {
@@ -78,9 +78,9 @@
  "latest": {
   "aesthetic/instagram": {
    "followers": 2,
-   "posts": 10,
+   "posts": 11,
    "username": "bliss_nglow",
-   "at": "2026-11-25T11:47:28+05:30",
+   "at": "2026-11-25T12:09:09+05:30",
    "ok": true
   },
   "aesthetic/youtube": {
@@ -89,14 +89,14 @@
    "videos": 0,
    "handle": "@blissnglowshorts",
    "title": "Bliss N Glow",
-   "at": "2026-11-25T11:47:30+05:30",
+   "at": "2026-11-25T12:09:11+05:30",
    "ok": true
   },
   "gta/instagram": {
    "followers": 7,
-   "posts": 1,
+   "posts": 2,
    "username": "wanted_level_yts",
-   "at": "2026-11-25T11:47:31+05:30",
+   "at": "2026-11-25T12:09:13+05:30",
    "ok": true
   },
   "gta/youtube": {
@@ -105,7 +105,7 @@
    "videos": 0,
    "handle": "@wantedlevel-yts",
    "title": "Wanted Level",
-   "at": "2026-11-25T11:47:33+05:30",
+   "at": "2026-11-25T12:09:14+05:30",
    "ok": true
   },
   "horror/youtube": {
@@ -114,40 +114,48 @@
    "videos": 5,
    "handle": "@darrdiaries-yts",
    "title": "Darr Diaries",
-   "at": "2026-11-25T11:47:35+05:30",
+   "at": "2026-11-25T12:09:17+05:30",
    "ok": true
   },
   "aesthetic/facebook": {
    "followers": 0,
    "name": "Bliss N Glow",
    "url": "https://www.facebook.com/1363246033549819",
-   "at": "2026-11-25T11:47:29+05:30",
+   "at": "2026-11-25T12:09:10+05:30",
    "ok": true
   },
   "gta/facebook": {
    "followers": 0,
    "name": "Wanted Level",
    "url": "https://www.facebook.com/1381962041676039",
-   "at": "2026-11-25T11:47:32+05:30",
+   "at": "2026-11-25T12:09:14+05:30",
    "ok": true
   },
   "horror/instagram": {
    "followers": 0,
    "posts": 1,
    "username": "darrdiaries_yts",
-   "at": "2026-11-25T11:47:34+05:30",
+   "at": "2026-11-25T12:09:16+05:30",
    "ok": true
   },
   "horror/facebook": {
    "followers": 153,
    "name": "Darr Diaries",
    "url": "https://www.facebook.com/728218937273915",
-   "at": "2026-11-25T11:47:35+05:30",
+   "at": "2026-11-25T12:09:17+05:30",
    "ok": true
   }
  },
  "recent": {
   "aesthetic/instagram": [
+   {
+    "url": "https://www.instagram.com/reel/DgJ5YAmzaq2/",
+    "at": "2026-11-25T06:34:14+0000",
+    "likes": 0,
+    "comments": 0,
+    "views": 0,
+    "caption": "City strolls and quiet moments ✨🤍\n\nWhere is your favorite place to unwind?\n.\n.\n#"
+   },
    {
     "url": "https://www.instagram.com/reel/DgIcpT8DoRN/",
     "at": "2026-11-24T17:03:53+0000",
@@ -161,7 +169,7 @@
     "at": "2026-11-24T16:31:03+0000",
     "likes": 0,
     "comments": 0,
-    "views": 14,
+    "views": 16,
     "caption": "Wait for the little detail nobody noticed at first... 🤎✨\nHow would you style thi"
    },
    {
@@ -232,6 +240,14 @@
   "aesthetic/youtube": [],
   "gta/instagram": [
    {
+    "url": "https://www.instagram.com/reel/DgJ5xN5zLYm/",
+    "at": "2026-11-25T06:38:02+0000",
+    "likes": 0,
+    "comments": 0,
+    "views": 0,
+    "caption": "Selling this ride was a massive mistake 😭🚗\nWould you have kept it in your garage"
+   },
+   {
     "url": "https://www.instagram.com/reel/DgImRc7iEFk/",
     "at": "2026-11-24T18:28:27+0000",
     "likes": 0,
@@ -243,6 +259,14 @@
   "gta/youtube": [],
   "horror/youtube": [],
   "aesthetic/facebook": [
+   {
+    "url": "https://www.facebook.com/reel/1016203678196081/",
+    "at": "2026-11-25T06:34:25+0000",
+    "views": 0,
+    "likes": null,
+    "comments": null,
+    "caption": "City strolls and quiet moments ✨🤍\n\nWhere is your favorite place to unwind?\n.\n.\n#"
+   },
    {
     "url": "https://www.facebook.com/reel/1641162040836163/",
     "at": "2026-11-24T17:04:05+0000",
@@ -261,6 +285,14 @@
    }
   ],
   "gta/facebook": [
+   {
+    "url": "https://www.facebook.com/reel/1087456394316899/",
+    "at": "2026-11-25T06:38:11+0000",
+    "views": 0,
+    "likes": null,
+    "comments": null,
+    "caption": "Selling this ride was a massive mistake 😭🚗\nWould you have kept it in your garage"
+   },
    {
     "url": "https://www.facebook.com/reel/1202032072483959/",
     "at": "2026-11-24T18:28:35+0000",
@@ -291,5 +323,5 @@
    }
   ]
  },
- "updated": "2026-11-25T11:47:35+05:30"
+ "updated": "2026-11-25T12:09:17+05:30"
 }
