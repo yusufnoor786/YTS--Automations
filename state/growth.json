@@ -68,28 +68,42 @@
   "aesthetic": {
    "hour": {
     "22": {
-     "n": 1,
-     "sum": 0.0,
-     "mean": 0.0
+     "n": 4,
+     "sum": -0.0,
+     "mean": -0.0
     }
    },
    "style": {
     "trend": {
-     "n": 1,
-     "sum": 0.0,
-     "mean": 0.0
+     "n": 2,
+     "sum": -0.033,
+     "mean": -0.016
+    },
+    "relatable": {
+     "n": 2,
+     "sum": 0.033,
+     "mean": 0.016
     }
    },
    "tags": {
     "5": {
-     "n": 1,
-     "sum": 0.0,
-     "mean": 0.0
+     "n": 2,
+     "sum": -0.033,
+     "mean": -0.016
+    },
+    "6": {
+     "n": 2,
+     "sum": 0.033,
+     "mean": 0.016
     }
    }
   }
  },
- "leaders": {},
+ "leaders": {
+  "aesthetic": {
+   "hour": "22"
+  }
+ },
  "changes": [
   {
    "at": "2026-11-24T21:41:07+05:30",
@@ -134,6 +148,10 @@
   {
    "at": "2026-11-25T19:07:50+05:30",
    "text": "[auto from research] aesthetic: new 'trend' caption style → Dreamy Confession: Write ultra-short, comforting captions that sound like a gentle inner monologue or a soft reminder t"
+  },
+  {
+   "at": "2026-11-26T22:47:50+05:30",
+   "text": "aesthetic: best hour is now **10pm** (score -0.00, 4 posts)"
   }
  ],
  "daily": {
