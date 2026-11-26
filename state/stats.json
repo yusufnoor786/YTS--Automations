@@ -90,7 +90,7 @@
    },
    "gta/instagram": {
     "followers": 7,
-    "posts": 4,
+    "posts": 5,
     "username": "wanted_level_yts"
    },
    "gta/facebook": {
@@ -121,7 +121,7 @@
    "followers": 2,
    "posts": 11,
    "username": "bliss_nglow",
-   "at": "2026-11-26T13:05:11+05:30",
+   "at": "2026-11-26T13:17:20+05:30",
    "ok": true
   },
   "aesthetic/youtube": {
@@ -130,14 +130,14 @@
    "videos": 2,
    "handle": "@blissnglowshorts",
    "title": "Bliss N Glow",
-   "at": "2026-11-26T13:05:12+05:30",
+   "at": "2026-11-26T13:17:21+05:30",
    "ok": true
   },
   "gta/instagram": {
    "followers": 7,
-   "posts": 4,
+   "posts": 5,
    "username": "wanted_level_yts",
-   "at": "2026-11-26T13:05:12+05:30",
+   "at": "2026-11-26T13:17:24+05:30",
    "ok": true
   },
   "gta/youtube": {
@@ -146,7 +146,7 @@
    "videos": 0,
    "handle": "@wantedlevel-yts",
    "title": "Wanted Level",
-   "at": "2026-11-26T13:05:14+05:30",
+   "at": "2026-11-26T13:17:26+05:30",
    "ok": true
   },
   "horror/youtube": {
@@ -155,35 +155,35 @@
    "videos": 5,
    "handle": "@darrdiaries-yts",
    "title": "Darr Diaries",
-   "at": "2026-11-26T13:05:15+05:30",
+   "at": "2026-11-26T13:17:29+05:30",
    "ok": true
   },
   "aesthetic/facebook": {
    "followers": 0,
    "name": "Bliss N Glow",
    "url": "https://www.facebook.com/1363246033549819",
-   "at": "2026-11-26T13:05:11+05:30",
+   "at": "2026-11-26T13:17:21+05:30",
    "ok": true
   },
   "gta/facebook": {
    "followers": 0,
    "name": "Wanted Level",
    "url": "https://www.facebook.com/1381962041676039",
-   "at": "2026-11-26T13:05:13+05:30",
+   "at": "2026-11-26T13:17:26+05:30",
    "ok": true
   },
   "horror/instagram": {
    "followers": 0,
    "posts": 2,
    "username": "darrdiaries_yts",
-   "at": "2026-11-26T13:05:14+05:30",
+   "at": "2026-11-26T13:17:28+05:30",
    "ok": true
   },
   "horror/facebook": {
    "followers": 153,
    "name": "Darr Diaries",
    "url": "https://www.facebook.com/728218937273915",
-   "at": "2026-11-26T13:05:15+05:30",
+   "at": "2026-11-26T13:17:29+05:30",
    "ok": true
   }
  },
@@ -280,6 +280,14 @@
   ],
   "aesthetic/youtube": [],
   "gta/instagram": [
+   {
+    "url": "https://www.instagram.com/reel/DgMlJTiIjSm/",
+    "at": "2026-11-26T07:40:35+0000",
+    "likes": 0,
+    "comments": 0,
+    "views": 0,
+    "caption": "Some people will say it's just a game but for gamers it's an experience and a mo"
+   },
    {
     "url": "https://www.instagram.com/reel/DgMCwiOTiy3/",
     "at": "2026-11-26T02:35:05+0000",
@@ -412,5 +420,5 @@
    }
   ]
  },
- "updated": "2026-11-26T13:05:15+05:30"
+ "updated": "2026-11-26T13:17:29+05:30"
 }
