@@ -90,7 +90,7 @@
    },
    "gta/instagram": {
     "followers": 7,
-    "posts": 3,
+    "posts": 4,
     "username": "wanted_level_yts"
    },
    "gta/facebook": {
@@ -121,7 +121,7 @@
    "followers": 2,
    "posts": 11,
    "username": "bliss_nglow",
-   "at": "2026-11-26T07:47:27+05:30",
+   "at": "2026-11-26T08:06:12+05:30",
    "ok": true
   },
   "aesthetic/youtube": {
@@ -130,14 +130,14 @@
    "videos": 2,
    "handle": "@blissnglowshorts",
    "title": "Bliss N Glow",
-   "at": "2026-11-26T07:47:28+05:30",
+   "at": "2026-11-26T08:06:14+05:30",
    "ok": true
   },
   "gta/instagram": {
    "followers": 7,
-   "posts": 3,
+   "posts": 4,
    "username": "wanted_level_yts",
-   "at": "2026-11-26T07:47:30+05:30",
+   "at": "2026-11-26T08:06:16+05:30",
    "ok": true
   },
   "gta/youtube": {
@@ -146,7 +146,7 @@
    "videos": 0,
    "handle": "@wantedlevel-yts",
    "title": "Wanted Level",
-   "at": "2026-11-26T07:47:31+05:30",
+   "at": "2026-11-26T08:06:18+05:30",
    "ok": true
   },
   "horror/youtube": {
@@ -155,35 +155,35 @@
    "videos": 5,
    "handle": "@darrdiaries-yts",
    "title": "Darr Diaries",
-   "at": "2026-11-26T07:47:33+05:30",
+   "at": "2026-11-26T08:06:21+05:30",
    "ok": true
   },
   "aesthetic/facebook": {
    "followers": 0,
    "name": "Bliss N Glow",
    "url": "https://www.facebook.com/1363246033549819",
-   "at": "2026-11-26T07:47:28+05:30",
+   "at": "2026-11-26T08:06:13+05:30",
    "ok": true
   },
   "gta/facebook": {
    "followers": 0,
    "name": "Wanted Level",
    "url": "https://www.facebook.com/1381962041676039",
-   "at": "2026-11-26T07:47:31+05:30",
+   "at": "2026-11-26T08:06:18+05:30",
    "ok": true
   },
   "horror/instagram": {
    "followers": 0,
    "posts": 2,
    "username": "darrdiaries_yts",
-   "at": "2026-11-26T07:47:32+05:30",
+   "at": "2026-11-26T08:06:19+05:30",
    "ok": true
   },
   "horror/facebook": {
    "followers": 153,
    "name": "Darr Diaries",
    "url": "https://www.facebook.com/728218937273915",
-   "at": "2026-11-26T07:47:33+05:30",
+   "at": "2026-11-26T08:06:21+05:30",
    "ok": true
   }
  },
@@ -281,6 +281,14 @@
   "aesthetic/youtube": [],
   "gta/instagram": [
    {
+    "url": "https://www.instagram.com/reel/DgMCwiOTiy3/",
+    "at": "2026-11-26T02:35:05+0000",
+    "likes": 0,
+    "comments": 0,
+    "views": 0,
+    "caption": "Nobody noticed this crazy route 🎮\nTrying full stealth in Vice City vibes hits co"
+   },
+   {
     "url": "https://www.instagram.com/reel/DgK3X65T3Am/",
     "at": "2026-11-25T15:35:55+0000",
     "likes": 1,
@@ -334,6 +342,14 @@
    }
   ],
   "gta/facebook": [
+   {
+    "url": "https://www.facebook.com/reel/2241283570075653/",
+    "at": "2026-11-26T02:35:13+0000",
+    "views": 0,
+    "likes": null,
+    "comments": null,
+    "caption": "Nobody noticed this crazy route 🎮\nTrying full stealth in Vice City vibes hits co"
+   },
    {
     "url": "https://www.facebook.com/reel/2143385473218381/",
     "at": "2026-11-25T15:36:03+0000",
@@ -396,5 +412,5 @@
    }
   ]
  },
- "updated": "2026-11-26T07:47:33+05:30"
+ "updated": "2026-11-26T08:06:21+05:30"
 }
