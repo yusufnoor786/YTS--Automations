@@ -77,7 +77,7 @@
   "2026-11-26": {
    "aesthetic/instagram": {
     "followers": 2,
-    "posts": 12,
+    "posts": 13,
     "username": "bliss_nglow"
    },
    "aesthetic/facebook": {
@@ -119,9 +119,9 @@
  "latest": {
   "aesthetic/instagram": {
    "followers": 2,
-   "posts": 12,
+   "posts": 13,
    "username": "bliss_nglow",
-   "at": "2026-11-26T18:47:20+05:30",
+   "at": "2026-11-26T19:04:53+05:30",
    "ok": true
   },
   "aesthetic/youtube": {
@@ -130,14 +130,14 @@
    "videos": 0,
    "handle": "@blissnglowshorts",
    "title": "Bliss N Glow",
-   "at": "2026-11-26T18:47:22+05:30",
+   "at": "2026-11-26T19:04:55+05:30",
    "ok": true
   },
   "gta/instagram": {
    "followers": 7,
    "posts": 5,
    "username": "wanted_level_yts",
-   "at": "2026-11-26T18:47:25+05:30",
+   "at": "2026-11-26T19:04:57+05:30",
    "ok": true
   },
   "gta/youtube": {
@@ -146,7 +146,7 @@
    "videos": 0,
    "handle": "@wantedlevel-yts",
    "title": "Wanted Level",
-   "at": "2026-11-26T18:47:28+05:30",
+   "at": "2026-11-26T19:04:59+05:30",
    "ok": true
   },
   "horror/youtube": {
@@ -155,40 +155,48 @@
    "videos": 0,
    "handle": "@darrdiaries-yts",
    "title": "Darr Diaries",
-   "at": "2026-11-26T18:47:33+05:30",
+   "at": "2026-11-26T19:05:02+05:30",
    "ok": true
   },
   "aesthetic/facebook": {
    "followers": 0,
    "name": "Bliss N Glow",
    "url": "https://www.facebook.com/1363246033549819",
-   "at": "2026-11-26T18:47:22+05:30",
+   "at": "2026-11-26T19:04:55+05:30",
    "ok": true
   },
   "gta/facebook": {
    "followers": 0,
    "name": "Wanted Level",
    "url": "https://www.facebook.com/1381962041676039",
-   "at": "2026-11-26T18:47:27+05:30",
+   "at": "2026-11-26T19:04:58+05:30",
    "ok": true
   },
   "horror/instagram": {
    "followers": 0,
    "posts": 3,
    "username": "darrdiaries_yts",
-   "at": "2026-11-26T18:47:30+05:30",
+   "at": "2026-11-26T19:05:00+05:30",
    "ok": true
   },
   "horror/facebook": {
    "followers": 153,
    "name": "Darr Diaries",
    "url": "https://www.facebook.com/728218937273915",
-   "at": "2026-11-26T18:47:32+05:30",
+   "at": "2026-11-26T19:05:01+05:30",
    "ok": true
   }
  },
  "recent": {
   "aesthetic/instagram": [
+   {
+    "url": "https://www.instagram.com/reel/DgNOLqlPMfI/",
+    "at": "2026-11-26T13:33:45+0000",
+    "likes": 0,
+    "comments": 0,
+    "views": 0,
+    "caption": "Glowing skin is a gentle reminder to pause and care for yourself today ✨🤍 What i"
+   },
    {
     "url": "https://www.instagram.com/reel/DgMysqQPa_e/",
     "at": "2026-11-26T09:33:24+0000",
@@ -276,14 +284,6 @@
     "comments": 0,
     "views": 83,
     "caption": "POV: you're a vanilla girly for the fall 🍁💛\n#autumn #fall #fallaesthetic #cozyau"
-   },
-   {
-    "url": "https://www.instagram.com/reel/DLvBBo_y0Ni/",
-    "at": "2025-07-05T17:38:04+0000",
-    "likes": 5,
-    "comments": 0,
-    "views": 148,
-    "caption": "POV: You're living my day with me 🌅📱 #dayinthelife \n#DayInTheLife #dailylife #re"
    }
   ],
   "aesthetic/youtube": [],
@@ -332,6 +332,14 @@
   "gta/youtube": [],
   "horror/youtube": [],
   "aesthetic/facebook": [
+   {
+    "url": "https://www.facebook.com/reel/2209820229885170/",
+    "at": "2026-11-26T13:33:56+0000",
+    "views": 0,
+    "likes": null,
+    "comments": null,
+    "caption": "Glowing skin is a gentle reminder to pause and care for yourself today ✨🤍 What i"
+   },
    {
     "url": "https://www.facebook.com/reel/1170263182601113/",
     "at": "2026-11-26T09:33:36+0000",
@@ -452,5 +460,5 @@
    }
   ]
  },
- "updated": "2026-11-26T18:47:33+05:30"
+ "updated": "2026-11-26T19:05:02+05:30"
 }
