@@ -1,12 +1,5 @@
 {
  "plans": {
-  "2026-11-24/aesthetic": {
-   "hours": [
-    18,
-    21
-   ],
-   "made": "2026-11-24T21:59:29+05:30"
-  },
   "2026-11-24/gta": {
    "hours": [
     18,
@@ -83,6 +76,27 @@
     20
    ],
    "made": "2026-11-27T00:02:06+05:30"
+  },
+  "2026-11-28/aesthetic": {
+   "hours": [
+    15,
+    19
+   ],
+   "made": "2026-11-28T00:01:57+05:30"
+  },
+  "2026-11-28/gta": {
+   "hours": [
+    10,
+    13
+   ],
+   "made": "2026-11-28T00:02:01+05:30"
+  },
+  "2026-11-28/horror": {
+   "hours": [
+    12,
+    19
+   ],
+   "made": "2026-11-28T00:02:03+05:30"
   }
  },
  "arms": {
@@ -332,6 +346,20 @@
     "horror/facebook": 153
    },
    "posts": 12
+  },
+  "2026-11-28": {
+   "followers": {
+    "aesthetic/instagram": 2,
+    "aesthetic/youtube": 1,
+    "gta/instagram": 7,
+    "gta/youtube": 0,
+    "horror/youtube": 2,
+    "aesthetic/facebook": 0,
+    "gta/facebook": 0,
+    "horror/instagram": 2,
+    "horror/facebook": 153
+   },
+   "posts": 0
   }
  },
  "last_weekly": "2026-11-24T21:44:04+05:30"
