@@ -144,7 +144,7 @@
    },
    "horror/instagram": {
     "followers": 1,
-    "posts": 4,
+    "posts": 5,
     "username": "darrdiaries_yts"
    },
    "horror/facebook": {
@@ -162,7 +162,7 @@
    "followers": 2,
    "posts": 13,
    "username": "bliss_nglow",
-   "at": "2026-11-27T12:47:16+05:30",
+   "at": "2026-11-27T13:06:00+05:30",
    "ok": true
   },
   "aesthetic/youtube": {
@@ -171,14 +171,14 @@
    "videos": 0,
    "handle": "@blissnglowshorts",
    "title": "Bliss N Glow",
-   "at": "2026-11-27T12:47:19+05:30",
+   "at": "2026-11-27T13:06:02+05:30",
    "ok": true
   },
   "gta/instagram": {
    "followers": 7,
    "posts": 6,
    "username": "wanted_level_yts",
-   "at": "2026-11-27T12:47:22+05:30",
+   "at": "2026-11-27T13:06:04+05:30",
    "ok": true
   },
   "gta/youtube": {
@@ -187,7 +187,7 @@
    "videos": 0,
    "handle": "@wantedlevel-yts",
    "title": "Wanted Level",
-   "at": "2026-11-27T12:47:24+05:30",
+   "at": "2026-11-27T13:06:07+05:30",
    "ok": true
   },
   "horror/youtube": {
@@ -196,35 +196,35 @@
    "videos": 0,
    "handle": "@darrdiaries-yts",
    "title": "Darr Diaries",
-   "at": "2026-11-27T12:47:29+05:30",
+   "at": "2026-11-27T13:06:13+05:30",
    "ok": true
   },
   "aesthetic/facebook": {
    "followers": 0,
    "name": "Bliss N Glow",
    "url": "https://www.facebook.com/1363246033549819",
-   "at": "2026-11-27T12:47:19+05:30",
+   "at": "2026-11-27T13:06:02+05:30",
    "ok": true
   },
   "gta/facebook": {
    "followers": 0,
    "name": "Wanted Level",
    "url": "https://www.facebook.com/1381962041676039",
-   "at": "2026-11-27T12:47:24+05:30",
+   "at": "2026-11-27T13:06:06+05:30",
    "ok": true
   },
   "horror/instagram": {
    "followers": 1,
-   "posts": 4,
+   "posts": 5,
    "username": "darrdiaries_yts",
-   "at": "2026-11-27T12:47:27+05:30",
+   "at": "2026-11-27T13:06:09+05:30",
    "ok": true
   },
   "horror/facebook": {
    "followers": 153,
    "name": "Darr Diaries",
    "url": "https://www.facebook.com/728218937273915",
-   "at": "2026-11-27T12:47:29+05:30",
+   "at": "2026-11-27T13:06:11+05:30",
    "ok": true
   }
  },
@@ -466,6 +466,14 @@
   ],
   "horror/instagram": [
    {
+    "url": "https://www.instagram.com/reel/DgPJ8aoRwy7/",
+    "at": "2026-11-27T07:35:10+0000",
+    "likes": 0,
+    "comments": 0,
+    "views": 0,
+    "caption": "Woh cheez insaan bilkul nahi hai... 🕯️\nWould you survive a night alone with it?\n"
+   },
+   {
     "url": "https://www.instagram.com/reel/DgNclMPK1vS/",
     "at": "2026-11-26T15:39:39+0000",
     "likes": 2,
@@ -500,6 +508,14 @@
   ],
   "horror/facebook": [
    {
+    "url": "https://www.facebook.com/reel/1463260821859784/",
+    "at": "2026-11-27T07:35:20+0000",
+    "views": 0,
+    "likes": null,
+    "comments": null,
+    "caption": "Woh cheez insaan bilkul nahi hai... 🕯️\nWould you survive a night alone with it?\n"
+   },
+   {
     "url": "https://www.facebook.com/reel/2185157155419540/",
     "at": "2026-11-26T15:39:47+0000",
     "views": 0,
@@ -533,5 +549,5 @@
    }
   ]
  },
- "updated": "2026-11-27T12:47:29+05:30"
+ "updated": "2026-11-27T13:06:13+05:30"
 }
