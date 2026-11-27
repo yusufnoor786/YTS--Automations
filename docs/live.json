@@ -1,27 +1,27 @@
 {
- "built": "2026-11-27T19:46:12+05:30",
- "last_run": "2026-11-27T19:45:39+05:30",
+ "built": "2026-11-27T20:08:59+05:30",
+ "last_run": "2026-11-27T20:08:17+05:30",
  "inventory": {
   "aesthetic": {
-   "at": "2026-11-27T19:45:43+05:30",
+   "at": "2026-11-27T20:08:24+05:30",
    "in_drive": 2041,
-   "inbox": 2036,
-   "posted_folder": 5,
+   "inbox": 2035,
+   "posted_folder": 6,
    "duplicates": 0,
    "failed": 0,
-   "new": 2036,
+   "new": 2035,
    "left": {
-    "instagram": 2036,
-    "facebook": 2036
+    "instagram": 2035,
+    "facebook": 2035
    },
    "posted": {
-    "instagram": 5,
-    "facebook": 5,
+    "instagram": 6,
+    "facebook": 6,
     "youtube": 0
    },
    "posted_today": {
-    "instagram": 0,
-    "facebook": 0,
+    "instagram": 1,
+    "facebook": 1,
     "youtube": 0
    },
    "per_day": 2,
@@ -29,16 +29,16 @@
     "instagram",
     "facebook"
    ],
-   "days_left": 1018,
+   "days_left": 1017,
    "plan_today": [
     20,
     23
    ],
-   "next_hour": 20,
+   "next_hour": 23,
    "due_now": false
   },
   "gta": {
-   "at": "2026-11-27T19:45:45+05:30",
+   "at": "2026-11-27T20:08:28+05:30",
    "in_drive": 617,
    "inbox": 610,
    "posted_folder": 7,
@@ -73,25 +73,25 @@
    "due_now": false
   },
   "horror": {
-   "at": "2026-11-27T19:45:47+05:30",
+   "at": "2026-11-27T20:08:32+05:30",
    "in_drive": 866,
-   "inbox": 861,
-   "posted_folder": 5,
+   "inbox": 860,
+   "posted_folder": 6,
    "duplicates": 1,
    "failed": 0,
-   "new": 860,
+   "new": 859,
    "left": {
-    "instagram": 860,
-    "facebook": 860
+    "instagram": 859,
+    "facebook": 859
    },
    "posted": {
-    "instagram": 5,
-    "facebook": 5,
+    "instagram": 6,
+    "facebook": 6,
     "youtube": 0
    },
    "posted_today": {
-    "instagram": 1,
-    "facebook": 1,
+    "instagram": 2,
+    "facebook": 2,
     "youtube": 0
    },
    "per_day": 2,
@@ -99,12 +99,12 @@
     "instagram",
     "facebook"
    ],
-   "days_left": 430,
+   "days_left": 429,
    "plan_today": [
     13,
     20
    ],
-   "next_hour": 20,
+   "next_hour": null,
    "due_now": false
   }
  }

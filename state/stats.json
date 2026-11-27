@@ -118,7 +118,7 @@
   "2026-11-27": {
    "aesthetic/instagram": {
     "followers": 2,
-    "posts": 13,
+    "posts": 14,
     "username": "bliss_nglow"
    },
    "aesthetic/facebook": {
@@ -144,7 +144,7 @@
    },
    "horror/instagram": {
     "followers": 1,
-    "posts": 5,
+    "posts": 6,
     "username": "darrdiaries_yts"
    },
    "horror/facebook": {
@@ -160,9 +160,9 @@
  "latest": {
   "aesthetic/instagram": {
    "followers": 2,
-   "posts": 13,
+   "posts": 14,
    "username": "bliss_nglow",
-   "at": "2026-11-27T19:45:52+05:30",
+   "at": "2026-11-27T20:08:37+05:30",
    "ok": true
   },
   "aesthetic/youtube": {
@@ -171,14 +171,14 @@
    "videos": 0,
    "handle": "@blissnglowshorts",
    "title": "Bliss N Glow",
-   "at": "2026-11-27T19:45:55+05:30",
+   "at": "2026-11-27T20:08:41+05:30",
    "ok": true
   },
   "gta/instagram": {
    "followers": 7,
    "posts": 8,
    "username": "wanted_level_yts",
-   "at": "2026-11-27T19:45:58+05:30",
+   "at": "2026-11-27T20:08:45+05:30",
    "ok": true
   },
   "gta/youtube": {
@@ -187,7 +187,7 @@
    "videos": 0,
    "handle": "@wantedlevel-yts",
    "title": "Wanted Level",
-   "at": "2026-11-27T19:46:01+05:30",
+   "at": "2026-11-27T20:08:47+05:30",
    "ok": true
   },
   "horror/youtube": {
@@ -196,40 +196,48 @@
    "videos": 0,
    "handle": "@darrdiaries-yts",
    "title": "Darr Diaries",
-   "at": "2026-11-27T19:46:06+05:30",
+   "at": "2026-11-27T20:08:52+05:30",
    "ok": true
   },
   "aesthetic/facebook": {
    "followers": 0,
    "name": "Bliss N Glow",
    "url": "https://www.facebook.com/1363246033549819",
-   "at": "2026-11-27T19:45:54+05:30",
+   "at": "2026-11-27T20:08:40+05:30",
    "ok": true
   },
   "gta/facebook": {
    "followers": 0,
    "name": "Wanted Level",
    "url": "https://www.facebook.com/1381962041676039",
-   "at": "2026-11-27T19:46:01+05:30",
+   "at": "2026-11-27T20:08:47+05:30",
    "ok": true
   },
   "horror/instagram": {
    "followers": 1,
-   "posts": 5,
+   "posts": 6,
    "username": "darrdiaries_yts",
-   "at": "2026-11-27T19:46:03+05:30",
+   "at": "2026-11-27T20:08:49+05:30",
    "ok": true
   },
   "horror/facebook": {
    "followers": 153,
    "name": "Darr Diaries",
    "url": "https://www.facebook.com/728218937273915",
-   "at": "2026-11-27T19:46:06+05:30",
+   "at": "2026-11-27T20:08:51+05:30",
    "ok": true
   }
  },
  "recent": {
   "aesthetic/instagram": [
+   {
+    "url": "https://www.instagram.com/reel/DgP6BJoy2wO/",
+    "at": "2026-11-27T14:35:16+0000",
+    "likes": 0,
+    "comments": 0,
+    "views": 0,
+    "caption": "Walking into my main character era ☕️🖤\nWhat's your favorite fall piece?\n.\n.\n#aes"
+   },
    {
     "url": "https://www.instagram.com/reel/DgNOLqlPMfI/",
     "at": "2026-11-26T13:33:45+0000",
@@ -265,9 +273,9 @@
    {
     "url": "https://www.instagram.com/reel/DgIY4n7ALuq/",
     "at": "2026-11-24T16:31:03+0000",
-    "likes": 1,
+    "likes": 2,
     "comments": 0,
-    "views": 103,
+    "views": 104,
     "caption": "Wait for the little detail nobody noticed at first... 🤎✨\nHow would you style thi"
    },
    {
@@ -317,14 +325,6 @@
     "comments": 0,
     "views": 11,
     "caption": "POV: Life For The Day ✨✨#pov #dailylife #lifestyle #instagramreels #reelsoftheda"
-   },
-   {
-    "url": "https://www.instagram.com/reel/DLxwqKxyryj/",
-    "at": "2025-07-06T19:08:57+0000",
-    "likes": 2,
-    "comments": 0,
-    "views": 83,
-    "caption": "POV: you're a vanilla girly for the fall 🍁💛\n#autumn #fall #fallaesthetic #cozyau"
    }
   ],
   "aesthetic/youtube": [],
@@ -334,7 +334,7 @@
     "at": "2026-11-27T13:34:40+0000",
     "likes": 2,
     "comments": 0,
-    "views": 137,
+    "views": 160,
     "caption": "Wait for it, nobody noticed this insane detail on the map 💀🔥\nWould you pull off "
    },
    {
@@ -397,6 +397,14 @@
   "gta/youtube": [],
   "horror/youtube": [],
   "aesthetic/facebook": [
+   {
+    "url": "https://www.facebook.com/reel/1891666255345480/",
+    "at": "2026-11-27T14:35:30+0000",
+    "views": 0,
+    "likes": null,
+    "comments": null,
+    "caption": "Walking into my main character era ☕️🖤\nWhat's your favorite fall piece?\n.\n.\n#aes"
+   },
    {
     "url": "https://www.facebook.com/reel/2209820229885170/",
     "at": "2026-11-26T13:33:56+0000",
@@ -498,6 +506,14 @@
   ],
   "horror/instagram": [
    {
+    "url": "https://www.instagram.com/reel/DgP6SbVShB2/",
+    "at": "2026-11-27T14:37:38+0000",
+    "likes": 0,
+    "comments": 0,
+    "views": 0,
+    "caption": "POV: When the lights go out and something is standing right behind you 💀🕯️\n\nWoul"
+   },
+   {
     "url": "https://www.instagram.com/reel/DgPJ8aoRwy7/",
     "at": "2026-11-27T07:35:10+0000",
     "likes": 0,
@@ -540,6 +556,14 @@
   ],
   "horror/facebook": [
    {
+    "url": "https://www.facebook.com/reel/2236687633876200/",
+    "at": "2026-11-27T14:37:50+0000",
+    "views": 0,
+    "likes": null,
+    "comments": null,
+    "caption": "POV: When the lights go out and something is standing right behind you 💀🕯️\n\nWoul"
+   },
+   {
     "url": "https://www.facebook.com/reel/1463260821859784/",
     "at": "2026-11-27T07:35:20+0000",
     "views": 0,
@@ -581,5 +605,5 @@
    }
   ]
  },
- "updated": "2026-11-27T19:46:06+05:30"
+ "updated": "2026-11-27T20:08:52+05:30"
 }
