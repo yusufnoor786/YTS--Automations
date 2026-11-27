@@ -131,7 +131,7 @@
    },
    "gta/instagram": {
     "followers": 7,
-    "posts": 7,
+    "posts": 8,
     "username": "wanted_level_yts"
    },
    "gta/facebook": {
@@ -162,7 +162,7 @@
    "followers": 2,
    "posts": 13,
    "username": "bliss_nglow",
-   "at": "2026-11-27T18:47:17+05:30",
+   "at": "2026-11-27T19:05:44+05:30",
    "ok": true
   },
   "aesthetic/youtube": {
@@ -171,14 +171,14 @@
    "videos": 0,
    "handle": "@blissnglowshorts",
    "title": "Bliss N Glow",
-   "at": "2026-11-27T18:47:18+05:30",
+   "at": "2026-11-27T19:05:46+05:30",
    "ok": true
   },
   "gta/instagram": {
    "followers": 7,
-   "posts": 7,
+   "posts": 8,
    "username": "wanted_level_yts",
-   "at": "2026-11-27T18:47:21+05:30",
+   "at": "2026-11-27T19:05:49+05:30",
    "ok": true
   },
   "gta/youtube": {
@@ -187,7 +187,7 @@
    "videos": 0,
    "handle": "@wantedlevel-yts",
    "title": "Wanted Level",
-   "at": "2026-11-27T18:47:23+05:30",
+   "at": "2026-11-27T19:05:51+05:30",
    "ok": true
   },
   "horror/youtube": {
@@ -196,35 +196,35 @@
    "videos": 0,
    "handle": "@darrdiaries-yts",
    "title": "Darr Diaries",
-   "at": "2026-11-27T18:47:26+05:30",
+   "at": "2026-11-27T19:05:54+05:30",
    "ok": true
   },
   "aesthetic/facebook": {
    "followers": 0,
    "name": "Bliss N Glow",
    "url": "https://www.facebook.com/1363246033549819",
-   "at": "2026-11-27T18:47:18+05:30",
+   "at": "2026-11-27T19:05:46+05:30",
    "ok": true
   },
   "gta/facebook": {
    "followers": 0,
    "name": "Wanted Level",
    "url": "https://www.facebook.com/1381962041676039",
-   "at": "2026-11-27T18:47:22+05:30",
+   "at": "2026-11-27T19:05:50+05:30",
    "ok": true
   },
   "horror/instagram": {
    "followers": 1,
    "posts": 5,
    "username": "darrdiaries_yts",
-   "at": "2026-11-27T18:47:24+05:30",
+   "at": "2026-11-27T19:05:52+05:30",
    "ok": true
   },
   "horror/facebook": {
    "followers": 153,
    "name": "Darr Diaries",
    "url": "https://www.facebook.com/728218937273915",
-   "at": "2026-11-27T18:47:26+05:30",
+   "at": "2026-11-27T19:05:54+05:30",
    "ok": true
   }
  },
@@ -330,6 +330,14 @@
   "aesthetic/youtube": [],
   "gta/instagram": [
    {
+    "url": "https://www.instagram.com/reel/DgPzCTgzW-z/",
+    "at": "2026-11-27T13:34:40+0000",
+    "likes": 0,
+    "comments": 0,
+    "views": 0,
+    "caption": "Wait for it, nobody noticed this insane detail on the map 💀🔥\nWould you pull off "
+   },
+   {
     "url": "https://www.instagram.com/reel/DgPlX_ilgVh/",
     "at": "2026-11-27T11:35:00+0000",
     "likes": 0,
@@ -431,6 +439,14 @@
    }
   ],
   "gta/facebook": [
+   {
+    "url": "https://www.facebook.com/reel/2345590389523205/",
+    "at": "2026-11-27T13:34:48+0000",
+    "views": 0,
+    "likes": null,
+    "comments": null,
+    "caption": "Wait for it, nobody noticed this insane detail on the map 💀🔥\nWould you pull off "
+   },
    {
     "url": "https://www.facebook.com/reel/2201735010416445/",
     "at": "2026-11-27T11:35:11+0000",
@@ -565,5 +581,5 @@
    }
   ]
  },
- "updated": "2026-11-27T18:47:26+05:30"
+ "updated": "2026-11-27T19:05:54+05:30"
 }
