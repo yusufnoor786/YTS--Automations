@@ -133,32 +133,37 @@
    "hour": {
     "23": {
      "n": 2,
-     "sum": -1.152,
-     "mean": -0.576
+     "sum": 0.0,
+     "mean": 0.0
     },
     "12": {
      "n": 2,
-     "sum": 1.152,
-     "mean": 0.576
+     "sum": 2.305,
+     "mean": 1.152
+    },
+    "21": {
+     "n": 2,
+     "sum": -3.726,
+     "mean": -1.863
     }
    },
    "style": {
     "story": {
-     "n": 2,
-     "sum": -1.152,
-     "mean": -0.576
+     "n": 4,
+     "sum": -3.726,
+     "mean": -0.931
     },
     "question": {
      "n": 2,
-     "sum": 1.152,
-     "mean": 0.576
+     "sum": 2.305,
+     "mean": 1.152
     }
    },
    "tags": {
     "5": {
-     "n": 4,
-     "sum": 0.0,
-     "mean": 0.0
+     "n": 6,
+     "sum": -1.421,
+     "mean": -0.237
     }
    }
   },
@@ -207,7 +212,8 @@
    "tags": "5"
   },
   "gta": {
-   "tags": "5"
+   "tags": "5",
+   "style": "story"
   }
  },
  "changes": [
@@ -266,6 +272,10 @@
   {
    "at": "2026-11-27T12:17:40+05:30",
    "text": "gta: best tags is now **5 hashtags** (score +0.00, 4 posts)"
+  },
+  {
+   "at": "2026-11-27T21:17:51+05:30",
+   "text": "gta: best style is now **story** (score -0.93, 4 posts)"
   }
  ],
  "daily": {
@@ -318,7 +328,7 @@
     "horror/youtube": 2,
     "aesthetic/facebook": 0,
     "gta/facebook": 0,
-    "horror/instagram": 1,
+    "horror/instagram": 2,
     "horror/facebook": 153
    },
    "posts": 10
