@@ -210,37 +210,47 @@
    "hour": {
     "0": {
      "n": 2,
-     "sum": 0.549,
-     "mean": 0.275
+     "sum": 0.693,
+     "mean": 0.347
     },
     "20": {
      "n": 2,
-     "sum": -0.549,
-     "mean": -0.275
+     "sum": -0.405,
+     "mean": -0.203
+    },
+    "17": {
+     "n": 2,
+     "sum": 0.0,
+     "mean": 0.0
     }
    },
    "style": {
     "short": {
      "n": 2,
-     "sum": 0.549,
-     "mean": 0.275
+     "sum": 0.693,
+     "mean": 0.347
     },
     "story": {
      "n": 2,
-     "sum": -0.549,
-     "mean": -0.275
+     "sum": -0.405,
+     "mean": -0.203
+    },
+    "curiosity": {
+     "n": 2,
+     "sum": 0.0,
+     "mean": 0.0
     }
    },
    "tags": {
     "6": {
-     "n": 2,
-     "sum": 0.549,
-     "mean": 0.275
+     "n": 4,
+     "sum": 0.693,
+     "mean": 0.173
     },
     "3": {
      "n": 2,
-     "sum": -0.549,
-     "mean": -0.275
+     "sum": -0.405,
+     "mean": -0.203
     }
    }
   }
@@ -253,6 +263,9 @@
   "gta": {
    "tags": "5",
    "style": "story"
+  },
+  "horror": {
+   "tags": "6"
   }
  },
  "changes": [
@@ -315,6 +328,10 @@
   {
    "at": "2026-11-27T21:17:51+05:30",
    "text": "gta: best style is now **story** (score -0.93, 4 posts)"
+  },
+  {
+   "at": "2026-11-28T17:18:10+05:30",
+   "text": "horror: best tags is now **6 hashtags** (score +0.17, 4 posts)"
   }
  ],
  "daily": {
